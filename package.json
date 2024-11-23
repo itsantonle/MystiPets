@@ -1,0 +1,24 @@
+{
+  "name": "se-2144-final-project",
+  "version": "1.0.0",
+  "description": "SE -2141-2142-2143-2144-2145 final project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint",
+    "prettier": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "eslint": "^9.15.0",
+    "eslint-plugin-react": "^7.37.2",
+    "globals": "^15.12.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.3.3",
+    "typescript-eslint": "^8.15.0"
+  }
+}

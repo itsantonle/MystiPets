@@ -1,6 +1,6 @@
 import { Stage, Container } from "@pixi/react"
 import Hydra from "./components/Hydra"
-import Capycorn from "./components/sprites/Capycorn"
+import Capycorn from "./components/Capycorn"
 
 const App = () => {
   return (

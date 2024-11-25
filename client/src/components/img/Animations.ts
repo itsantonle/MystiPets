@@ -1,7 +1,7 @@
-import hydraI1 from "./hydra-idle1.png"
-import hydraI2 from "./hydra-idle2.png"
-import capyI1 from "./capycorn-idle1.png"
-import capyI2 from "./capycorn-idle2.png"
+import hydraI1 from "./hydraIdle/hydra-idle1.png"
+import hydraI2 from "./hydraIdle/hydra-idle2.png"
+import capyI1 from "./capycornIdle/capycorn-idle1.png"
+import capyI2 from "./capycornIdle/capycorn-idle2.png"
 import { Texture } from "pixi.js"
 
 const hydraIArr = [hydraI1, hydraI2]

@@ -1,22 +1,23 @@
 import { useMemo } from "react"
 
 import { BlurFilter, TextStyle } from "pixi.js"
-import { Stage, Container, Sprite, Text } from "@pixi/react"
-import Bunny from "./_templatesData/sprites/Bunny"
+import { Stage, Container, Text } from "@pixi/react"
+
 import BRDude from "./_templatesData/sprites/BRDude"
+import Hydra from "./components/sprites/Hydra"
+import Capycorn from "./components/sprites/Capycorn"
 
 const App = () => {
   const blurFilter = useMemo(() => new BlurFilter(2), [])
-  const bunnyUrl = "https://pixijs.io/pixi-react/img/bunny.png"
   return (
     <Stage
       width={800}
       height={600}
       options={{ background: 0x1099bb }}
     >
-      <Bunny x={100} y={200} />
       <BRDude />
-      <Sprite image={bunnyUrl} x={300} y={150} />
+      <Capycorn x={200} y={200}/>
+      <Hydra x={100} y={100}/>
 
       <Container x={200} y={200}>
         <Text

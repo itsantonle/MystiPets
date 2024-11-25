@@ -1,5 +1,5 @@
 import { AnimatedSprite } from "@pixi/react"
-import {Hydra_Idle, Capycorn_Idle} from "./sprites/Animations"
+import {Capycorn_Idle} from "./sprites/Animations"
 
 export type coord = { x: number; y: number }
 const Asprite = ({ x, y }: coord) => {
@@ -8,7 +8,7 @@ const Asprite = ({ x, y }: coord) => {
     <>
       <AnimatedSprite
         anchor={0.5}
-        textures={Hydra_Idle}
+        textures={Capycorn_Idle}
         isPlaying={true}
         initialFrame={0}
         animationSpeed={0.1}

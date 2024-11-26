@@ -1,19 +1,15 @@
-// import React from 'react'
+import Hydra from "./pets/Hydra"
+import Capycorn from "./pets/Capycorn"
 
-// const PetContainer = (props) => {
-//     {pettype="Hydra"| "Capybara"}
-//     const {pettype, petxposition} = props 
-//     {switch(pettype){
-//         case "capybara": dfjasd; break
-//         <Capybara x= oet
-//         case "hydra ": dfsdfsd 
+export type petConfig = {petType: string, petXpos: number, petYpos: number, petSize: number}
 
+const PetContainer = ({ petType, petXpos, petYpos, petSize}: petConfig) => {
+    {switch(petType){
+        case "Capycorn":
+            return <Capycorn s={petSize} x={petXpos} y={petYpos}/>
+        case "Hydra":
+            return <Hydra s={petSize} x={petXpos} y={petYpos}/>;
+    }}
+}
 
-//     }}
-    
-//   return (
-//     <div>PetContainer</div>
-//   )
-// }
-
-// export default PetContainer
+export default PetContainer

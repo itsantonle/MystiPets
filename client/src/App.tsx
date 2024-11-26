@@ -1,6 +1,5 @@
 import { Stage, Container } from "@pixi/react"
-import Hydra from "./components/Hydra"
-import Capycorn from "./components/Capycorn"
+import PetContainer from "./components/PetContainer"
 // import PetContainer from "./components/PetContainer"
 
 const App = () => {
@@ -12,8 +11,8 @@ const App = () => {
     >
       {/* <PetContainer type  */}
       <Container x={160} y={200}>
-        <Capycorn x={220} y={80}/>
-        <Hydra x={220} y={140}/>
+        <PetContainer petType ="Hydra" petSize={450} petXpos={100} petYpos={100}/>
+        <PetContainer petType ="Capycorn" petSize={225} petXpos={160} petYpos={200}/>
       </Container>
     </Stage>
   )

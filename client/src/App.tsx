@@ -17,8 +17,8 @@ const App = () => {
     >
       {/* <PetContainer type  */}
       <Container x={160} y={200}>
-        <Capycorn x={220} y={80} />
-        <Hydra x={220} y={140} />
+        <Capycorn x={10} y={90} />
+        <Hydra x={420} y={90} />
       </Container>
     </Stage>
     </>

@@ -1,20 +1,27 @@
 import { Stage, Container } from "@pixi/react"
-import PetContainer from "./components/PetContainer"
+import Hydra from "./components/pets/Hydra"
+import Capycorn from "./components/pets/Capycorn"
 // import PetContainer from "./components/PetContainer"
+import Header from "./components/Header"
+import "./bootstrap/bootstrapSass.scss"
+
 
 const App = () => {
   return (
+    <>
+    <Header />
     <Stage
       width={800}
       height={600}
-      options={{ background: 0xD83D  }}
+      options={{ background: 0xD83D }}
     >
       {/* <PetContainer type  */}
       <Container x={160} y={200}>
-        <PetContainer petType ="Hydra" petXpos={100} petYpos={100}/>
-        <PetContainer petType ="Capycorn" petXpos={160} petYpos={200}/>
+        <Capycorn x={220} y={80} />
+        <Hydra x={220} y={140} />
       </Container>
     </Stage>
+    </>
   )
 }
 

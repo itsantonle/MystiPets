@@ -13,7 +13,7 @@ const HydraSprite = ({ x, y, s}: dimensions) => {
         textures={Hydra_Idle}
         isPlaying={true}
         initialFrame={0}
-        animationSpeed={0.1}
+        animationSpeed={0.03}
         interactive
         x={x} 
         y={y}

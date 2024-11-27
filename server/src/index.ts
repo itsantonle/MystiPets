@@ -4,9 +4,11 @@ import express from "express"
 import cors from "cors"
 import ObjectRouter from "./routes/objectRoute"
 import UsersRouter from "./routes/usersRoute"
+import PetsRoute from "./routes/petsRoute"
 import { awaitConnection } from "./db/connect"
 import notFoundMiddleware from "./middleware/notFound"
 import errorHandlerMiddleware from "./middleware/errorHandler"
+
 
 const app = express()
 
@@ -16,6 +18,7 @@ app.use(express.json())
 // routes
 app.use("/baseURL", ObjectRouter)
 app.use("/users", UsersRouter)
+app.use("/pets", PetsRoute)
 
 // middleware
 app.use(notFoundMiddleware)

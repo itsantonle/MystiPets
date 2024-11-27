@@ -4,6 +4,7 @@ import express from "express"
 import cors from "cors"
 import ObjectRouter from "./routes/objectRoute"
 import UsersRouter from "./routes/usersRoute"
+import FoodRouter from "./routes/foodRoute"
 import { awaitConnection } from "./db/connect"
 import notFoundMiddleware from "./middleware/notFound"
 import errorHandlerMiddleware from "./middleware/errorHandler"
@@ -16,6 +17,7 @@ app.use(express.json())
 // routes
 app.use("/baseURL", ObjectRouter)
 app.use("/users", UsersRouter)
+app.use("/pets/food", FoodRouter)
 
 // middleware
 app.use(notFoundMiddleware)

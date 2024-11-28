@@ -2,16 +2,13 @@ import { Request, Response } from "express"
 import { StatusCodes } from "http-status-codes"
 import { sendError } from "../utils/errorHandling"
 import pool from "../db/connect"
+import { sendNotFoundError } from "../utils/errorHandling"
 
 export const getFood = async (req: Request, res: Response) => {
   try {
     const response = await pool.query("SELECT * FROM food")
     if (response.rows.length === 0) {
-      res.status(StatusCodes.NOT_FOUND).json({
-        success: false,
-        message: "No users found",
-      })
-      return
+      sendNotFoundError(res, "Food not found")
     }
 
     res

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import pool from "../db/connect"
 import { StatusCodes } from "http-status-codes"
+import { sendNotFoundError } from "../utils/errorHandling"
 
 export const getPets = async (
     req: Request,
@@ -8,9 +9,14 @@ export const getPets = async (
 ): Promise<void> => {
     const { player_uuid } = req.params
     try {
-        const response = await pool.query(
-            "SELECT * FROM pet WHERE player_uuid = $1", [player_uuid])
-            res.status(StatusCodes.OK).json({data: response.rows, success: true})
+        
+        const response = await pool.query("SELECT * FROM pet WHERE player_uuid = $1", [player_uuid])
+        if (response.rows.length === 0) {
+            sendNotFoundError(res, "Pets not found")
+          }
+          
+        res.status(StatusCodes.OK).json({data: response.rows, success: true})
+            
     } catch (error) {
         console.log(error)
     }

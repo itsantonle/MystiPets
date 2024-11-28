@@ -12,13 +12,12 @@ export const sendError = (
   })
 }
 
-export const emptyTableError = (
+export const sendNotFoundError = (
   res: Response,
-  message?: string,
-  statusCode?: number,
+  message: string = "No data found"
 ) => {
-  statusCode = 500
-  message = "No data was returned by the server"
-
-  res.json({ success: false, message, statusCode })
-}
+  res.status(StatusCodes.NOT_FOUND).json({
+    success: false,
+    message: message,
+  });
+};

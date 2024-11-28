@@ -2,16 +2,13 @@ import { Request, Response } from "express";
 import pool from "../db/connect";
 import { StatusCodes } from "http-status-codes";
 import { sendError } from "../utils/errorHandling";
+import { sendNotFoundError } from "../utils/errorHandling"
 
 export const getAllPenalties = async (req: Request, res: Response): Promise<void> => {
   try {
     const response = await pool.query("SELECT * FROM penalty");
     if (response.rows.length === 0) {
-      res.status(StatusCodes.NOT_FOUND).json({
-        success: false,
-        message: "No penalties found",
-      });
-      return;
+      sendNotFoundError(res, "Penalties not found")
     }
     res.status(StatusCodes.OK).json({
       success: true,
@@ -31,11 +28,7 @@ export const getOnePenalty = async (req: Request, res: Response): Promise<void> 
       [id]
     );
     if (response.rows.length === 0) {
-      res.status(StatusCodes.NOT_FOUND).json({
-        success: false,
-        message: "Penalty not found",
-      });
-      return;
+      sendNotFoundError(res, "No penalty found")
     }
     res.status(StatusCodes.OK).json({
       success: true,

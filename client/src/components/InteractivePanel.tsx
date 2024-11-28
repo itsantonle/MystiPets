@@ -6,7 +6,7 @@ const Panel = () => {
     const hungerValue = ''
 
     return (
-        <div className = "panel-container">
+        <div className = "panel-container position-absolute top-80 start-50 translate-middle">
             <div className = "counter-container">
                 <div className = "counter-style"> &#9825;: {happinessValue} </div>
                 <div className = "counter-style"> &#167;: {hungerValue} </div>

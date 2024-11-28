@@ -1,45 +1,62 @@
-import { useMemo } from "react"
+import { AuthProvider } from './context/AuthContext'
+import { SignIn } from './components/Auth/SignIn'
+import { SignUp } from './components/Auth/SignUp'
+import { useAuth } from './context/AuthContext'
+import { useState } from 'react'
 
-import { BlurFilter, TextStyle } from "pixi.js"
-import { Stage, Container, Sprite, Text } from "@pixi/react"
-import Bunny from "./_templatesData/sprites/Bunny"
-import BRDude from "./_templatesData/sprites/BRDude"
-
-const App = () => {
-  const blurFilter = useMemo(() => new BlurFilter(2), [])
-  const bunnyUrl = "https://pixijs.io/pixi-react/img/bunny.png"
+function AuthenticatedApp() {
+  const { user, signOut } = useAuth()
+  
   return (
-    <Stage
-      width={800}
-      height={600}
-      options={{ background: 0x1099bb }}
-    >
-      <Bunny x={100} y={200} />
-      <BRDude />
-      <Sprite image={bunnyUrl} x={300} y={150} />
-
-      <Container x={200} y={200}>
-        <Text
-          text="Hello World"
-          anchor={0.5}
-          x={220}
-          y={150}
-          filters={[blurFilter]}
-          style={
-            new TextStyle({
-              align: "center",
-              fill: "0xffffff",
-              fontSize: 50,
-              letterSpacing: 20,
-              dropShadow: true,
-              dropShadowColor: "#E72264",
-              dropShadowDistance: 6,
-            })
-          }
-        />
-      </Container>
-    </Stage>
+    <div>
+      <h1>Welcome {user?.email}</h1>
+      <button onClick={signOut}>Sign Out</button>
+    </div>
   )
 }
 
-export default App
+function UnauthenticatedApp() {
+  const [isSignIn, setIsSignIn] = useState(true)
+
+  return (
+    <div className="auth-container">
+      <div className="auth-form-container">
+        <div className="auth-toggle-container">
+          <button
+            onClick={() => setIsSignIn(true)}
+            className={`auth-toggle-button ${isSignIn ? 'active' : ''}`}
+          >
+            Sign In
+          </button>
+          <button
+            onClick={() => setIsSignIn(false)}
+            className={`auth-toggle-button ${!isSignIn ? 'active' : ''}`}
+          >
+            Sign Up
+          </button>
+        </div>
+        {isSignIn ? <SignIn /> : <SignUp />}
+      </div>
+    </div>
+  )
+}
+
+function App() {
+  const { user, loading } = useAuth()
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  return user ? <AuthenticatedApp /> : <UnauthenticatedApp />
+}
+
+function AppWithProvider() {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  )
+}
+
+export default AppWithProvider

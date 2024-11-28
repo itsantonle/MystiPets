@@ -3,6 +3,7 @@ import { useAuth } from "../../context/AuthContext"
 import "./Auth.scss"
 
 export function SignUp() {
+  const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
@@ -14,7 +15,7 @@ export function SignUp() {
     try {
       setLoading(true)
       setError(null)
-      await signUp(email, password)
+      await signUp(username, email, password);
       alert("Check your email for the confirmation link!")
     } catch (error) {
       setError(
@@ -29,6 +30,24 @@ export function SignUp() {
     <>
       <h2 className="auth-title">Create Account</h2>
       <form onSubmit={handleSubmit} className="auth-form">
+      <div
+          className="input-group animate-slide-in"
+          style={{ animationDelay: "200ms" }}
+        >
+          <label htmlFor="signup-username" className="input-label">
+            Username
+          </label>
+          <input
+            id="signup-username"
+            type="username"
+            className="auth-input"
+            placeholder="Add a Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+
         <div
           className="input-group animate-fade-in-up"
           style={{ animationDelay: "200ms" }}

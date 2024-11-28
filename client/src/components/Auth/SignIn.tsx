@@ -14,7 +14,8 @@ export function SignIn() {
     try {
       setLoading(true)
       setError(null)
-      await signIn(email, password)
+      const username = await signIn(email, password)
+      alert(`Welcome back, ${username}!`);
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
@@ -26,7 +27,7 @@ export function SignIn() {
     <>
       <h2 className="auth-title">Sign In</h2>
       <form onSubmit={handleSubmit} className="auth-form">
-        <div className="input-group animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+        <div className="input-group animate-fade-in-up" style={{ animationDelay: '500ms' }}>
           <label htmlFor="email" className="input-label">Email</label>
           <input
             id="email"

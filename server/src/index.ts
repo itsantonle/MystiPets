@@ -21,8 +21,8 @@ app.use(express.json())
 app.use("/baseURL", ObjectRouter)
 app.use("/users", UsersRouter)
 app.use("/pets", PetsRoute)
-app.use("/pets/moods", MoodRoute)
-app.use("/pets/food", FoodRouter)
+app.use("/moods", MoodRoute)
+app.use("/food", FoodRouter)
 app.use("/users/penalties", PenaltyRouter)
 
 // middleware

@@ -23,7 +23,7 @@ app.use("/users", UsersRouter)
 app.use("/pets", PetsRoute)
 app.use("/moods", MoodRoute)
 app.use("/food", FoodRouter)
-app.use("/users/penalties", PenaltyRouter)
+app.use("/user/penalties", PenaltyRouter)
 
 // middleware
 app.use(notFoundMiddleware)

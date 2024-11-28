@@ -3,6 +3,7 @@ import pool from "../db/connect"
 import { StatusCodes } from "http-status-codes"
 import hashPassword from "../utils/hashPassword";
 import { sendError } from "../utils/errorHandling";
+import { sendNotFoundError } from "../utils/errorHandling"
 
 export const getAllUsers = async (
   req: Request,
@@ -11,12 +12,7 @@ export const getAllUsers = async (
   try {
     const response = await pool.query("SELECT * FROM player")
     if (response.rows.length === 0) {
-      res.
-      status(StatusCodes.NOT_FOUND).json({
-        success: false,
-        message: "No users found",
-      });
-      return; 
+      sendNotFoundError(res, "No users found")
     }
 
     res
@@ -33,14 +29,9 @@ export const getOneUser = async (
 ): Promise<void> => {
   const { id } = req.params
   try {
-    const response = await pool.query("SELECT * FROM player WHERE player_id = $1", [id]);
+    const response = await pool.query("SELECT * FROM player WHERE player_uuid = $1", [id]);
     if (response.rows.length === 0) {
-      res.
-      status(StatusCodes.NOT_FOUND).json({
-        success: false,
-        message: "No user found",
-      });
-      return; 
+      sendNotFoundError(res, "User not found")
     }
     res
       .status(StatusCodes.OK)

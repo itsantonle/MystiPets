@@ -4,6 +4,7 @@ import express from "express"
 import cors from "cors"
 import ObjectRouter from "./routes/objectRoute"
 import UsersRouter from "./routes/usersRoute"
+import MoodRoute from "./routes/moodRoute"
 import FoodRouter from "./routes/foodRoute"
 import PenaltyRouter from "./routes/penaltiesRoute"
 import { awaitConnection } from "./db/connect"
@@ -18,6 +19,7 @@ app.use(express.json())
 // routes
 app.use("/baseURL", ObjectRouter)
 app.use("/users", UsersRouter)
+app.use("/pets/moods", MoodRoute)
 app.use("/pets/food", FoodRouter)
 app.use("/users/penalties", PenaltyRouter)
 

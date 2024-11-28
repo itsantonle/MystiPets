@@ -1,7 +1,6 @@
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/_variables";
 
-
 $position-values: map-merge(
   (
     0: 0,
@@ -20,3 +19,147 @@ $position-values: map-merge(
 );
 
 @import "bootstrap/scss/bootstrap";
+
+
+// ------------------------- Interactive Panel styles ------------------------------------
+
+@font-face {
+  font-family: 'Pixelify-Sans';
+  src: url('../components/fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.woff') format('woff'),
+       url('../components/fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+//colors
+$main-bg-color: #FF00FF;
+$counter-color: orange;
+$font-color: white;
+$button-bg-color: #4CAF50;
+$border-color: black;
+$mood-bg-color: rgb(130, 224, 228);
+$no: transparent;
+
+
+//styles
+.main-container {
+  margin: 0;
+  padding: 0;
+}
+.panel-container {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  width: 800px;
+  height: 125px;
+  overflow: hidden;
+  background-color: $main-bg-color; 
+}
+
+.counter-container {
+  position: relative;
+  margin-left: 10px;
+  padding: 5px;
+  width: 150px;
+  height: 110px;
+  background-color: $no;
+}
+
+.counter-style {
+  display: flex;
+  padding: 5px;
+  width: 100px;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: $counter-color;
+}
+
+.name-bar-button-container {
+  position: relative;
+  margin: 10px;
+  padding: 5px;
+  width: 450px;
+  height: 110px;
+  background-color: $no;
+}
+
+.name-text-style {
+  display: flex;
+  padding: 5px 10px;
+  height: 50px;
+  width: 150px;
+  margin-right: 50px;
+  border-radius: 5px;
+  overflow: hidden;
+  border-color: $border-color;
+  background-color: $no;
+  resize: none;
+}
+
+.name-text-style::placeholder {
+  color: $font-color ;
+  font-size: 25px;
+  font-family: 'Pixelify-Sans';
+}
+
+.button-style {
+  padding: 5px;
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+  background-color:$button-bg-color;
+  border: none;
+  color: $font-color;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.health-bar-style {
+  display: flex;
+  margin: 3px 7.5px;
+  padding: 5px;
+  width: 370px;
+  height: 40px;
+  background-color: $no;
+}
+
+.name-buttons-container {
+  display: flex;
+  position: relative;
+  margin: 0px 7.5px;
+  padding: 5px;
+  width: 380px;
+  height: 60px;
+  background-color: $no;
+}
+
+.mood-container {
+  position: relative;
+  margin-right: 10px;
+  padding: 5px;
+  width: 300px;
+  height: 110px;
+  background-color: $no;
+}
+
+.mood-style {
+  display: flex;
+  padding: 10px;
+  height: 100px;
+  width: 200px;
+  overflow: hidden;
+  border-radius: 5px;
+  border-color: $border-color;
+  background-color: $mood-bg-color;
+  resize: none;
+}
+
+.mood-style::placeholder {
+  color: $font-color ;
+  font-size: 18px;
+  font-family: 'Pixelify-Sans';
+}
+
+//------------------------------------ End -----------------------------------------------

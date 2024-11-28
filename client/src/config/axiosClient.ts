@@ -1,11 +1,11 @@
 import axios from "axios"
 
 const apiClient = axios.create({
-  baseURL: "https://api.example.com",
+  baseURL: "https://pets-node-backend.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },
 })
 
-// you can rename this as axiosClient or something that is customized axious base
+// use this when axios connection
 export default apiClient

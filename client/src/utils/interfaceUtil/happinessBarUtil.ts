@@ -1,28 +1,40 @@
 import { increaseVal, decreaseVal } from "./barValueUtil"
-import Panel from "../../components/InteractivePanel";
-import * as React from "react"
+import { getValues, sendValues } from "../../components/DB_PanelLink";
+import { useState, useEffect } from "react";
+
+
+// const {happyValue} = getValues();
+
+const happyValue = 0
 
 export const manageHappiness = () => {
-    const [happiness, setHappiness] = React.useState(0); // <- this value needs to be taken from DB
+    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+    const [isHappyValue, setIsHappyValue] =  useState(happyValue);
 
-    const isHappy = () => { 
-        const feelsHappy = increaseVal(happiness)
-        setHappiness(feelsHappy)  
+    const isPlaying = () => setIsHappyValue(prevValue => increaseVal(prevValue))
+    const isSad = () => setIsHappyValue(prevValue => decreaseVal(prevValue))
 
-    }
-    return isHappy
+    const isPlayingClicked = () => {   //<- triggered by play button
+        isPlaying()
+        return isHappyValue
+    };
 
-    // const isSad = () => {  //<- This is linked to penalty
-    //     const feelsSad = decreaseVal(happiness)
-    //     setHappiness(feelsSad)
-    // }
-    
+    // useEffect for timer
+    useEffect(() => {
+        const timedEvent = setTimeout(() => {isSad()}, 5000) //this is 5 seconds
+
+        setTimer(timedEvent);
+        return () => clearTimeout(timedEvent)
+    },[isHappyValue]) 
+
+    // useEffect for sending to DB
+    useEffect(() => {
+        const sendData = setInterval(() => {
+            sendValues()
+        }, 5000) //this is 5 seconds
+
+        return () => clearInterval(sendData)
+    },[isHappyValue])
+
+    return {isHappyValue, isPlayingClicked}
 }
-
-
-// //template
-// const [something, setSomething] = React.useState(0); //<- for counter placeholders
-
-// const doSomething2 = () => {    //<- event listener placeholder
-//     setSomething2((something2 + 5) * 2)  
-// }

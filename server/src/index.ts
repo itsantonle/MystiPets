@@ -12,7 +12,6 @@ import { awaitConnection } from "./db/connect"
 import notFoundMiddleware from "./middleware/notFound"
 import errorHandlerMiddleware from "./middleware/errorHandler"
 
-
 const app = express()
 
 app.use(cors())
@@ -29,7 +28,7 @@ app.use("/users/penalties", PenaltyRouter)
 // middleware
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
-const PORT = 3009 // add the deployed backedn application port here
+const PORT = process.env.PORT || 3009 // add the deployed backedn application port here
 
 const start = async (): Promise<void> => {
   try {

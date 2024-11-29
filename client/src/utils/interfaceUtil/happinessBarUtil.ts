@@ -21,7 +21,7 @@ export const manageHappiness = () => {
 
     // useEffect for timer
     useEffect(() => {
-        const timedEvent = setTimeout(() => {isSad()}, 5000) //this is 5 seconds
+        const timedEvent = setTimeout(() => {isSad()}, 12* 5000) //this is 60 seconds
 
         setTimer(timedEvent);
         return () => clearTimeout(timedEvent)

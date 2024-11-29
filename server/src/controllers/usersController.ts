@@ -1,8 +1,8 @@
 import { Request, Response } from "express"
 import pool from "../db/connect"
 import { StatusCodes } from "http-status-codes"
-import hashPassword from "../utils/hashPassword";
-import { sendError } from "../utils/errorHandling";
+import hashPassword from "../utils/hashPassword"
+import { sendError } from "../utils/errorHandling"
 import { sendNotFoundError } from "../utils/errorHandling"
 
 export const getAllUsers = async (
@@ -20,7 +20,11 @@ export const getAllUsers = async (
       .json({ data: response.rows, success: true })
   } catch (error) {
     console.error(error)
-    sendError(res, StatusCodes.INTERNAL_SERVER_ERROR, "An error occurred while retrieving users");
+    sendError(
+      res,
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      "An error occurred while retrieving users",
+    )
   }
 }
 export const getOneUser = async (
@@ -29,35 +33,43 @@ export const getOneUser = async (
 ): Promise<void> => {
   const { id } = req.params
   try {
-    const response = await pool.query("SELECT * FROM player WHERE player_uuid = $1", [id]);
+    const response = await pool.query(
+      "SELECT * FROM player WHERE player_uuid = $1",
+      [id],
+    )
     if (response.rows.length === 0) {
       sendNotFoundError(res, "User not found")
     }
     res
       .status(StatusCodes.OK)
       .json({ data: response.rows, success: true })
-
   } catch (error) {
     console.error(error)
-    sendError(res, StatusCodes.INTERNAL_SERVER_ERROR, "An error occurred while retrieving the user");
+    sendError(
+      res,
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      "An error occurred while retrieving the user",
+    )
   }
 }
 export const createUser = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-
-  const { username, password } = req.body
+  const { player_uuid, player_username, player_email } = req.body
   try {
-    const hashedPassword = await hashPassword(password);
     const response = await pool.query(
-      "INSERT INTO player(player_username, player_password) VALUES($1, $2)",
-      [username, hashedPassword]
-    );
+      "INSERT INTO player(player_uuid, player_username, player_email) VALUES($1, $2, $3)",
+      [player_uuid, player_username, player_email],
+    )
 
     res.status(StatusCodes.CREATED).json({ success: true })
   } catch (error) {
     console.error(error)
-    sendError(res, StatusCodes.INTERNAL_SERVER_ERROR, "An error occurred while creating the user");
+    sendError(
+      res,
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      "An error occurred while creating the user",
+    )
   }
 }

@@ -9,15 +9,15 @@ import Panel from "./components/InteractivePanel"
 const App: React.FC = () => {
   return (
     <>
-    <Header />
     <Container x={160} y={200} >
+    <Header />
       <Stage width={800} height={475} options={{ background: 0xD83D }}>
         <Container x={160} y={200}>
           <PetContainer petType="Hydra" petXpos={100} petYpos={50} />
           <PetContainer petType="Capycorn" petXpos={400} petYpos={50} />
         </Container>
-      </Stage>
       < Panel />
+      </Stage>
     </Container>
     {/* <Footer/> */}
     </>

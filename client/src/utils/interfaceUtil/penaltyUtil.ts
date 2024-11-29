@@ -2,7 +2,7 @@ import { increaseVal, decreaseVal } from "./barValueUtil";
 
 let ItHasReachedZero = false // Tracks if the value has reached zero
 let current = 25
-const maxVal = 50
+const maxVal = 100
 
 // Store the last run timestamp
 let lastRunTimestamp: number = Date.now()

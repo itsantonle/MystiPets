@@ -11,7 +11,8 @@ export const decreaseVal = (
   decrement: number = 5,
   maxVal: number = 100,
 ): number => {
-  return Math.min(currentVal - decrement, maxVal)
+  const newVal = currentVal - decrement
+  return Math.max(0, Math.min(newVal, maxVal))
 }
 
 // (use this to use the functions in another file)

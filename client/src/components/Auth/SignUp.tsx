@@ -15,7 +15,7 @@ export function SignUp() {
     try {
       setLoading(true)
       setError(null)
-      await signUp(username, email, password);
+      await signUp(email, password);
       alert("Check your email for the confirmation link!")
     } catch (error) {
       setError(

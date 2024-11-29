@@ -14,8 +14,7 @@ export function SignIn() {
     try {
       setLoading(true)
       setError(null)
-      const username = await signIn(email, password)
-      alert(`Welcome back, ${username}!`);
+      await signIn(email, password)
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {

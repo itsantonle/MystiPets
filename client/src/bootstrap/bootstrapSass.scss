@@ -47,8 +47,13 @@ $no: transparent;
 
 //styles
 .main-container {
+  display: flex;
   margin: 0;
   padding: 0;
+  justify-content: center;
+  max-width: 1000px;
+  position: absolute;
+  top: 100;
 }
 .panel-container {
   display: flex;

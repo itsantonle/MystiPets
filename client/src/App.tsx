@@ -1,12 +1,14 @@
-import { AuthProvider } from './context/AuthContext'
-import { SignIn } from './components/Auth/SignIn'
-import { SignUp } from './components/Auth/SignUp'
-import { useAuth } from './context/AuthContext'
-import { useState } from 'react'
+import { AuthProvider } from "./context/AuthContext"
+import { SignIn } from "./components/Auth/SignIn"
+import { SignUp } from "./components/Auth/SignUp"
+import { useAuth } from "./context/AuthContext"
+import { useState } from "react"
 
 function AuthenticatedApp() {
   const { user, signOut } = useAuth()
-  
+
+  //cram the stage here
+
   return (
     <div>
       <h1>Welcome {user?.email}</h1>
@@ -24,13 +26,13 @@ function UnauthenticatedApp() {
         <div className="auth-toggle-container">
           <button
             onClick={() => setIsSignIn(true)}
-            className={`auth-toggle-button ${isSignIn ? 'active' : ''}`}
+            className={`auth-toggle-button ${isSignIn ? "active" : ""}`}
           >
             Sign In
           </button>
           <button
             onClick={() => setIsSignIn(false)}
-            className={`auth-toggle-button ${!isSignIn ? 'active' : ''}`}
+            className={`auth-toggle-button ${!isSignIn ? "active" : ""}`}
           >
             Sign Up
           </button>

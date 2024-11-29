@@ -1,6 +1,9 @@
 import { useState } from "react"
 import { useAuth } from "../../context/AuthContext"
 import "./Auth.scss"
+import { signUptoDb } from "../../services/api"
+
+import { UserData } from "../../types/Player"
 
 export function SignUp() {
   const [username, setUsername] = useState("")
@@ -8,6 +11,7 @@ export function SignUp() {
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
   const { signUp } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -15,7 +19,15 @@ export function SignUp() {
     try {
       setLoading(true)
       setError(null)
-      await signUp(email, password);
+      const response = await signUp(email, password)
+
+      const actualData: UserData = {
+        id: response!.id,
+        email: email,
+        username: username,
+      }
+      await signUptoDb(actualData)
+
       alert("Check your email for the confirmation link!")
     } catch (error) {
       setError(
@@ -30,7 +42,7 @@ export function SignUp() {
     <>
       <h2 className="auth-title">Create Account</h2>
       <form onSubmit={handleSubmit} className="auth-form">
-      <div
+        <div
           className="input-group animate-slide-in"
           style={{ animationDelay: "200ms" }}
         >

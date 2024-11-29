@@ -1,16 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { Session, User } from "@supabase/supabase-js"
 import { supabase } from "../config/supabase"
-import { UserData } from "../types/Player"
-import { signUptoDbRequest } from "../services/mutations"
 
 type AuthContextType = {
   session: Session | null
   user: User | null
-  signUp: (
-    email: string,
-    password: string,
-  ) => Promise<void>
+  signUp: (email: string, password: string) => Promise<User | null>
   signIn: (email: string, password: string) => Promise<void>
   signOut: () => Promise<void>
   loading: boolean
@@ -50,12 +45,20 @@ export function AuthProvider({
   }, [])
 
   const signUp = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({ email, password })
+    const { error, data } = await supabase.auth.signUp({
+      email,
+      password,
+    })
     if (error) throw error
+    if (!data.user) return null
+    return data.user
   }
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
     if (error) throw error
   }
 
@@ -66,7 +69,7 @@ export function AuthProvider({
 
   return (
     <AuthContext.Provider
-      value={{ session, user, signUp, signIn, signOut, loading  }}
+      value={{ session, user, signUp, signIn, signOut, loading }}
     >
       {children}
     </AuthContext.Provider>

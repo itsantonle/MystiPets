@@ -69,7 +69,7 @@ $no: transparent;
 .counter-container {
   position: relative;
   margin-left: 10px;
-  padding: 5px;
+  padding: 0px;
   width: 150px;
   height: 110px;
   background-color: $no;
@@ -78,16 +78,16 @@ $no: transparent;
 .counter-style {
   display: flex;
   padding: 5px;
-  width: 100px;
-  margin: 10px;
+  width: 125px;
+  margin: 7px;
   border-radius: 5px;
   background-color: $counter-color;
 }
 
 .name-bar-button-container {
   position: relative;
-  margin: 10px;
-  padding: 5px;
+  margin: 5px;
+  padding: 0px 5px 5px 5px;
   width: 450px;
   height: 110px;
   background-color: $no;
@@ -97,7 +97,7 @@ $no: transparent;
   display: flex;
   padding: 5px 10px;
   height: 50px;
-  width: 150px;
+  width: 180px;
   margin-right: 50px;
   border-radius: 5px;
   overflow: hidden;
@@ -112,12 +112,30 @@ $no: transparent;
   font-family: 'Pixelify-Sans';
 }
 
-.button-style {
-  padding: 5px;
-  width: 45px;
-  height: 45px;
+.HP-text-style {
+  display: flex;
+  padding: 0px 10px;
+  height: 50px;
+  width: 50px;
   margin-right: 10px;
-  background-color:$button-bg-color;
+  overflow: hidden;
+  border: none;
+  background-color: $no;
+  resize: none;
+}
+
+.HP-text-style::placeholder {
+  color: $font-color ;
+  font-size: 25px;
+  font-family: 'Pixelify-Sans';
+}
+
+.button-style {
+  padding: 0px;
+  width: 70px;
+  height: 60px;
+  margin-right: 10px;
+  background: none;
   border: none;
   color: $font-color;
   font-size: 15px;
@@ -127,7 +145,7 @@ $no: transparent;
 
 .health-bar-style {
   display: flex;
-  margin: 3px 7.5px;
+  margin-left: 30px;
   padding: 5px;
   width: 370px;
   height: 40px;

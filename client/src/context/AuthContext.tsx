@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { Session, User } from "@supabase/supabase-js"
 import { supabase } from "../config/supabase"
-import axiosClient from "../config/axiosClient"
+import { UserData } from "../types/Player"
+import { signUptoDbRequest } from "../services/mutations"
 
 type AuthContextType = {
   session: Session | null
@@ -63,7 +64,14 @@ export function AuthProvider({
     const userId = data.user?.id
     if (!userId) throw new Error("User ID not found after sign-up")
 
-    // Insert the username into the profiles table
+    const actualUserData: UserData = {
+      id: userId,
+      email: email,
+      username: username,
+    }
+
+    signUptoDbRequest().mutate(actualUserData)
+
     const { error: profileError } = await supabase
       .from("profiles")
       .insert([{ id: userId, username }])

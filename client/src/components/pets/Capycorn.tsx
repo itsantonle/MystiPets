@@ -13,7 +13,7 @@ const CapycornSprite = ({ x, y, s}: dimensions) => {
         textures={Capycorn_Idle}
         isPlaying={true}
         initialFrame={0}
-        animationSpeed={0.1}
+        animationSpeed={0.07}
         interactive
         x={x} 
         y={y}

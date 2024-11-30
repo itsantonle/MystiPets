@@ -1,3 +1,6 @@
 node_modules
 .env
+deploy.yml
+test.yml
 # _templatesData add this during test depoloyment
+# ignore workflows for now

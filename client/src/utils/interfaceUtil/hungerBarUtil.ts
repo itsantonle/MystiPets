@@ -21,7 +21,7 @@ export const manageHunger = () => {
 
     // useEffect for timer
     useEffect(() => {
-        const timedEvent = setTimeout(() => {isHungry()}, 12 * 5000) //this is 60 secs
+        const timedEvent = setTimeout(() => {isHungry()}, 2000) //this is 60 secs
 
         setTimer(timedEvent);
         return () => clearTimeout(timedEvent)

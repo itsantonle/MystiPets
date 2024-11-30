@@ -7,8 +7,6 @@ import feedButton from '../components/img/icons/feedButton.png';
 import playButton from '../components/img/icons/playButton.png';
 import { getValues } from './DB_PanelLink';
 import { manageHunger } from '../utils/interfaceUtil/hungerBarUtil';
-
-
 // import * as React from "react"
 
 const Panel = () => {
@@ -42,7 +40,7 @@ const Panel = () => {
                     <button className = "button-style" type = "button" onClick={isPlayingClicked}><img src={playButton} className="img-fluid"/></button>
                 </div>
                 <div className="health-bar-style"> 
-                    <textarea className = "HP-text-style" placeholder="HP" readOnly></textarea> 
+                    <textarea className = "HP-text-style" placeholder="HP" readOnly></textarea>
                     <img src={healthBar} className="img-fluid"/>
                 </div>
             </div>

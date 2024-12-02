@@ -114,10 +114,9 @@ $no: transparent;
 
 .HP-text-style {
   display: flex;
-  padding: 0px 10px;
-  height: 50px;
-  width: 50px;
-  margin-right: 10px;
+  height: 35px;
+  width: 35px;
+  margin-right: 2px;
   overflow: hidden;
   border: none;
   background-color: $no;
@@ -126,7 +125,7 @@ $no: transparent;
 
 .HP-text-style::placeholder {
   color: $font-color ;
-  font-size: 25px;
+  font-size: 22px;
   font-family: 'Pixelify-Sans';
 }
 
@@ -145,9 +144,8 @@ $no: transparent;
 
 .health-bar-style {
   display: flex;
-  margin-left: 30px;
-  padding: 5px;
-  width: 370px;
+  margin: 5px 5px;
+  width: 380px;
   height: 40px;
   background-color: $no;
 }
@@ -197,15 +195,13 @@ $no: transparent;
   overflow: hidden;
 }
 
-.health-bar-wrapper {
-  position: absolute;
-  background-color: $no;
+.health-bar-img {
+  height: 100%;
+  object-fit: cover;
 }
 
-.health-bar-img {
-  width: 340;
-  height: 50%;
-  object-fit: cover;
+.health-bar-frame {
+  position: absolute;
 }
 
 

@@ -2,12 +2,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { manageHappiness } from '../utils/interfaceUtil/happinessBarUtil';
 import happyStar from '../components/img/icons/happy_star.png';
 import meat from '../components/img/icons/meat.png';
-import healthBar from '../components/img/icons/health-bar1.png';
 import feedButton from '../components/img/icons/feedButton.png';
 import playButton from '../components/img/icons/playButton.png';
 import { getValues } from './DB_PanelLink';
 import { manageHunger } from '../utils/interfaceUtil/hungerBarUtil';
-
+import healthBarFrame from "./img/icons/health-bar-frame-1.png"
 import AnimatedHealthBar from './healthbar'
 // import * as React from "react"
 
@@ -42,8 +41,11 @@ const Panel = () => {
                     <button className = "button-style" type = "button" onClick={isPlayingClicked}><img src={playButton} className="img-fluid"/></button>
                 </div>
                 <div className="health-bar-style"> 
-                    <textarea className = "HP-text-style" placeholder="HP" readOnly></textarea>
-                    <AnimatedHealthBar/>
+                    <textarea className = "HP-text-style" placeholder="HP:" readOnly></textarea>
+                    <div>
+                        <img src = {healthBarFrame} className="health-bar-frame"/>
+                        <AnimatedHealthBar/>
+                    </div>
                 </div>
             </div>
 

@@ -24,7 +24,7 @@ const AnimatedHealthBar: React.FC = () => {
     return (
         <div className="health-bar-container" style={{width: `${healthBar}px`}}>
             <div className="health-bar-wrapper">
-                <img src={healhBarImg} className="health-bar-img"/>
+                <img src = {healhBarImg} className="health-bar-img"/>
             </div>
         </div>
     )

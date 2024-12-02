@@ -189,4 +189,24 @@ $no: transparent;
   font-family: 'Pixelify-Sans';
 }
 
+//-----Healthbar animation----
+
+.health-bar-container {
+  position: relative;
+  height: 36px;
+  overflow: hidden;
+}
+
+.health-bar-wrapper {
+  position: absolute;
+  background-color: $no;
+}
+
+.health-bar-img {
+  width: 340;
+  height: 50%;
+  object-fit: cover;
+}
+
+
 //------------------------------------ End -----------------------------------------------

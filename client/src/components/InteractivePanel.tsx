@@ -7,6 +7,8 @@ import feedButton from '../components/img/icons/feedButton.png';
 import playButton from '../components/img/icons/playButton.png';
 import { getValues } from './DB_PanelLink';
 import { manageHunger } from '../utils/interfaceUtil/hungerBarUtil';
+
+import AnimatedHealthBar from './healthbar'
 // import * as React from "react"
 
 const Panel = () => {
@@ -41,7 +43,7 @@ const Panel = () => {
                 </div>
                 <div className="health-bar-style"> 
                     <textarea className = "HP-text-style" placeholder="HP" readOnly></textarea>
-                    <img src={healthBar} className="img-fluid"/>
+                    <AnimatedHealthBar/>
                 </div>
             </div>
 

@@ -3,16 +3,14 @@ import { SignIn } from "./components/Auth/SignIn"
 import { SignUp } from "./components/Auth/SignUp"
 import { useAuth } from "./context/AuthContext"
 import { useState } from "react"
+import PetSelection from "./components/pet-selection/Pet-selection"
 
 function AuthenticatedApp() {
-  const { user, signOut } = useAuth()
-
-  //cram the stage here
+  // const { signOut } = useAuth()
 
   return (
-    <div>
-      <h1>Welcome {user?.email}</h1>
-      <button onClick={signOut}>Sign Out</button>
+    <div className="game-wrapper">
+      <PetSelection/>
     </div>
   )
 }

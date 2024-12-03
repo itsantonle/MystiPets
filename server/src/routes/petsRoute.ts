@@ -14,8 +14,8 @@ import {
 
 const router = express.Router()
 
-router.route("/:player_uuid").get(getPets) //gets pets
-router.route("/").post(createPet) // creates pet instances
+router.route("/createPet").post(createPet) // creates pet instances
+router.route("/getPet/:player_uuid").get(getPets) //gets pets
 router.route("/updateName/:player_uuid").put(updatePetName) // updates pet name
 router.route("/updateHealth/:player_uuid").put(updatePetHealth) //pet health
 router.route("/updateHappiness/:player_uuid").put(updatePetHappiness) //pet happiness

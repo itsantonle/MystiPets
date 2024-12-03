@@ -18,10 +18,41 @@ export const manageHealth = () => {
     const isCared = () => setisHealthyValue(prevValue => increaseVal(prevValue))
     const isNeglected = () => setisHealthyValue(prevValue => decreaseVal(prevValue))
 
-    const isCaredFor = () => {   //<- should be triggered when either the hungerBar or happinessBar increases
-        isCared()
-        return isHealthyValue
+    // const isCaredFor = () => {   //<- should be triggered when either the hungerBar or happinessBar increases
+    //     isCared()
+    //     return isHealthyValue
+    // };
+
+    const [hungerIncreaseCount, setHungerIncreaseCount] = useState(0);
+    const [happinessIncreaseCount, setHappinessIncreaseCount] = useState(0);
+
+    const trackHungerIncrease = () => {
+        setHungerIncreaseCount(prev => prev + 5);
+        checkHealthIncrease();
     };
+
+    const trackHappinessIncrease = () => {
+        setHappinessIncreaseCount(prev => prev + 5);
+        checkHealthIncrease();
+    };
+
+    // Check if health should increase
+    const checkHealthIncrease = () => {
+        if (hungerIncreaseCount >= 10 || happinessIncreaseCount >= 10) {
+            isCared();
+            resetCounts();
+        } else if (hungerIncreaseCount >= 5 && happinessIncreaseCount >= 5) {
+            isCared();
+            resetCounts();
+        }
+    };
+
+    // Reset the counters after health increases
+    const resetCounts = () => {
+        setHungerIncreaseCount(0);
+        setHungerIncreaseCount(0);
+    }
+
 
     useEffect(() => {
         const timedEvent = setTimeout(() => {isNeglected()}, 12 * 5000) //this is 5 seconds
@@ -38,6 +69,6 @@ export const manageHealth = () => {
         return () => clearInterval(sendData)
     },[isHealthyValue])
 
-    return {isHealthyValue, isCaredFor}
+    return {isHealthyValue, trackHungerIncrease, trackHappinessIncrease}
 }
 

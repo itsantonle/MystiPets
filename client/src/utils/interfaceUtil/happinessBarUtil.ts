@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 // const {happyValue} = getValues();
 
-export const happyValue = 0
+export const happyValue = 100
 
 export const manageHappiness = () => {
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);

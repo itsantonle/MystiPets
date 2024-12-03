@@ -3,7 +3,7 @@ import {Capycorn_Idle} from "../img/Animations"
 
 export type dimensions = { x: number; y: number; s: number }
 
-const CapycornSprite = ({ x, y, s}: dimensions) => {
+export const CapycornSprite = ({ x, y, s}: dimensions) => {
   
     
   return (

@@ -21,6 +21,7 @@ export default function PetSelection() {
       // console.log('Starting adventure with:', { pet: selectedPet, name: petName })
     }
   }
+  
 
   return (
     <div className="gameContainer">
@@ -29,7 +30,7 @@ export default function PetSelection() {
       </button>
 
       <h1 className="gameTitle">Petiverse</h1>
-      <h2 className="chooseTitle">CHOOSE A PET</h2>
+      <h2 className="chooseTitle">CHOOSE YOUR PET</h2>
 
       <div className="petSelection">
         <div 
@@ -48,15 +49,16 @@ export default function PetSelection() {
           <p className="petName">CAPYCORN</p>
         </div>
       </div>
-
+      <div></div>
       <div className="nameInputContainer">
         <input
           type="text"
-          placeholder="Name your pet"
+          placeholder= "My name Pwease"
           value={petName}
           onChange={(e) => setPetName(e.target.value)}
           className="pixelInput"
           maxLength={20}
+          aria-label='Enter Pet Name'
         />
         
         <button
@@ -64,7 +66,12 @@ export default function PetSelection() {
           onClick={handleStartAdventure}
           disabled={!selectedPet || !petName}
         >
-          START ADVENTURE
+        {!selectedPet
+          ? "Choose your pet first"
+          : !petName
+          ? "Give me a Name"
+          : "START"
+        }
         </button>
       </div>
     </div>

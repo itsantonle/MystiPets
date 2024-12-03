@@ -16,6 +16,9 @@ $color-black: #000000;
 $color-white: #ffffff;
 $color-disabled: #cccccc;
 
+body{
+  user-select: none;
+}
 // Main Container
 .gameContainer {
   width: 100vw;
@@ -94,8 +97,8 @@ $color-disabled: #cccccc;
 
 .petCard {
   position: relative;
-  width: min(280px, 30vw);
-  aspect-ratio: 1;
+  width: 443px;
+  height: 370px;
   background: {
     color: $color-primary;
     image: url('/grass.png');
@@ -139,12 +142,21 @@ $color-disabled: #cccccc;
   }
 }
 
+.spriteContainer {
+  width: 50%;
+  z-index: 1;
+  height: 90%;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
 .petImage {
-  width: 60%;
-  height: 60%;
+  user-select: none;
+  width: 80%;
+  height: 90%;
   object-fit: contain;
-  margin: auto;
-  animation: float 3s ease-in-out infinite;
+  margin: 5px;
   position: relative;
   z-index: 1;
 }
@@ -173,9 +185,10 @@ $color-disabled: #cccccc;
 }
 
 .pixelInput {
-  width: 100%;
+  width: 289px;
+  height: 30px;
   padding: 12px;
-  background-color: $color-black;
+  background-color:gray;
   border: none;
   border-radius: 8px;
   color: $color-white;
@@ -191,9 +204,8 @@ $color-disabled: #cccccc;
 }
 
 .startButton {
-  width: 100%;
-  padding: 12px;
-  background-color: $color-disabled;
+  height: 40px;
+  background:#72AE43;
   border: none;
   border-radius: 8px;
   color: $color-white;
@@ -214,7 +226,10 @@ $color-disabled: #cccccc;
   }
 
   &:disabled {
+    color: #72AE43;
     cursor: not-allowed;
+    content: "Give me a name first";
+    width: 220px;
     background-color: $color-disabled;
   }
 } 

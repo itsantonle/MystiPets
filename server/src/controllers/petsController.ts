@@ -14,7 +14,7 @@ export const getPets = async (
       [player_uuid],
     )
     if (response.rows.length === 0) {
-      sendNotFoundError(res, "Pets not found")
+      return sendNotFoundError(res, "Pets not found")
     }
 
     res

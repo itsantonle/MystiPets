@@ -1,4 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
+import { getUserPetID } from "../services/petapi"
+import Pet from "../types/Pet"
 // import { getData } from "./api"
 
 // always takes a promise
@@ -8,3 +10,10 @@ import { useQuery } from "@tanstack/react-query"
 //     queryFn: getData,
 //   })
 // }
+
+export const usePets = (userID: string) => {
+    return useQuery<number[], Error>({
+        queryKey: ["pets", userID],
+        queryFn: () => getUserPetID(userID)
+    })
+}

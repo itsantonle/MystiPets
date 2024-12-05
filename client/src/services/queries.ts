@@ -12,7 +12,7 @@ import Pet from "../types/Pet"
 // }
 
 export const usePets = (userID: string) => {
-    return useQuery<number[], Error>({
+    return useQuery<Pet[] | undefined, Error>({
         queryKey: ["pets", userID],
         queryFn: () => getUserPetID(userID)
     })

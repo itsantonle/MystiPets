@@ -10,6 +10,10 @@ const petAPI = axios.create({baseURL: URL})
 //   // checck if sucess is true if not then
 // }
 
-export const getUserPetID = async (userID: string): Promise<number[]> => {
-  return (await petAPI.get<Pet[]>(`/getPet/${userID}`)).data.map((pet) => pet.pet_id)
+export const getUserPetID = async (userID: string): Promise<Pet[]> => {
+  return (await petAPI.get<Pet[]>(`/pets/getPet/${userID}`)).data
+}
+
+export const createPet = async (pet: Pet) => {
+  await petAPI.post('/pets/createPet', pet)
 }

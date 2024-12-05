@@ -3,7 +3,6 @@ import { SignIn } from "./components/Auth/SignIn"
 import { SignUp } from "./components/Auth/SignUp"
 import { useAuth } from "./context/AuthContext"
 import { useState } from "react"
-import { Pets } from "./components/Pet"
 
 function AuthenticatedApp() {
   const { user, signOut } = useAuth()
@@ -13,7 +12,6 @@ function AuthenticatedApp() {
   return (
     <div>
       <h1>Welcome {user?.email}</h1>
-      <Pets/> 
       <button onClick={signOut}>Sign Out</button>
     </div>
   )

@@ -5,24 +5,23 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 const AnimatedHealthBar: React.FC = () => {
     const {isHealthyValue} = manageHealth()
-    const health = 340
-    const [healthBar, sethealthBar] = useState(health)
+    const [healthBarWidth, sethealthBarWidth] = useState(0)
 
-    useEffect(() => {
+
+    const HPsize = () => {
+      sethealthBarWidth = isHealthyValue
+    }
         // delete if health function is implemented
-        const resizeInterval = setInterval(() => {
-          sethealthBar((prevWidth) => {
-            const newWidth = prevWidth > 0 ? prevWidth - 17 : 0;
-            console.log("This is shrinking", newWidth);
-            return newWidth;
-          });
-        }, 2000); // Shrink the health bar every 5s
-    
-        return () => clearInterval(resizeInterval); // Cleanup on component unmount
-      }, []);
+        // const resizeInterval = setInterval(() => {
+        //   sethealthBar((prevWidth) => {
+        //     const newWidth = prevWidth > 0 ? prevWidth - 17 : 0;
+        //     console.log("This is shrinking", newWidth);
+        //     return newWidth;
+        //   });
+        // }, 2000); // Shrink the health bar every 5s
     
     return (
-        <div className="health-bar-container" style={{width: `${healthBar}px`}}>
+        <div className="health-bar-container" style={{width: `${healthBarWidth}px`}}>
             <div className="health-bar-wrapper">
                 <img src = {healhBarImg} className="health-bar-img"/>
             </div>

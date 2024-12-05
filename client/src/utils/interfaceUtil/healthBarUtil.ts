@@ -27,21 +27,18 @@ export const manageHealth = () => {
     const [happinessIncreaseCount, setHappinessIncreaseCount] = useState(0);
 
     const trackHungerIncrease = () => {
-        setHungerIncreaseCount(prev => prev + 5);
+        setHungerIncreaseCount(prev => prev + 1);
         checkHealthIncrease();
     };
 
     const trackHappinessIncrease = () => {
-        setHappinessIncreaseCount(prev => prev + 5);
+        setHappinessIncreaseCount(prev => prev + 1);
         checkHealthIncrease();
     };
 
     // Check if health should increase
     const checkHealthIncrease = () => {
-        if (hungerIncreaseCount >= 10 || happinessIncreaseCount >= 10) {
-            isCared();
-            resetCounts();
-        } else if (hungerIncreaseCount >= 5 && happinessIncreaseCount >= 5) {
+        if (hungerIncreaseCount + happinessIncreaseCount == 2) {
             isCared();
             resetCounts();
         }
@@ -69,6 +66,6 @@ export const manageHealth = () => {
         return () => clearInterval(sendData)
     },[isHealthyValue])
 
-    return {isHealthyValue, trackHungerIncrease, trackHappinessIncrease}
+    return {isHealthyValue, trackHungerIncrease, trackHappinessIncrease, checkHealthIncrease}
 }
 

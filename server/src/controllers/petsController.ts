@@ -51,26 +51,13 @@ export const createPet = async (
       `INSERT INTO pet
             (player_uuid, 
             pet_name, 
-            pet_type, 
-            hunger_status, 
-            happiness_status, 
-            is_dead, 
-            has_left, 
-            health, 
-            food_id,
-            mood_id) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+            pet_type
+            ) 
+            VALUES ($1, $2, $3)`,
       [
         player_uuid,
         pet_name,
-        pet_type,
-        hunger_status,
-        happiness_status,
-        is_dead,
-        has_left,
-        health,
-        food_id,
-        mood_id,
+        pet_type
       ],
     )
     res

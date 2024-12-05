@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 // const {hungerValue} = getValues(); //uncomment if DB is connected
 
-export const hungerValue = 0
+export const hungerValue = 100
 
 export const manageHunger = () => {
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
@@ -28,13 +28,14 @@ export const manageHunger = () => {
     },[isHungryValue]) 
 
     // useEffect for sending to DB
-    useEffect(() => {
-        const sendData = setInterval(() => {
-            sendValues()
-        }, 5000) //this is 5 seconds
+    // uncomment after connected to DB
+    // useEffect(() => {
+    //     const sendData = setInterval(() => {
+    //         sendValues()
+    //     }, 5000) //this is 5 seconds
 
-        return () => clearInterval(sendData)
-    },[isHungryValue])
+    //     return () => clearInterval(sendData)
+    // },[isHungryValue])
 
     return {isHungryValue, isEatingClicked}
 }

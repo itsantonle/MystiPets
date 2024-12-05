@@ -50,7 +50,7 @@ const Panel = () => {
 
                     <button className = "button-style" type = "button" onClick={eatingUtils}><img src={feedButton} className="img-fluid"/></button>
                     <button className = "button-style" type = "button" onClick={playingutils}><img src={playButton} className="img-fluid"/></button>
-                    <button className = "button-style" type = "button" onClick={isPlayingClicked}><img src={playButton} className="img-fluid"/></button>
+                    <button className = "button-style" type = "button" onClick={playingutils}><img src={playButton} className="img-fluid"/></button>
                 </div>
                 <div className="health-bar-style"> 
                     {isHealthyValue}

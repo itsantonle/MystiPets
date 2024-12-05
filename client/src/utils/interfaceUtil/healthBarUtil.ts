@@ -3,6 +3,7 @@ import { getValues, sendValues } from "../../components/DB_PanelLink";
 import { useState, useEffect } from "react";
 import {manageHappiness} from "../interfaceUtil/happinessBarUtil";
 import {manageHunger} from "../interfaceUtil/hungerBarUtil";
+import {HPsize} from "../../components/healthbar";
 
 
 const healthValue = 0
@@ -36,19 +37,20 @@ export const manageHealth = () => {
         checkHealthIncrease();
     };
 
-    // Check if health should increase
-    const checkHealthIncrease = () => {
-        if (hungerIncreaseCount + happinessIncreaseCount == 2) {
-            isCared();
-            resetCounts();
-        }
-    };
-
     // Reset the counters after health increases
     const resetCounts = () => {
-        setHungerIncreaseCount(0);
-        setHungerIncreaseCount(0);
+        setHungerIncreaseCount(prev => prev * 0);
+        setHappinessIncreaseCount(prev => prev * 0);
     }
+
+    // Check if health should increase
+    const checkHealthIncrease = () => {
+        if (hungerIncreaseCount + happinessIncreaseCount == 1) {
+            resetCounts();
+            isCared();
+            HPsize();
+        }
+    };
 
 
     useEffect(() => {

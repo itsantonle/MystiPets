@@ -7,9 +7,9 @@ import playButton from '../components/img/icons/playButton.png';
 import { getValues } from './DB_PanelLink';
 import { manageHunger } from '../utils/interfaceUtil/hungerBarUtil';
 import healthBarFrame from "./img/icons/health-bar-frame-1.png"
-import AnimatedHealthBar from './healthbar'
+import {AnimatedHealthBar} from './healthbar'
 // import * as React from "react"
-import { manageHealth} from '../utils/interfaceUtil/healthBarUtil';
+import {manageHealth} from '../utils/interfaceUtil/healthBarUtil';
 
 const Panel = () => {
     // //Uncomment if reall DB is connected
@@ -17,7 +17,7 @@ const Panel = () => {
 
     const { isHappyValue, isPlayingClicked } = manageHappiness();
     const { isHungryValue, isEatingClicked } = manageHunger();
-    const {trackHungerIncrease, trackHappinessIncrease} = manageHealth();
+    const {isHealthyValue, trackHungerIncrease, trackHappinessIncrease} = manageHealth();
 
     const eatingUtils = () => {
         isEatingClicked();
@@ -53,6 +53,7 @@ const Panel = () => {
                     <button className = "button-style" type = "button" onClick={isPlayingClicked}><img src={playButton} className="img-fluid"/></button>
                 </div>
                 <div className="health-bar-style"> 
+                    {isHealthyValue}
                     <textarea className = "HP-text-style" placeholder="HP:" readOnly></textarea>
                     <div>
                         <img src = {healthBarFrame} className="health-bar-frame"/>

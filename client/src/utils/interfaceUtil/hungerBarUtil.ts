@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 // const {hungerValue} = getValues(); //uncomment if DB is connected
 
-export const hungerValue = 100
+export const hungerValue = 0
 
 export const manageHunger = () => {
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);

@@ -3,14 +3,13 @@ import { manageHealth } from "../utils/interfaceUtil/healthBarUtil";
 import healhBarImg from "./img/icons/health-bar1-2t.png"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const AnimatedHealthBar: React.FC = () => {
-    const {isHealthyValue} = manageHealth()
-    const [healthBarWidth, sethealthBarWidth] = useState(0)
+let healthBarWidth = 340
 
+export const HPsize = () => {
+  healthBarWidth = healthBarWidth + 17
+}
 
-    const HPsize = () => {
-      sethealthBarWidth = isHealthyValue
-    }
+export const AnimatedHealthBar: React.FC = () => {
         // delete if health function is implemented
         // const resizeInterval = setInterval(() => {
         //   sethealthBar((prevWidth) => {
@@ -28,4 +27,3 @@ const AnimatedHealthBar: React.FC = () => {
         </div>
     )
 }
-export default AnimatedHealthBar

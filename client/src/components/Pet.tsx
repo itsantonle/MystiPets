@@ -14,7 +14,7 @@ export const Pets = () => {
         {petIdsQuery.isError && <p>{petIdsQuery.error.message}</p>}
   
         {petIdsQuery.isLoading ? (
-          <p>Analyzing Mood...</p>
+          <p>Getting Pets...</p>
         ) : (
           (petIdsQuery.data ?? []).map((pet: Pet) => (
             <div key={pet.pet_id}>

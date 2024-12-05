@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getUserPetID } from "../services/petapi"
+import { getUserPet } from "../services/petapi"
 import Pet from "../types/Pet"
 // import { getData } from "./api"
 
@@ -12,8 +12,8 @@ import Pet from "../types/Pet"
 // }
 
 export const usePets = (userID: string) => {
-    return useQuery<Pet[] | undefined, Error>({
+    return useQuery<Pet[], Error>({
         queryKey: ["pets", userID],
-        queryFn: () => getUserPetID(userID)
+        queryFn: () => getUserPet(userID)
     })
 }

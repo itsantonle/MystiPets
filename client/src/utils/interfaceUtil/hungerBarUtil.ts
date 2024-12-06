@@ -1,6 +1,7 @@
 import { increaseVal, decreaseVal } from "./barValueUtil"
 import { getValues, sendValues } from "../../components/DB_PanelLink";
 import { useState, useEffect } from "react";
+import {manageHealth} from "../interfaceUtil/healthBarUtil";
 
 
 // const {hungerValue} = getValues(); //uncomment if DB is connected
@@ -8,6 +9,8 @@ import { useState, useEffect } from "react";
 export const hungerValue = 100
 
 export const manageHunger = () => {
+    const {trackHungerDecrease} = manageHealth();
+
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const [isHungryValue, setIsHungryValue] =  useState(hungerValue);
 
@@ -21,7 +24,7 @@ export const manageHunger = () => {
 
     // useEffect for timer
     useEffect(() => {
-        const timedEvent = setTimeout(() => {isHungry()}, 2000) //this is 60 secs
+        const timedEvent = setTimeout(() => {isHungry(), trackHungerDecrease()}, 2000) //this is 60 secs
 
         setTimer(timedEvent);
         return () => clearTimeout(timedEvent)

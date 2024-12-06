@@ -21,19 +21,19 @@ export const increaseSizeHP = () => {
   return Math.min(healthBarWidth = healthBarWidth + 17, maxHealth)
 }
 
+export const decreaseSizeHP = () => {
+  return Math.max(healthBarWidth = healthBarWidth - 17, minHealth)
+}
+
 
 export const AnimatedHealthBar: React.FC = () => {
-    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+    // const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
-    const decreaseSizeHP = () => {
-      return Math.max(healthBarWidth = healthBarWidth - 17, minHealth)
-    }
-
-    useEffect(() => {
-      const timedEvent = setTimeout(() => {decreaseSizeHP()}, timerValue) //this is 2 seconds
-      setTimer(timedEvent);
-      return () => clearTimeout(timedEvent)
-    },[healthBarWidth])
+    // useEffect(() => {
+    //   const timedEvent = setTimeout(() => {decreaseSizeHP()}, timerValue) //this is 2 seconds
+    //   setTimer(timedEvent);
+    //   return () => clearTimeout(timedEvent)
+    // },[healthBarWidth])
     
     return (
         <div className="health-bar-container" style={{width: `${healthBarWidth}px`}}>

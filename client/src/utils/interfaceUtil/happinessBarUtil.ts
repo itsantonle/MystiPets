@@ -1,13 +1,16 @@
 import { increaseVal, decreaseVal } from "./barValueUtil"
 import { getValues, sendValues } from "../../components/DB_PanelLink";
 import { useState, useEffect } from "react";
+import {manageHealth} from "../interfaceUtil/healthBarUtil";
 
 
 // const {happyValue} = getValues();
 
-export const happyValue = 0
+export const happyValue = 100
 
 export const manageHappiness = () => {
+    const {trackHappinessDecrease} = manageHealth();
+
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const [isHappyValue, setIsHappyValue] =  useState(happyValue);
 
@@ -21,20 +24,21 @@ export const manageHappiness = () => {
 
     // useEffect for timer
     useEffect(() => {
-        const timedEvent = setTimeout(() => {isSad()}, 2000) //this is 60 seconds
+        const timedEvent = setTimeout(() => {isSad(), trackHappinessDecrease()}, 2000) //this is 2 seconds
 
         setTimer(timedEvent);
         return () => clearTimeout(timedEvent)
     },[isHappyValue]) 
 
     // useEffect for sending to DB
-    useEffect(() => {
-        const sendData = setInterval(() => {
-            sendValues()
-        }, 5000) //this is 5 seconds
+    // uncomment after connected to DB
+    // useEffect(() => {
+    //     const sendData = setInterval(() => {
+    //         sendValues()
+    //     }, 5000) //this is 5 seconds
 
-        return () => clearInterval(sendData)
-    },[isHappyValue])
+    //     return () => clearInterval(sendData)
+    // },[isHappyValue])
 
     return {isHappyValue, isPlayingClicked}
 }

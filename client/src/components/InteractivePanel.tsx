@@ -7,8 +7,9 @@ import playButton from '../components/img/icons/playButton.png';
 import { getValues } from './DB_PanelLink';
 import { manageHunger } from '../utils/interfaceUtil/hungerBarUtil';
 import healthBarFrame from "./img/icons/health-bar-frame-1.png"
-import AnimatedHealthBar from './healthbar'
+import {AnimatedHealthBar} from './healthbar'
 // import * as React from "react"
+import {manageHealth} from '../utils/interfaceUtil/healthBarUtil';
 
 const Panel = () => {
     // //Uncomment if reall DB is connected
@@ -16,7 +17,18 @@ const Panel = () => {
 
     const { isHappyValue, isPlayingClicked } = manageHappiness();
     const { isHungryValue, isEatingClicked } = manageHunger();
-    
+    const {isHealthyValue, trackHungerIncrease, trackHappinessIncrease} = manageHealth();
+
+    const eatingUtils = () => {
+        isEatingClicked();
+        trackHungerIncrease();
+    }
+
+    const playingutils = () => {
+        isPlayingClicked();
+        trackHappinessIncrease();
+    }
+
     return (
         <div className = "panel-container position-absolute top-80 start-50 translate-middle">
             <div className = "counter-container">
@@ -36,11 +48,12 @@ const Panel = () => {
                 <div className="name-buttons-container">
                     <textarea className = "name-text-style" placeholder="Pet Name" readOnly></textarea>
 
-                    <button className = "button-style" type = "button" onClick={isEatingClicked}><img src={feedButton} className="img-fluid"/></button>
-                    <button className = "button-style" type = "button" onClick={isPlayingClicked}><img src={playButton} className="img-fluid"/></button>
-                    <button className = "button-style" type = "button" onClick={isPlayingClicked}><img src={playButton} className="img-fluid"/></button>
+                    <button className = "button-style" type = "button" onClick={eatingUtils}><img src={feedButton} className="img-fluid"/></button>
+                    <button className = "button-style" type = "button" onClick={playingutils}><img src={playButton} className="img-fluid"/></button>
+                    <button className = "button-style" type = "button" onClick={playingutils}><img src={playButton} className="img-fluid"/></button>
                 </div>
                 <div className="health-bar-style"> 
+                    {isHealthyValue}
                     <textarea className = "HP-text-style" placeholder="HP:" readOnly></textarea>
                     <div>
                         <img src = {healthBarFrame} className="health-bar-frame"/>

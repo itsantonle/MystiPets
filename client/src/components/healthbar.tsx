@@ -4,14 +4,16 @@ import healhBarImg from "./img/icons/health-bar1-2t.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {timerValue, maxWidth} from "../utils/interfaceUtil/barValueUtil"
 // const {isHealthyValue} = manageHealth();
-// import {isHappyValue} from "../utils/interfaceUtil/happinessBarUtil";
-// import {isHungryValue} from "../utils/interfaceUtil/hungerBarUtil";
+import {happyValue, manageHappiness} from "../utils/interfaceUtil/happinessBarUtil";
+import {manageHunger} from "../utils/interfaceUtil/hungerBarUtil";
+
 
 let healthBarWidth = 340
 
 const maxHealth = 340
 const minHealth = 0
-
+let happyVal = 100
+let hungryVal = 100
 
 export const increaseSizeHP = () => {
   if (healthBarWidth >= maxHealth) {
@@ -22,7 +24,18 @@ export const increaseSizeHP = () => {
 }
 
 export const decreaseSizeHP = () => {
-  return Math.max(healthBarWidth = healthBarWidth - 17, minHealth)
+
+  if(happyVal == 0 || hungryVal == 0){
+    console.log(`Health is at (${healthBarWidth}).`);
+    return Math.max(healthBarWidth = healthBarWidth - 34, minHealth)
+  }else if(happyVal && hungryVal == 0){
+    console.log(`Health is at (${healthBarWidth}).`);
+    return Math.max(healthBarWidth = healthBarWidth - 51, minHealth)
+  }else{
+    console.log(`Health is at (${healthBarWidth}).`);
+    return Math.max(healthBarWidth = healthBarWidth - 17, minHealth)
+  }
+  
 }
 
 
@@ -43,14 +56,3 @@ export const AnimatedHealthBar: React.FC = () => {
         </div>
     )
 }
-
-
-
-        // delete if health function is implemented
-        // const resizeInterval = setInterval(() => {
-        //   sethealthBar((prevWidth) => {
-        //     const newWidth = prevWidth > 0 ? prevWidth - 17 : 0;
-        //     console.log("This is shrinking", newWidth);
-        //     return newWidth;
-        //   });
-        // }, 2000); // Shrink the health bar every 5s

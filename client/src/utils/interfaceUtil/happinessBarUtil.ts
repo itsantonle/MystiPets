@@ -2,6 +2,7 @@ import { increaseVal, decreaseVal } from "./barValueUtil"
 import { getValues, sendValues } from "../../components/DB_PanelLink";
 import { useState, useEffect } from "react";
 import {manageHealth} from "../interfaceUtil/healthBarUtil";
+import { timerValue } from "./barValueUtil";
 
 
 // const {happyValue} = getValues();
@@ -24,7 +25,7 @@ export const manageHappiness = () => {
 
     // useEffect for timer
     useEffect(() => {
-        const timedEvent = setTimeout(() => {isSad(), trackHappinessDecrease()}, 2000) //this is 2 seconds
+        const timedEvent = setTimeout(() => {isSad(), trackHappinessDecrease()}, 6000) //this is 2 seconds
 
         setTimer(timedEvent);
         return () => clearTimeout(timedEvent)

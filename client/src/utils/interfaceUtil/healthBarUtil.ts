@@ -13,8 +13,8 @@ export const manageHealth = () => {
     //const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const [isHealthyValue, setisHealthyValue] =  useState(healthValue);
 
-    const {isHappyValue} = manageHappiness();
-    const {isHungryValue} = manageHunger();
+    // const {isHappyValue} = manageHappiness();
+    // const {isHungryValue} = manageHunger();
 
     const isCared = () => setisHealthyValue(prevValue => increaseVal(prevValue))
     const isNeglected = () => setisHealthyValue(prevValue => decreaseVal(prevValue))
@@ -47,25 +47,32 @@ export const manageHealth = () => {
     };
 
     // Reset the counters after health increases
-    const resetCounts = () => {
-        setHungerIncreaseCount(prev => prev * 0);
-        setHappinessIncreaseCount(prev => prev * 0);
+    const resetIncreaseCounts = () => {
+        setHungerIncreaseCount(0);
+        setHappinessIncreaseCount(0);
+    }
+
+    const resetDecreaseCounts = () => {
+        setHungerDecreaseCount(0);
+        setHappinessDecreaseCount(0);
     }
 
     // Check if health should increase
     const checkHealthIncrease = () => {
-        if (hungerIncreaseCount + happinessIncreaseCount == 1) {
-            resetCounts();
+        if (hungerIncreaseCount + happinessIncreaseCount == 1 || hungerIncreaseCount == 1 || happinessIncreaseCount == 1) {
+            resetIncreaseCounts();
             isCared();
             increaseSizeHP();
+            console.log('increase', happinessIncreaseCount, hungerIncreaseCount)
         }
     };
 
     const checkHealthDecrease = () => {
-        if (hungerDecreaseCount + happinessDecreaseCount == 1) {
-            resetCounts();
+        if (hungerDecreaseCount + happinessDecreaseCount == 1 || hungerDecreaseCount == 1 || happinessDecreaseCount == 1) {
+            resetDecreaseCounts();
             isNeglected();
             decreaseSizeHP();
+            console.log('decrease', happinessDecreaseCount, hungerDecreaseCount)
         }
     };
 

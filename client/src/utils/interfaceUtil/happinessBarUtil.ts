@@ -7,7 +7,7 @@ import { timerValue } from "./barValueUtil";
 
 // const {happyValue} = getValues();
 
-export const happyValue = 100
+export const happyValue = 100 //should be fetched directly from Db
 
 export const manageHappiness = () => {
     const {trackHappinessDecrease} = manageHealth();
@@ -41,5 +41,5 @@ export const manageHappiness = () => {
     //     return () => clearInterval(sendData)
     // },[isHappyValue])
 
-    return {isHappyValue, isPlayingClicked}
+    return {isHappyValue, isPlayingClicked} //isHappyValue is exported for testing without DB
 }

@@ -41,5 +41,5 @@ export const manageHunger = () => {
     //     return () => clearInterval(sendData)
     // },[isHungryValue])
 
-    return {isHungryValue, isEatingClicked}
+    return {isHungryValue, isEatingClicked} //isHungryValue is exported for testing without DB
 }

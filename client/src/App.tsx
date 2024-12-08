@@ -6,11 +6,11 @@ import { useState } from "react"
 import PetSelection from "./components/pet-selection/Pet-selection"
 
 function AuthenticatedApp() {
-  // const { signOut } = useAuth()
+  // const { signOut } = useAuth() random
 
   return (
     <div className="game-wrapper">
-      <PetSelection/>
+      <PetSelection />
     </div>
   )
 }

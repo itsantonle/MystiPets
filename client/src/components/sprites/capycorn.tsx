@@ -9,6 +9,7 @@ const Asprite = () => {
   const [x, setX] = useState(window.innerHeight / 2)
   const [y, setY] = useState(window.innerHeight / 2)
 
+  //try
   //   useEffect(() => {
   //     const handlekeydown = (e: KeyboardEvent) => {
   //       if (e.key == 'ArrowUp') setY(y - speed)

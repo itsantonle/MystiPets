@@ -4,13 +4,15 @@ import { SignUp } from "./components/Auth/SignUp"
 import { useAuth } from "./context/AuthContext"
 import { useState } from "react"
 import PetSelection from "./components/pet-selection/Pet-selection"
+import PetStage from "./Stage"
 
 function AuthenticatedApp() {
   // const { signOut } = useAuth() random
 
   return (
     <div className="game-wrapper">
-      <PetSelection />
+      {/* <PetSelection /> */}
+      <PetStage />
     </div>
   )
 }

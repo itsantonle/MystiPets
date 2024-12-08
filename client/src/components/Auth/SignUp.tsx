@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useAuth } from "../../context/AuthContext"
 import "./Auth.scss"
-import { signUptoDb } from "../../services/api"
+import { signUptoDb } from "../../services/api/api"
 
 import { UserData } from "../../types/Player"
 

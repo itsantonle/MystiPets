@@ -1,8 +1,6 @@
 import { increaseVal, decreaseVal } from "./barValueUtil"
 import { getValues, sendValues } from "../../components/DB_PanelLink";
 import { useState, useEffect } from "react";
-import {manageHappiness} from "../interfaceUtil/happinessBarUtil";
-import {manageHunger} from "../interfaceUtil/hungerBarUtil";
 import {increaseSizeHP, decreaseSizeHP} from "../../components/healthbar";
 
 
@@ -10,72 +8,53 @@ const healthValue = 100
 
 
 export const manageHealth = () => {
-    //const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const [isHealthyValue, setisHealthyValue] =  useState(healthValue);
 
-    const {isHappyValue} = manageHappiness();
-    const {isHungryValue} = manageHunger();
 
     const isCared = () => setisHealthyValue(prevValue => increaseVal(prevValue))
     const isNeglected = () => setisHealthyValue(prevValue => decreaseVal(prevValue))
 
-    const [hungerIncreaseCount, setHungerIncreaseCount] = useState(0);
-    const [happinessIncreaseCount, setHappinessIncreaseCount] = useState(0);
+    const [increaseCount, setIncreaseCount] = useState(1);
+    const [decreaseCount, setDecreaseCount] = useState(1);
 
-    const [hungerDecreaseCount, setHungerDecreaseCount] = useState(0);
-    const [happinessDecreaseCount, setHappinessDecreaseCount] = useState(0);
-
-
-    const trackHungerIncrease = () => {
-        setHungerIncreaseCount(prev => prev + 1);
+    const trackIncrease = () => {
+        setIncreaseCount(prev => prev + 1);
         checkHealthIncrease();
+        console.log('increase', increaseCount)
     };
 
-    const trackHappinessIncrease = () => {
-        setHappinessIncreaseCount(prev => prev + 1);
-        checkHealthIncrease();
-    };
-
-    const trackHungerDecrease = () => {
-        setHungerDecreaseCount(prev => prev + 1);
+    const trackDecrease = () => {
+        setDecreaseCount(prev => prev + 1);
         checkHealthDecrease();
+        console.log('decrease', decreaseCount)
     };
 
-    const trackHappinessDecrease = () => {
-        setHappinessDecreaseCount(prev => prev + 1);
-        checkHealthDecrease();
-    };
-
-    // Reset the counters after health increases
-    const resetCounts = () => {
-        setHungerIncreaseCount(prev => prev * 0);
-        setHappinessIncreaseCount(prev => prev * 0);
+    const resetIncreaseCounts = () => {
+        setIncreaseCount(1);
     }
 
-    // Check if health should increase
+    const resetDecreaseCounts = () => {
+        setDecreaseCount(1);
+    }
+
     const checkHealthIncrease = () => {
-        if (hungerIncreaseCount + happinessIncreaseCount == 1) {
-            resetCounts();
+        if (increaseCount == 2) {
+            resetDecreaseCounts();
+            resetIncreaseCounts();
             isCared();
             increaseSizeHP();
+            // console.log('increase', happinessIncreaseCount, hungerIncreaseCount)
         }
     };
 
     const checkHealthDecrease = () => {
-        if (hungerDecreaseCount + happinessDecreaseCount == 1) {
-            resetCounts();
+        if (decreaseCount == 2) {
             isNeglected();
             decreaseSizeHP();
+            resetDecreaseCounts();
+            // console.log('decrease', happinessDecreaseCount, hungerDecreaseCount)
         }
     };
-
-
-    // useEffect(() => {
-    //     const timedEvent = setTimeout(() => {isNeglected()}, 2000) //this is 2 seconds
-
-    //     setTimer(timedEvent);
-    //     return () => clearTimeout(timedEvent)
-    // },[isHealthyValue])
     
     // uncomment after connected to DB
     // useEffect(() => {
@@ -86,6 +65,6 @@ export const manageHealth = () => {
     //     return () => clearInterval(sendData)
     // },[isHealthyValue])
 
-    return {isHealthyValue, trackHungerIncrease, trackHappinessIncrease, checkHealthIncrease,
-    trackHungerDecrease, trackHappinessDecrease, checkHealthDecrease}
+    return {isHealthyValue, trackIncrease, checkHealthIncrease,
+    trackDecrease, checkHealthDecrease}
 }

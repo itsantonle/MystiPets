@@ -17,16 +17,16 @@ const Panel = () => {
 
     const { isHappyValue, isPlayingClicked } = manageHappiness();
     const { isHungryValue, isEatingClicked } = manageHunger();
-    const {isHealthyValue, trackHungerIncrease, trackHappinessIncrease} = manageHealth();
+    const {isHealthyValue, trackIncrease} = manageHealth();
 
     const eatingUtils = () => {
         isEatingClicked();
-        trackHungerIncrease();
+        trackIncrease();
     }
 
     const playingutils = () => {
         isPlayingClicked();
-        trackHappinessIncrease();
+        trackIncrease();
     }
 
     return (
@@ -38,7 +38,7 @@ const Panel = () => {
                 {/* --------------------------------- */}
 
 
-                {/* Uncomment if reall DB is connected */}
+                {/* Uncomment if real DB is connected */}
                 {/* <div className = "counter-style"> <img src={happyStar} className="img-fluid" />: {loading ? 'Loading...' : error ? `Error: ${error}` :isHappyValue} </div>
                 <div className = "counter-style"> <img src={meat} className="img-fluid" />: {loading ? 'Loading...' : error ? `Error: ${error}` : isHungryValue} </div> */}
                 

@@ -4,8 +4,6 @@ import {Hydra_Idle} from "../img/Animations"
 export type dimensions = { x: number; y: number; s: number }
 
 const HydraSprite = ({ x, y, s}: dimensions) => {
-  
-    
   return (
     <>
       <AnimatedSprite

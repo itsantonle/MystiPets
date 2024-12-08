@@ -13,8 +13,9 @@ import {
 } from "../utils/errorHandling"
 
 export const getPenalties = async (req: Request, res: Response): Promise<void> => {
+  const { player_uuid } = req.params
   try {
-    const response = await pool.query("SELECT * FROM penalty");
+    const response = await pool.query("SELECT player_penalty FROM player WHERE player_uuid = $1", [player_uuid]);
     res.status(StatusCodes.OK).json(successResponse(response.rows));
   } catch (error) {
     console.error(error)
@@ -36,6 +37,25 @@ export const createPenalty = async (req: Request, res: Response): Promise<void> 
   } catch (error) {
     console.error(error);
     res.status(StatusCodes.BAD_REQUEST).json(unsucessfulPostResponse());
+  }
+};
+
+export const assignPenalty = async (req: Request, res: Response): Promise<void> => {
+  const { player_uuid } = req.params
+  const { player_penalty } = req.body
+
+  try {
+    const response = await pool.query(
+      `UPDATE player 
+       SET player_penalty = $1 
+       WHERE player_uuid = $2`,
+      [player_penalty, player_uuid]
+    );
+
+    res.status(StatusCodes.OK).json(successUpdateResponse(response.rows[0]));
+  } catch (error) {
+    console.error(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(internalErrorResponse());
   }
 };
 
@@ -89,6 +109,24 @@ export const updatePenaltyDescription = async (req: Request, res: Response): Pro
   } catch (error) {
     console.error(error);
     res.status(StatusCodes.BAD_REQUEST).json(unsucessfulUpdateResponse());
+  }
+};
+
+export const deletePlayerPenalty = async (req: Request, res: Response): Promise<void> => {
+  const { player_uuid } = req.params;
+  try {
+    const response = await pool.query(
+      `UPDATE player 
+       SET player_penalty = NULL 
+       WHERE player_uuid = $1`, 
+      [player_uuid]
+    );
+
+    res.status(StatusCodes.OK).json(sucessfulDeleteResponse());
+    
+  } catch (error) {
+    console.error(error);
+    res.status(StatusCodes.BAD_REQUEST).json(unsucessfulDeleteResponse());
   }
 };
 

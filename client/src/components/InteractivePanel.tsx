@@ -2,12 +2,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { manageHappiness } from '../utils/interfaceUtil/happinessBarUtil';
 import happyStar from '../components/img/icons/happy_star.png';
 import meat from '../components/img/icons/meat.png';
-import healthBar from '../components/img/icons/health-bar1.png';
 import feedButton from '../components/img/icons/feedButton.png';
 import playButton from '../components/img/icons/playButton.png';
 import { getValues } from './DB_PanelLink';
 import { manageHunger } from '../utils/interfaceUtil/hungerBarUtil';
+import healthBarFrame from "./img/icons/health-bar-frame-1.png"
+import {AnimatedHealthBar} from './healthbar'
 // import * as React from "react"
+import {manageHealth} from '../utils/interfaceUtil/healthBarUtil';
 
 const Panel = () => {
     // //Uncomment if reall DB is connected
@@ -15,7 +17,18 @@ const Panel = () => {
 
     const { isHappyValue, isPlayingClicked } = manageHappiness();
     const { isHungryValue, isEatingClicked } = manageHunger();
-    
+    const {isHealthyValue, trackIncrease} = manageHealth();
+
+    const eatingUtils = () => {
+        isEatingClicked();
+        trackIncrease();
+    }
+
+    const playingutils = () => {
+        isPlayingClicked();
+        trackIncrease();
+    }
+
     return (
         <div className = "panel-container position-absolute top-80 start-50 translate-middle">
             <div className = "counter-container">
@@ -25,7 +38,7 @@ const Panel = () => {
                 {/* --------------------------------- */}
 
 
-                {/* Uncomment if reall DB is connected */}
+                {/* Uncomment if real DB is connected */}
                 {/* <div className = "counter-style"> <img src={happyStar} className="img-fluid" />: {loading ? 'Loading...' : error ? `Error: ${error}` :isHappyValue} </div>
                 <div className = "counter-style"> <img src={meat} className="img-fluid" />: {loading ? 'Loading...' : error ? `Error: ${error}` : isHungryValue} </div> */}
                 
@@ -35,13 +48,17 @@ const Panel = () => {
                 <div className="name-buttons-container">
                     <textarea className = "name-text-style" placeholder="Pet Name" readOnly></textarea>
 
-                    <button className = "button-style" type = "button" onClick={isEatingClicked}><img src={feedButton} className="img-fluid"/></button>
-                    <button className = "button-style" type = "button" onClick={isPlayingClicked}><img src={playButton} className="img-fluid"/></button>
-                    <button className = "button-style" type = "button" onClick={isPlayingClicked}><img src={playButton} className="img-fluid"/></button>
+                    <button className = "button-style" type = "button" onClick={eatingUtils}><img src={feedButton} className="img-fluid"/></button>
+                    <button className = "button-style" type = "button" onClick={playingutils}><img src={playButton} className="img-fluid"/></button>
+                    <button className = "button-style" type = "button" onClick={playingutils}><img src={playButton} className="img-fluid"/></button>
                 </div>
                 <div className="health-bar-style"> 
-                    <textarea className = "HP-text-style" placeholder="HP" readOnly></textarea>
-                    <img src={healthBar} className="img-fluid"/>
+                    {isHealthyValue}
+                    <textarea className = "HP-text-style" placeholder="HP:" readOnly></textarea>
+                    <div>
+                        <img src = {healthBarFrame} className="health-bar-frame"/>
+                        <AnimatedHealthBar/>
+                    </div>
                 </div>
             </div>
 

@@ -10,7 +10,7 @@ import { timerValue } from "./barValueUtil";
 export const hungerValue = 100
 
 export const manageHunger = () => {
-    const {trackHungerDecrease} = manageHealth();
+    const {trackDecrease} = manageHealth();
 
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const [isHungryValue, setIsHungryValue] =  useState(hungerValue);
@@ -25,7 +25,7 @@ export const manageHunger = () => {
 
     // useEffect for timer
     useEffect(() => {
-        const timedEvent = setTimeout(() => {isHungry(), trackHungerDecrease()}, 5000) //this is 60 secs
+        const timedEvent = setTimeout(() => {isHungry(), trackDecrease()}, 5000) //this is 60 secs
 
         setTimer(timedEvent);
         return () => clearTimeout(timedEvent)

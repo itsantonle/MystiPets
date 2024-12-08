@@ -10,7 +10,7 @@ import { timerValue } from "./barValueUtil";
 export const happyValue = 100 //should be fetched directly from Db
 
 export const manageHappiness = () => {
-    const {trackHappinessDecrease} = manageHealth();
+    const {trackDecrease} = manageHealth();
 
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const [isHappyValue, setIsHappyValue] =  useState(happyValue);
@@ -25,7 +25,7 @@ export const manageHappiness = () => {
 
     // useEffect for timer
     useEffect(() => {
-        const timedEvent = setTimeout(() => {isSad(), trackHappinessDecrease()}, 6000) //this is 2 seconds
+        const timedEvent = setTimeout(() => {isSad(), trackDecrease()}, 6000) //this is 2 seconds
 
         setTimer(timedEvent);
         return () => clearTimeout(timedEvent)

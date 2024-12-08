@@ -17,16 +17,16 @@ const Panel = () => {
 
     const { isHappyValue, isPlayingClicked } = manageHappiness();
     const { isHungryValue, isEatingClicked } = manageHunger();
-    const {isHealthyValue, trackHungerIncrease, trackHappinessIncrease} = manageHealth();
+    const {isHealthyValue, trackIncrease} = manageHealth();
 
     const eatingUtils = () => {
         isEatingClicked();
-        trackHungerIncrease();
+        trackIncrease();
     }
 
     const playingutils = () => {
         isPlayingClicked();
-        trackHappinessIncrease();
+        trackIncrease();
     }
 
     return (

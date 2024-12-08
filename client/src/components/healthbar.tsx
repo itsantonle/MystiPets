@@ -24,32 +24,26 @@ export const increaseSizeHP = () => {
 }
 
 export const decreaseSizeHP = () => {
-  
-  if(happyVal == 0 && hungryVal == 0){
-    console.log(`Health is at (${healthBarWidth}). Deduction: 51px`);
-    return Math.max(healthBarWidth = healthBarWidth - 51, minHealth)
-  }else if(happyVal == 0 || hungryVal == 0){
-    console.log(`Health is at (${healthBarWidth}).Deduction: 34px`);
-    return Math.max(healthBarWidth = healthBarWidth - 34, minHealth)
-  }else if(happyVal <= 50 || hungryVal <= 50){
-    console.log(`Health is at (${healthBarWidth}).Deduction: 26px`);
-    return Math.max(healthBarWidth = healthBarWidth - 26, minHealth)
-  }else{
-    console.log(`Health is at (${healthBarWidth}).Deduction: 17px`);
-    return Math.max(healthBarWidth = healthBarWidth - 17, minHealth)
-  }
+  console.log(`Health is at (${healthBarWidth}).Deduction: 17px`);
+  return Math.max(healthBarWidth = healthBarWidth - 17, minHealth)
+  // if(happyVal == 0 && hungryVal == 0){
+  //   console.log(`Health is at (${healthBarWidth}). Deduction: 51px`);
+  //   return Math.max(healthBarWidth = healthBarWidth - 51, minHealth)
+  // }else if(happyVal == 0 || hungryVal == 0){
+  //   console.log(`Health is at (${healthBarWidth}).Deduction: 34px`);
+  //   return Math.max(healthBarWidth = healthBarWidth - 34, minHealth)
+  // }else if(happyVal <= 50 || hungryVal <= 50){
+  //   console.log(`Health is at (${healthBarWidth}).Deduction: 26px`);
+  //   return Math.max(healthBarWidth = healthBarWidth - 26, minHealth)
+  // }else{
+  //   console.log(`Health is at (${healthBarWidth}).Deduction: 17px`);
+  //   return Math.max(healthBarWidth = healthBarWidth - 17, minHealth)
+  // }
   
 }
 
 
 export const AnimatedHealthBar: React.FC = () => {
-    // const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
-
-    // useEffect(() => {
-    //   const timedEvent = setTimeout(() => {decreaseSizeHP()}, timerValue) //this is 2 seconds
-    //   setTimer(timedEvent);
-    //   return () => clearTimeout(timedEvent)
-    // },[healthBarWidth])
     
     return (
         <div className="health-bar-container" style={{width: `${healthBarWidth}px`}}>

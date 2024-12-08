@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getUserPet } from "../services/petapi"
+import { getUserPet } from "./api/petapi"
 import Pet from "../types/Pet"
 // import { getData } from "./api"
 

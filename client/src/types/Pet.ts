@@ -1,4 +1,4 @@
-type Pet = {
+export type Pet = {
   pet_id: number
   pet_name: string
   pet_type: "Hydra" | "Capybara"
@@ -11,5 +11,3 @@ type Pet = {
   mood_id?: number
   player_uuid?: string
 }
-
-export default Pet

@@ -5,14 +5,24 @@ import { useAuth } from "./context/AuthContext"
 import { useState } from "react"
 import PetSelection from "./components/pet-selection/Pet-selection"
 import PetStage from "./Stage"
+import { usePets } from "./services/queries/petQueries"
+import { Pet } from "./types/Pet"
 
 function AuthenticatedApp() {
   // const { signOut } = useAuth() random
+  const { user } = useAuth()
+  const { data, isPending, isSuccess } = usePets(user!.id)
 
   return (
     <div className="game-wrapper">
       {/* <PetSelection /> */}
-      <PetStage />
+      {isPending ? (
+        <p>Loading....</p>
+      ) : isSuccess ? (
+        <PetStage pet={data[0]} />
+      ) : (
+        <PetSelection />
+      )}
     </div>
   )
 }

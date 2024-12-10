@@ -5,22 +5,18 @@ import {manageHealth} from "../interfaceUtil/healthBarUtil";
 import { timerValue } from "./barValueUtil";
 
 
-// const {happyValue} = getValues();
-
-export const happyValue = 100 //should be fetched directly from Db
-
-export const manageHappiness = () => {
+export const manageHappiness = (DBhappyVal: number) => {
     const {trackDecrease} = manageHealth();
 
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
-    const [isHappyValue, setIsHappyValue] =  useState(happyValue);
+    const [utilHappyVal, setUtilHappyVal] =  useState(DBhappyVal);
 
-    const isPlaying = () => setIsHappyValue(prevValue => increaseVal(prevValue))
-    const isSad = () => setIsHappyValue(prevValue => decreaseVal(prevValue))
+    const isPlaying = () => setUtilHappyVal(prevValue => increaseVal(prevValue))
+    const isSad = () => setUtilHappyVal(prevValue => decreaseVal(prevValue))
 
     const isPlayingClicked = () => {   //<- triggered by play button
         isPlaying()
-        return isHappyValue
+        return utilHappyVal
     };
 
     // useEffect for timer
@@ -29,17 +25,5 @@ export const manageHappiness = () => {
 
         setTimer(timedEvent);
         return () => clearTimeout(timedEvent)
-    },[isHappyValue]) 
-
-    // useEffect for sending to DB
-    // uncomment after connected to DB
-    // useEffect(() => {
-    //     const sendData = setInterval(() => {
-    //         sendValues()
-    //     }, 5000) //this is 5 seconds
-
-    //     return () => clearInterval(sendData)
-    // },[isHappyValue])
-
-    return {isHappyValue, isPlayingClicked} //isHappyValue is exported for testing without DB
+    },[utilHappyVal]) 
 }

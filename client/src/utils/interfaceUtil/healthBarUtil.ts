@@ -4,15 +4,15 @@ import { useState, useEffect } from "react";
 import {increaseSizeHP, decreaseSizeHP} from "../../components/healthbar";
 
 
-const healthValue = 100
 
 
-export const manageHealth = () => {
-    const [isHealthyValue, setisHealthyValue] =  useState(healthValue);
+
+export const manageHealth = (DBhealthVal: number) => {
+    const [utilHealthyVal, setUtilHealthyVal] =  useState(DBhealthVal);
 
 
-    const isCared = () => setisHealthyValue(prevValue => increaseVal(prevValue))
-    const isNeglected = () => setisHealthyValue(prevValue => decreaseVal(prevValue))
+    const isCared = () => setUtilHealthyVal(prevValue => increaseVal(prevValue))
+    const isNeglected = () => setUtilHealthyVal(prevValue => decreaseVal(prevValue))
 
     const [increaseCount, setIncreaseCount] = useState(1);
     const [decreaseCount, setDecreaseCount] = useState(1);
@@ -20,13 +20,11 @@ export const manageHealth = () => {
     const trackIncrease = () => {
         setIncreaseCount(prev => prev + 1);
         checkHealthIncrease();
-        console.log('increase', increaseCount)
     };
 
     const trackDecrease = () => {
         setDecreaseCount(prev => prev + 1);
         checkHealthDecrease();
-        console.log('decrease', decreaseCount)
     };
 
     const resetIncreaseCounts = () => {
@@ -43,7 +41,6 @@ export const manageHealth = () => {
             resetIncreaseCounts();
             isCared();
             increaseSizeHP();
-            // console.log('increase', happinessIncreaseCount, hungerIncreaseCount)
         }
     };
 
@@ -52,19 +49,9 @@ export const manageHealth = () => {
             isNeglected();
             decreaseSizeHP();
             resetDecreaseCounts();
-            // console.log('decrease', happinessDecreaseCount, hungerDecreaseCount)
         }
     };
-    
-    // uncomment after connected to DB
-    // useEffect(() => {
-    //     const sendData = setInterval(() => {
-    //         sendValues()
-    //     }, 5000) //this is 5 seconds
 
-    //     return () => clearInterval(sendData)
-    // },[isHealthyValue])
-
-    return {isHealthyValue, trackIncrease, checkHealthIncrease,
+    return {utilHealthyVal, trackIncrease, checkHealthIncrease,
     trackDecrease, checkHealthDecrease}
 }

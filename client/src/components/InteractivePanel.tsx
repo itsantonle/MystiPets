@@ -12,46 +12,37 @@ import { AnimatedHealthBar } from "./healthbar"
 import { manageHealth } from "../utils/interfaceUtil/healthBarUtil"
 import { usePets } from "../services/queries/petQueries"
 import { useAuth } from "../context/AuthContext"
+import { updatePetHunger } from "../services/api/petapi"
+
 
 const Panel = () => {
+  const updateHungerHook = updatePetHunger()
   const { user } = useAuth()
   const pet = usePets(user!.id).data![0]
 
-  // //Uncomment if reall DB is connected
-  // const { happyValue, hungerValue, healthValue, error, loading } = getValues();
-
-  const { isHappyValue, isPlayingClicked } = manageHappiness()
-  const { isHungryValue, isEatingClicked } = manageHunger()
-  const { isHealthyValue, trackIncrease } = manageHealth()
+  const { trackIncrease } = manageHealth() //<=========Add argument here?
 
   const eatingUtils = () => {
-    isEatingClicked()
     trackIncrease()
   }
 
   const playingutils = () => {
-    isPlayingClicked()
     trackIncrease()
   }
 
   return (
     <div className="panel-container position-absolute top-80 start-50 translate-middle">
       <div className="counter-container">
-        {/* Delete after DB implementation -------------*/}
         <div className="counter-style">
           {" "}
           <img src={happyStar} className="img-fluid" />:{" "}
-          {isHappyValue}{" "}
+          {}{" "} {/* <================================= PLACE HAPPY FETCH VALUE HERE*/}
         </div>
         <div className="counter-style">
           {" "}
-          <img src={meat} className="img-fluid" />: {isHungryValue}{" "}
+          <img src={meat} className="img-fluid" />: {}{" "}  {/* <============================= PLACE HUNGER FETCH VALUE HERE*/}
         </div>
-        {/* --------------------------------- */}
-
-        {/* Uncomment if real DB is connected */}
-        {/* <div className = "counter-style"> <img src={happyStar} className="img-fluid" />: {loading ? 'Loading...' : error ? `Error: ${error}` :isHappyValue} </div>
-                <div className = "counter-style"> <img src={meat} className="img-fluid" />: {loading ? 'Loading...' : error ? `Error: ${error}` : isHungryValue} </div> */}
+  
       </div>
 
       <div className="name-bar-button-container">

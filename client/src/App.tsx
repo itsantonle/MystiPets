@@ -18,7 +18,7 @@ function AuthenticatedApp() {
       {/* <PetSelection /> */}
       {isPending ? (
         <p>Loading....</p>
-      ) : isSuccess ? (
+      ) : isSuccess && data.length > 0 ? (
         <PetStage pet={data[0]} />
       ) : (
         <PetSelection />

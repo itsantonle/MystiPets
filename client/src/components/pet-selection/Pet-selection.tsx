@@ -1,27 +1,34 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { useAuth } from '../../context/AuthContext'
-import './Pet-selection.scss'
+import { useState } from "react"
+import { useAuth } from "../../context/AuthContext"
+import "./Pet-selection.scss"
+import { useCreatePet } from "../../services/mutations/petmutations"
+import { Pet } from "../../types/Pet"
 
-interface Pet {
+interface Pets {
   name: string
-  image: string
-  type: 'HYDRA' | 'CAPYCORN'
+  image?: string
+  type: "Hydra" | "Capycorn"
 }
 
 export default function PetSelection() {
-  const [selectedPet, setSelectedPet] = useState<Pet | null>(null)
-  const [petName, setPetName] = useState('')
-  const { signOut } = useAuth()
+  const useCreatePetMutation = useCreatePet()
+  const [selectedPet, setSelectedPet] = useState<Pets | null>(null)
+  const [petName, setPetName] = useState("")
+  const { signOut, user } = useAuth()
 
   const handleStartAdventure = () => {
     if (selectedPet && petName) {
-      // Handle adventure start logic
-      // console.log('Starting adventure with:', { pet: selectedPet, name: petName })
+      const newPet: Pet = {
+        pet_name: petName,
+        pet_type: selectedPet.type,
+        player_uuid: user!.id,
+      }
+      useCreatePetMutation.mutate(newPet)
+      location.reload()
     }
   }
-  
 
   return (
     <div className="gameContainer">
@@ -33,19 +40,35 @@ export default function PetSelection() {
       <h2 className="chooseTitle">CHOOSE YOUR PET</h2>
 
       <div className="petSelection">
-        <div 
-          className={`petCard ${selectedPet?.type === 'HYDRA' ? 'selected' : ''}`}
-          onClick={() => setSelectedPet({ type: 'HYDRA', name: 'HYDRA', image: '/hydra.png' })}
+        <div
+          className={`petCard ${selectedPet?.type === "Hydra" ? "selected" : ""}`}
+          onClick={() =>
+            setSelectedPet({
+              type: "Hydra",
+              name: "HYDRA",
+              image: "/hydra.png",
+            })
+          }
         >
           <img src="/hydra.png" alt="Hydra" className="petImage" />
           <p className="petName">HYDRA</p>
         </div>
 
-        <div 
-          className={`petCard ${selectedPet?.type === 'CAPYCORN' ? 'selected' : ''}`}
-          onClick={() => setSelectedPet({ type: 'CAPYCORN', name: 'CAPYCORN', image: '/capycorn.png' })}
+        <div
+          className={`petCard ${selectedPet?.type === "Capycorn" ? "selected" : ""}`}
+          onClick={() =>
+            setSelectedPet({
+              type: "Capycorn",
+              name: "CAPYCORN",
+              image: "/capycorn.png",
+            })
+          }
         >
-          <img src="/capycorn.png" alt="Capycorn" className="petImage" />
+          <img
+            src="/capycorn.png"
+            alt="Capycorn"
+            className="petImage"
+          />
           <p className="petName">CAPYCORN</p>
         </div>
       </div>
@@ -53,27 +76,26 @@ export default function PetSelection() {
       <div className="nameInputContainer">
         <input
           type="text"
-          placeholder= "My name Pwease"
+          placeholder="My name Pwease"
           value={petName}
           onChange={(e) => setPetName(e.target.value)}
           className="pixelInput"
           maxLength={20}
-          aria-label='Enter Pet Name'
+          aria-label="Enter Pet Name"
         />
-        
+
         <button
           className="startButton"
           onClick={handleStartAdventure}
           disabled={!selectedPet || !petName}
         >
-        {!selectedPet
-          ? "Choose your pet first"
-          : !petName
-          ? "Give me a Name"
-          : "START"
-        }
+          {!selectedPet
+            ? "Choose your pet first"
+            : !petName
+              ? "Give me a Name"
+              : "START"}
         </button>
       </div>
     </div>
   )
-} 
+}

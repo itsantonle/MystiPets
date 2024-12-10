@@ -34,18 +34,7 @@ export const createPet = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const {
-    player_uuid,
-    pet_name,
-    pet_type,
-    hunger_status,
-    happiness_status,
-    is_dead,
-    has_left,
-    health,
-    food_id,
-    mood_id,
-  } = req.body
+  const { player_uuid, pet_name, pet_type } = req.body
   try {
     const response = await pool.query(
       `INSERT INTO pet
@@ -54,11 +43,7 @@ export const createPet = async (
             pet_type
             ) 
             VALUES ($1, $2, $3)`,
-      [
-        player_uuid,
-        pet_name,
-        pet_type
-      ],
+      [player_uuid, pet_name, pet_type],
     )
     res
       .status(StatusCodes.CREATED)

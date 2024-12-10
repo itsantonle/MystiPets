@@ -1,4 +1,4 @@
-import { increaseVal, decreaseVal } from "./barValueUtil";
+import { increaseVal, decreaseVal } from "./barValueUtil"
 
 let ItHasReachedZero = false // Tracks if the value has reached zero
 let current = 25
@@ -7,7 +7,19 @@ const maxVal = 100
 // Store the last run timestamp
 let lastRunTimestamp: number = Date.now()
 
+export const deadPenaltyLogic = () => {
+  // cram all the shiz that happens if it's dead
+  // actually just cream the del
+  return "dead"
+}
+
+export const ranAwayPenaltyLogic = () => {
+  // cram all the shiz if it's ran away
+  return "run away"
+}
+
 // Function to apply a penalty if 2 hours have passed
+// too generic please specify the penalty for more concrete util
 export const applyPenalty = () => {
   const now = Date.now()
   const timeElapsed = now - lastRunTimestamp // Time in milliseconds

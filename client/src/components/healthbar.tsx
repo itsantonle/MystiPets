@@ -1,39 +1,56 @@
-import { manageHealth } from "../utils/interfaceUtil/healthBarUtil"
 import healhBarImg from "./img/icons/health-bar1-2t.png"
 import "bootstrap/dist/css/bootstrap.min.css"
-import {
-  timerValue,
-  maxWidth,
-} from "../utils/interfaceUtil/barValueUtil"
-// const {isHealthyValue} = manageHealth();
-import { manageHappiness } from "../utils/interfaceUtil/happinessBarUtil"
-import { manageHunger } from "../utils/interfaceUtil/hungerBarUtil"
-
-let healthBarWidth = 340
-
-const maxHealth = 340
-const minHealth = 0
-let happyVal = 80 //should be fetched directly from Db
-let hungryVal = 30 //should be fetched directly from Db
-
+import { useUpdateHealth } from "../services/mutations/petmutations"
+import { usePets } from "../services/queries/petQueries"
+import { useAuth } from "../context/AuthContext"
+import { useEffect, useState } from "react"
 
 //Fetch happiness here
 //Fetch hunger here
 
-export const increaseSizeHP = () => {
-  if (healthBarWidth >= maxHealth) {
-    console.log(`Health is already at maximum (${healthBarWidth}).`)
-    return healthBarWidth
-  }
-  return Math.min((healthBarWidth = healthBarWidth + 17), maxHealth)
-}
+// export const increaseSizeHP = () => {
+//   if (healthBarWidth >= maxHealth) {
+//     console.log(`Health is already at maximum (${healthBarWidth}).`)
+//     // toasters
+//     return healthBarWidth
+//   }
+//   return Math.min((healthBarWidth = healthBarWidth + 17), maxHealth)
+// }
 
-export const decreaseSizeHP = () => { 
-  console.log(`Health is at (${healthBarWidth}).Deduction: 17px`)
-  return Math.max((healthBarWidth = healthBarWidth - 17), minHealth) //after happiness 50 or 50 hunger
-}
+// export const decreaseSizeHP = () => {
+//   console.log(`Health is at (${healthBarWidth}).Deduction: 17px`)
+//   return Math.max((healthBarWidth = healthBarWidth - 17), minHealth) //after happiness 50 or 50 hunger
+// }
 
-export const AnimatedHealthBar: React.FC = () => {
+// 170: 50
+// 340: 100
+
+// 3.4 barwidth : 1 HP
+export const AnimatedHealthBar = () => {
+  const { user } = useAuth()
+
+  const pet = usePets(user!.id).data![0]
+  const currentBarWidth = pet.health! <= 0 ? 0 : pet.health! * 3.4
+  const updateHealthMutation = useUpdateHealth()
+  const [healthBarWidth, setHealthBarWidth] =
+    useState(currentBarWidth)
+
+  // every 5 minus health  17 minus width
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (healthBarWidth > 0) {
+        updateHealthMutation.mutateAsync({
+          player_uuid: user!.id,
+          health: pet!.health! <= 0 ? 0 : pet!.health! - 5,
+        })
+      }
+      setHealthBarWidth(healthBarWidth <= 0 ? 0 : healthBarWidth - 17)
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [updateHealthMutation])
+
+  //   console.log(`pethealth: ${pet!.health} barwidth: ${healthBarWidth}`)   //
   return (
     <div
       className="health-bar-container"

@@ -66,5 +66,25 @@ const handleZeroValue = () => {
   }
 }
 
+// const willRunAway = (
+//         DBhappyval: number,
+//         DBhealthval: number,
+//         hasRunAwayPenalty: boolean,
+//       ) => {
+//         if (
+//           (hasRunAwayPenalty =
+//             false && DBhappyval < 20 && DBhealthval > 0)
+//         ) {
+//           ranAwayPenaltyLogic()
+//         }
+//         const willDie = (
+//           DBhealthval: number,
+//           hasDeadPenalty: boolean,
+//         ) => {
+//           if (hasDeadPenalty == false && DBhealthval == 0) {
+//             deadPenaltyLogic()
+//           }
+//         }
+
 // Periodic penalty check every minute
 setInterval(applyPenalty, 60 * 1000) // Check for penalty every 1 minute

@@ -1,13 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css"
-
+import { AnimatedHealthBar } from "./healthbar"
 import happyStar from "../components/img/icons/happy_star.png"
 import meat from "../components/img/icons/meat.png"
 import feedButton from "../components/img/icons/feedButton.png"
 import playButton from "../components/img/icons/playButton.png"
 import healthBarFrame from "./img/icons/health-bar-frame-1.png"
-import { AnimatedHealthBar } from "./healthbar"
 // import * as React from "react"
-import { manageHealth } from "../utils/interfaceUtil/healthBarUtil"
+// import { manageHealth } from "../utils/interfaceUtil/healthBarUtil"
 import { usePets } from "../services/queries/petQueries"
 import { useAuth } from "../context/AuthContext"
 import {
@@ -43,29 +42,9 @@ const Panel = () => {
       // updateHappinessMutation.mutate()
       // updateHungerMutation.mutate()
       // 3000 ms = 3 seconds change accordingly
-      const willRunAway = (
-        DBhappyval: number,
-        DBhealthval: number,
-        hasRunAwayPenalty: boolean,
-      ) => {
-        if (
-          (hasRunAwayPenalty =
-            false && DBhappyval < 20 && DBhealthval > 0)
-        ) {
-          ranAwayPenaltyLogic()
-        }
-        const willDie = (
-          DBhealthval: number,
-          hasDeadPenalty: boolean,
-        ) => {
-          if (hasDeadPenalty == false && DBhealthval == 0) {
-            deadPenaltyLogic()
-          }
-        }
-        willDie(pet.health!, false)
-        willRunAway(pet.happiness_status!, pet.health!, false)
-        // don't hard code the boolean check in the DB
-      }
+      // willDie(pet.health!, false)
+      // willRunAway(pet.happiness_status!, pet.health!, false)
+      // don't hard code the boolean check in the DB
     }, 3000)
 
     //umnmount interval per run
@@ -75,7 +54,7 @@ const Panel = () => {
   //updateHappinessMutation.mutate() and updateHungerMutation.mutate() are candidates
   // call isNotEating isNotPlaying util function to decrease on a constant rate per interval
 
-  const { trackIncrease, utilHealthyVal } = manageHealth(pet.health!) //<=========Add argument here?
+  // const { trackIncrease, utilHealthyVal } = manageHealth(pet.health!) //<=========Add argument here?
   // uneeded
 
   // const eatingUtils = () => {
@@ -93,19 +72,23 @@ const Panel = () => {
 
   const eatingButtonClicked = () => {
     // run updateHungerval muation here with isEating util instead of notEating
-    const hungerParam = {
-      player_uuid: user!.id,
-      hunger_status: isEating(pet.hunger_status!),
+    if (pet.hunger_status! <= 95) {
+      const hungerParam = {
+        player_uuid: user!.id,
+        hunger_status: isEating(pet.hunger_status!),
+      }
+      updateHungerMutation.mutate(hungerParam)
     }
-    updateHungerMutation.mutate(hungerParam)
   }
 
   const playingButtonClicked = () => {
-    const happyParam = {
-      player_uuid: user!.id,
-      happiness_status: isPlaying(pet.happiness_status!),
+    if (pet.happiness_status! <= 95) {
+      const happyParam = {
+        player_uuid: user!.id,
+        happiness_status: isPlaying(pet.happiness_status!),
+      }
+      updateHappinessMutation.mutate(happyParam)
     }
-    updateHappinessMutation.mutate(happyParam)
   }
 
   return (
@@ -134,6 +117,7 @@ const Panel = () => {
             className="button-style"
             type="button"
             onClick={eatingButtonClicked}
+            disabled={updateHungerMutation.isPending ? true : false}
           >
             <img src={feedButton} className="img-fluid" />
           </button>
@@ -141,13 +125,9 @@ const Panel = () => {
             className="button-style"
             type="button"
             onClick={playingButtonClicked}
-          >
-            <img src={playButton} className="img-fluid" />
-          </button>
-          <button
-            className="button-style"
-            type="button"
-            onClick={playingButtonClicked}
+            disabled={
+              updateHappinessMutation.isPending ? true : false
+            }
           >
             <img src={playButton} className="img-fluid" />
           </button>
@@ -156,7 +136,7 @@ const Panel = () => {
           <textarea
             className="HP-text-style"
             placeholder="HP:"
-            value={utilHealthyVal}
+            value={""}
             readOnly
           ></textarea>
           <div>

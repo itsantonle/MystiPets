@@ -1,7 +1,7 @@
 import { increaseVal, decreaseVal } from "./barValueUtil"
 import { getValues, sendValues } from "../../components/DB_PanelLink"
 import { useState, useEffect } from "react"
-import { manageHealth } from "../interfaceUtil/healthBarUtil"
+// import { manageHealth } from "../interfaceUtil/healthBarUtil"
 import { timerValue } from "./barValueUtil"
 
 // delete manage happiness
@@ -19,7 +19,7 @@ export const notPlaying = (DBhappyval: number) => {
 }
 
 export const manageHappiness = (DBhappyVal: number) => {
-  const { trackDecrease } = manageHealth(100) /// bruh what is this? no need to track decrease since we're getting from db
+  // const { trackDecrease } = manageHealth(100) /// bruh what is this? no need to track decrease since we're getting from db
 
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
   const [utilHappyVal, setUtilHappyVal] = useState(DBhappyVal)

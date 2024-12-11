@@ -5,11 +5,11 @@ import { manageHealth } from "../interfaceUtil/healthBarUtil"
 import { timerValue } from "./barValueUtil"
 
 export const isEating = (DBhungerval: number) => {
-  return DBhungerval + 10
+  return DBhungerval + 5
 }
 
 export const isNotEating = (DBhungerval: number) => {
-  return DBhungerval - 10
+  return DBhungerval - 5
 }
 //no need for manage hunger
 

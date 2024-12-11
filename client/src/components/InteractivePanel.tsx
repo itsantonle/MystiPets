@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import { AnimatedHealthBar } from "./healthbar"
-import happyStar from "../components/img/icons/happy_star.png"
-import meat from "../components/img/icons/meat.png"
+import { HappinessDisplay } from "./HappinessDisplay"
+import { HungerDisplay } from "./HungerDisplay"
 import feedButton from "../components/img/icons/feedButton.png"
 import playButton from "../components/img/icons/playButton.png"
 import healthBarFrame from "./img/icons/health-bar-frame-1.png"
@@ -77,14 +77,8 @@ const Panel = () => {
   return (
     <div className="panel-container position-absolute top-80 start-50 translate-middle">
       <div className="counter-container">
-        <div className="counter-style">
-          <img src={happyStar} className="img-fluid" />
-          {pet.happiness_status}
-        </div>
-        <div className="counter-style">
-          <img src={meat} className="img-fluid" />
-          {pet.hunger_status}
-        </div>
+        <HappinessDisplay/>
+        <HungerDisplay/>
       </div>
 
       <div className="name-bar-button-container">

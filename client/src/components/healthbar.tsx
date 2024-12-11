@@ -5,21 +5,6 @@ import { usePets } from "../services/queries/petQueries"
 import { useAuth } from "../context/AuthContext"
 import { useEffect, useState } from "react"
 
-//Fetch happiness here
-//Fetch hunger here
-
-//Logic Overview: - Health only start auto decreasing at 30% health =>  Done
-//                - Health will increase automatically once Happiness and Hunger is full again => not done
-
-// export const increaseSizeHP = () => {
-//   if (healthBarWidth >= maxHealth) {
-//     console.log(`Health is already at maximum (${healthBarWidth}).`)
-//     // toasters
-//     return healthBarWidth
-//   }
-//   return Math.min((healthBarWidth = healthBarWidth + 17), maxHealth)
-// }
-
 // 170: 50
 // 340: 100
 

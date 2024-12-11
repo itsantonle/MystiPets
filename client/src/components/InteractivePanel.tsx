@@ -54,19 +54,6 @@ const Panel = () => {
   //updateHappinessMutation.mutate() and updateHungerMutation.mutate() are candidates
   // call isNotEating isNotPlaying util function to decrease on a constant rate per interval
 
-  // const { trackIncrease, utilHealthyVal } = manageHealth(pet.health!) //<=========Add argument here?
-  // uneeded
-
-  // const eatingUtils = () => {
-  //   trackIncrease()
-  //
-  // }
-
-  // const playingutils = () => {
-  //   trackIncrease()
-
-  // }
-
   // renamed this unclear
   // add a condition checke function
 

@@ -8,11 +8,8 @@ import { useEffect, useState } from "react"
 //Fetch happiness here
 //Fetch hunger here
 
-
 //Logic Overview: - Health only start auto decreasing at 30% health =>  Done
 //                - Health will increase automatically once Happiness and Hunger is full again => not done
-
-
 
 // export const increaseSizeHP = () => {
 //   if (healthBarWidth >= maxHealth) {
@@ -38,7 +35,12 @@ export const AnimatedHealthBar = () => {
   // This section is for the automated Decrease HP ------------------------
   // every 5 minus health  17 minus width
   useEffect(() => {
-    if(pet!.health! <= 30) { //if health is lessthan or equal to 30, start this 
+    if (
+      pet!.hunger_status! <= 30 &&
+      pet!.happiness_status! <= 30 &&
+      healthBarWidth > 0
+    ) {
+      //if health is lessthan or equal to 30, start this
       const interval = setInterval(() => {
         if (healthBarWidth > 0) {
           updateHealthMutation.mutateAsync({
@@ -46,9 +48,11 @@ export const AnimatedHealthBar = () => {
             health: pet!.health! <= 0 ? 0 : pet!.health! - 5,
           })
         }
-        setHealthBarWidth(healthBarWidth <= 0 ? 0 : healthBarWidth - 17)
+        setHealthBarWidth(
+          healthBarWidth <= 0 ? 0 : healthBarWidth - 17,
+        )
       }, 3000)
-  
+
       return () => clearInterval(interval)
     }
   }, [updateHealthMutation])
@@ -59,15 +63,22 @@ export const AnimatedHealthBar = () => {
 
   // This section is for the automated Increase HP ===============================
   useEffect(() => {
-    if(pet.hunger_status == 100 && pet.happiness_status == 100){ //only activates if both happiness and hunger is at 100
+    if (
+      pet.hunger_status == 100 &&
+      pet.happiness_status == 100 &&
+      healthBarWidth < 340
+    ) {
+      //only activates if both happiness and hunger is at 100
       const interval = setInterval(() => {
         if (healthBarWidth <= 340) {
           updateHealthMutation.mutateAsync({
             player_uuid: user!.id,
-            health: pet.health! > 100 ? 100 : pet.health! + 5
+            health: pet.health! > 100 ? 100 : pet.health! + 5,
           })
         }
-        setHealthBarWidth(healthBarWidth >= 340 ? 340 : healthBarWidth + 17)
+        setHealthBarWidth(
+          healthBarWidth >= 340 ? 340 : healthBarWidth + 17,
+        )
       }, 3000)
 
       return () => clearInterval(interval)

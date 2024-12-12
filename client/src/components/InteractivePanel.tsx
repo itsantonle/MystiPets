@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css"
+
 import { AnimatedHealthBar } from "./healthbar"
 import { HappinessDisplay } from "./HappinessDisplay"
 import { HungerDisplay } from "./HungerDisplay"
@@ -17,6 +18,7 @@ import {
 import { useEffect, useState } from "react"
 import { isEating } from "../utils/interfaceUtil/hungerBarUtil"
 import { isPlaying } from "../utils/interfaceUtil/happinessBarUtil"
+import { MoodDisplay } from "./MoodDisplay"
 
 const Panel = () => {
   const { user } = useAuth()
@@ -77,8 +79,8 @@ const Panel = () => {
   return (
     <div className="panel-container position-absolute top-80 start-50 translate-middle">
       <div className="counter-container">
-        <HappinessDisplay/>
-        <HungerDisplay/>
+        <HappinessDisplay />
+        <HungerDisplay />
       </div>
 
       <div className="name-bar-button-container">
@@ -124,12 +126,7 @@ const Panel = () => {
       </div>
 
       <div className="mood-container">
-        <textarea
-          className="mood-style"
-          placeholder="Mood"
-          value={"hungry"}
-          readOnly
-        ></textarea>
+        <MoodDisplay />
       </div>
     </div>
   )

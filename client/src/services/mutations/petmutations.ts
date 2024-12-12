@@ -12,6 +12,7 @@ import {
   updatePetHealth,
   updatePetHunger,
   updatePetLeaving,
+  updatePetMood,
   updatePetName,
 } from "../api/petapi"
 
@@ -144,7 +145,25 @@ export const useUpdateDeath = () => {
   })
 }
 
-export const useUpdateMood = () => {
+export const useUpdatePetMood = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: ({
+      player_uuid,
+      mood_id,
+    }: {
+      player_uuid: string
+      mood_id: number
+    }) => updatePetMood(player_uuid, mood_id),
+
+    onSettled: async (_, error, { player_uuid }) => {
+      error
+        ? console.error("Error updating happiness:", error)
+        : await queryClient.invalidateQueries()
+    },
+  })
+}
+export const useUpdateLeaving = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -156,12 +175,10 @@ export const useUpdateMood = () => {
       has_left: boolean
     }) => updatePetLeaving(player_uuid, has_left),
 
-    onSettled: async (_, error, { player_uuid }) => {
+    onSettled: async (_, error) => {
       error
         ? console.error("Error updating pet death:", error)
-        : await queryClient.invalidateQueries({
-            queryKey: ["pets", { player_uuid }],
-          })
+        : await queryClient.invalidateQueries()
     },
   })
 }

@@ -26,15 +26,42 @@ export const HappinessDisplay = () => {
               ? 0
               : pet.happiness_status! - 5,
         })
-
-        // ====== AMO NI I PASTE
       }, 4000) //4 seconds
 
       return () => clearInterval(interval)
     }
-  }, [updateHappinessMutation, updateMoodMutation])
+  }, [updateHappinessMutation])
 
-  // CREATE new USEEFFECT
+  useEffect(() => {
+    if (pet.happiness_status! > 0 && pet.happiness_status! <= 100) {
+    const interval = setInterval(() => {
+    if (
+      pet.happiness_status! > 20 &&
+      pet.happiness_status! < 50
+    ){
+      updateMoodMutation.mutate({
+        player_uuid: user!.id!,
+        mood_id: 1,
+      })
+    }
+    if (pet.happiness_status! > 0 &&
+      pet.happiness_status! <= 20
+    ){
+      updateMoodMutation.mutate({
+        player_uuid: user!.id!,
+        mood_id: 2,
+      })
+    } if (pet.happiness_status! >= 50){
+      updateMoodMutation.mutate({
+        player_uuid: user!.id!,
+        mood_id: 3,
+      })
+    }
+  },2000) //1 second  
+    
+  return () => clearInterval(interval)
+  }
+  }, [updateMoodMutation])
 
   return (
     <div className="counter-style">

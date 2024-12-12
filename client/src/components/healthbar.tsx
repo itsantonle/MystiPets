@@ -64,7 +64,7 @@ export const AnimatedHealthBar = () => {
         setHealthBarWidth(
           healthBarWidth >= 340 ? 340 : healthBarWidth + 17,
         )
-      }, 3000)
+      }, 1000)
 
       return () => clearInterval(interval)
     }

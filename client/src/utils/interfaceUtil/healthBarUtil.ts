@@ -1,70 +1,63 @@
-import { increaseVal, decreaseVal } from "./barValueUtil"
-import { getValues, sendValues } from "../../components/DB_PanelLink";
-import { useState, useEffect } from "react";
-import {increaseSizeHP, decreaseSizeHP} from "../../components/healthbar";
+// import { increaseVal, decreaseVal } from "./barValueUtil"
+// import { getValues, sendValues } from "../../components/DB_PanelLink"
+// import { useState, useEffect } from "react"
+// import {
+//   increaseSizeHP,
+//   decreaseSizeHP,
+// } from "../../components/HealthBar"
 
+// export const manageHealth = (DBhealthVal: number) => {
+//   const [utilHealthyVal, setUtilHealthyVal] = useState(DBhealthVal)
 
-const healthValue = 100
+//   const isCared = () =>
+//     setUtilHealthyVal((prevValue) => increaseVal(prevValue))
+//   const isNeglected = () =>
+//     setUtilHealthyVal((prevValue) => decreaseVal(prevValue))
 
+//   const [increaseCount, setIncreaseCount] = useState(1)
+//   const [decreaseCount, setDecreaseCount] = useState(1)
 
-export const manageHealth = () => {
-    const [isHealthyValue, setisHealthyValue] =  useState(healthValue);
+//   const trackIncrease = () => {
+//     console.log("increase")
+//     setIncreaseCount((prev) => prev + 1)
+//     checkHealthIncrease()
+//   }
 
+//   const trackDecrease = () => {
+//     setDecreaseCount((prev) => prev + 1)
+//     checkHealthDecrease()
+//   }
 
-    const isCared = () => setisHealthyValue(prevValue => increaseVal(prevValue))
-    const isNeglected = () => setisHealthyValue(prevValue => decreaseVal(prevValue))
+//   const resetIncreaseCounts = () => {
+//     setIncreaseCount(1)
+//   }
 
-    const [increaseCount, setIncreaseCount] = useState(1);
-    const [decreaseCount, setDecreaseCount] = useState(1);
+//   const resetDecreaseCounts = () => {
+//     setDecreaseCount(1)
+//   }
 
-    const trackIncrease = () => {
-        setIncreaseCount(prev => prev + 1);
-        checkHealthIncrease();
-        console.log('increase', increaseCount)
-    };
+//   const checkHealthIncrease = () => {
+//     if (increaseCount == 2) {
+//       resetDecreaseCounts()
+//       resetIncreaseCounts()
+//       isCared()
+//       increaseSizeHP()
+//     }
+//   }
 
-    const trackDecrease = () => {
-        setDecreaseCount(prev => prev + 1);
-        checkHealthDecrease();
-        console.log('decrease', decreaseCount)
-    };
+//   const checkHealthDecrease = () => {
+//     if (decreaseCount == 2) {
+//       isNeglected()
+//       decreaseSizeHP()
+//       resetDecreaseCounts()
+//     }
+//   }
 
-    const resetIncreaseCounts = () => {
-        setIncreaseCount(1);
-    }
-
-    const resetDecreaseCounts = () => {
-        setDecreaseCount(1);
-    }
-
-    const checkHealthIncrease = () => {
-        if (increaseCount == 2) {
-            resetDecreaseCounts();
-            resetIncreaseCounts();
-            isCared();
-            increaseSizeHP();
-            // console.log('increase', happinessIncreaseCount, hungerIncreaseCount)
-        }
-    };
-
-    const checkHealthDecrease = () => {
-        if (decreaseCount == 2) {
-            isNeglected();
-            decreaseSizeHP();
-            resetDecreaseCounts();
-            // console.log('decrease', happinessDecreaseCount, hungerDecreaseCount)
-        }
-    };
-    
-    // uncomment after connected to DB
-    // useEffect(() => {
-    //     const sendData = setInterval(() => {
-    //         sendValues()
-    //     }, 5000) //this is 5 seconds
-
-    //     return () => clearInterval(sendData)
-    // },[isHealthyValue])
-
-    return {isHealthyValue, trackIncrease, checkHealthIncrease,
-    trackDecrease, checkHealthDecrease}
-}
+//   return {
+//     utilHealthyVal,
+//     trackIncrease,
+//     checkHealthIncrease,
+//     trackDecrease,
+//     checkHealthDecrease,
+//   }
+// }

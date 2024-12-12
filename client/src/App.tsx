@@ -8,6 +8,13 @@ import PetStage from "./Stage"
 import { usePets } from "./services/queries/petQueries"
 import { Pet } from "./types/Pet"
 
+// Pet Switching function, transfer after. 
+
+export const switchPet = (testPet: any) => {
+ return testPet == "Hydra"? "Capycorn" : "Hydra"
+}
+// ---------------------------------------
+
 function AuthenticatedApp() {
   // const { signOut } = useAuth() random
   const { user } = useAuth()
@@ -29,6 +36,11 @@ function AuthenticatedApp() {
 
 function UnauthenticatedApp() {
   const [isSignIn, setIsSignIn] = useState(true)
+  // const [testPet, setTestPet] = useState("Hydra")
+
+  // const isSwitchingPet = () => {
+  //   setTestPet(prevPet => switchPet(prevPet));
+  // };
 
   return (
     <div className="auth-container">

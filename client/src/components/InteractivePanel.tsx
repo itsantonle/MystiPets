@@ -1,57 +1,84 @@
 import "bootstrap/dist/css/bootstrap.min.css"
-import { manageHappiness } from "../utils/interfaceUtil/happinessBarUtil"
-import happyStar from "../components/img/icons/happy_star.png"
-import meat from "../components/img/icons/meat.png"
+import { AnimatedHealthBar } from "./healthbar"
+import { HappinessDisplay } from "./HappinessDisplay"
+import { HungerDisplay } from "./HungerDisplay"
 import feedButton from "../components/img/icons/feedButton.png"
 import playButton from "../components/img/icons/playButton.png"
-import { getValues } from "./DB_PanelLink"
-import { manageHunger } from "../utils/interfaceUtil/hungerBarUtil"
 import healthBarFrame from "./img/icons/health-bar-frame-1.png"
-import { AnimatedHealthBar } from "./healthbar"
 // import * as React from "react"
-import { manageHealth } from "../utils/interfaceUtil/healthBarUtil"
+// import { manageHealth } from "../utils/interfaceUtil/healthBarUtil"
 import { usePets } from "../services/queries/petQueries"
 import { useAuth } from "../context/AuthContext"
+import {
+  useUpdateHappiness,
+  useUpdateHealth,
+  useUpdateHunger,
+} from "../services/mutations/petmutations"
+import { useEffect, useState } from "react"
+import { isEating } from "../utils/interfaceUtil/hungerBarUtil"
+import { isPlaying } from "../utils/interfaceUtil/happinessBarUtil"
 
 const Panel = () => {
   const { user } = useAuth()
   const pet = usePets(user!.id).data![0]
+  // to do peridical mutation use the useEffect hook with setInterval()
+  const updateHappinessMutation = useUpdateHappiness()
+  const updateHungerMutation = useUpdateHunger()
+  const updateHealthMutation = useUpdateHealth()
 
-  // //Uncomment if reall DB is connected
-  // const { happyValue, hungerValue, healthValue, error, loading } = getValues();
+  const validatePenalty = (penaltyType: string) => {
+    //check the health value
 
-  const { isHappyValue, isPlayingClicked } = manageHappiness()
-  const { isHungryValue, isEatingClicked } = manageHunger()
-  const { isHealthyValue, trackIncrease } = manageHealth()
+    switch (penaltyType) {
+      case "dead":
+    }
+  }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // updateHappinessMutation.mutate()
+      // updateHungerMutation.mutate()
+      // 3000 ms = 3 seconds change accordingly
+      // willDie(pet.health!, false)
+      // willRunAway(pet.happiness_status!, pet.health!, false)
+      // don't hard code the boolean check in the DB
+    }, 3000)
 
-  const eatingUtils = () => {
-    isEatingClicked()
-    trackIncrease()
+    //umnmount interval per run
+    return () => clearInterval(interval)
+  }, [])
+  // the dependency array must take all the mutation functions involved
+  //updateHappinessMutation.mutate() and updateHungerMutation.mutate() are candidates
+  // call isNotEating isNotPlaying util function to decrease on a constant rate per interval
+
+  // renamed this unclear
+  // add a condition checke function
+
+  const eatingButtonClicked = () => {
+    // run updateHungerval muation here with isEating util instead of notEating
+    if (pet.hunger_status! <= 95) {
+      const hungerParam = {
+        player_uuid: user!.id,
+        hunger_status: isEating(pet.hunger_status!),
+      }
+      updateHungerMutation.mutate(hungerParam)
+    }
   }
 
-  const playingutils = () => {
-    isPlayingClicked()
-    trackIncrease()
+  const playingButtonClicked = () => {
+    if (pet.happiness_status! <= 95) {
+      const happyParam = {
+        player_uuid: user!.id,
+        happiness_status: isPlaying(pet.happiness_status!),
+      }
+      updateHappinessMutation.mutate(happyParam)
+    }
   }
 
   return (
     <div className="panel-container position-absolute top-80 start-50 translate-middle">
       <div className="counter-container">
-        {/* Delete after DB implementation -------------*/}
-        <div className="counter-style">
-          {" "}
-          <img src={happyStar} className="img-fluid" />:{" "}
-          {isHappyValue}{" "}
-        </div>
-        <div className="counter-style">
-          {" "}
-          <img src={meat} className="img-fluid" />: {isHungryValue}{" "}
-        </div>
-        {/* --------------------------------- */}
-
-        {/* Uncomment if real DB is connected */}
-        {/* <div className = "counter-style"> <img src={happyStar} className="img-fluid" />: {loading ? 'Loading...' : error ? `Error: ${error}` :isHappyValue} </div>
-                <div className = "counter-style"> <img src={meat} className="img-fluid" />: {loading ? 'Loading...' : error ? `Error: ${error}` : isHungryValue} </div> */}
+        <HappinessDisplay/>
+        <HungerDisplay/>
       </div>
 
       <div className="name-bar-button-container">
@@ -59,38 +86,34 @@ const Panel = () => {
           <textarea
             className="name-text-style"
             placeholder="pet"
+            value={pet.pet_name}
             readOnly
-          >
-            {pet.pet_name}
-          </textarea>
+          ></textarea>
 
           <button
             className="button-style"
             type="button"
-            onClick={eatingUtils}
+            onClick={eatingButtonClicked}
+            disabled={updateHungerMutation.isPending ? true : false}
           >
             <img src={feedButton} className="img-fluid" />
           </button>
           <button
             className="button-style"
             type="button"
-            onClick={playingutils}
-          >
-            <img src={playButton} className="img-fluid" />
-          </button>
-          <button
-            className="button-style"
-            type="button"
-            onClick={playingutils}
+            onClick={playingButtonClicked}
+            disabled={
+              updateHappinessMutation.isPending ? true : false
+            }
           >
             <img src={playButton} className="img-fluid" />
           </button>
         </div>
         <div className="health-bar-style">
-          {isHealthyValue}
           <textarea
             className="HP-text-style"
             placeholder="HP:"
+            value={""}
             readOnly
           ></textarea>
           <div>
@@ -104,6 +127,7 @@ const Panel = () => {
         <textarea
           className="mood-style"
           placeholder="Mood"
+          value={"hungry"}
           readOnly
         ></textarea>
       </div>

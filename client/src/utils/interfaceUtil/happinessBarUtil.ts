@@ -1,45 +1,13 @@
-import { increaseVal, decreaseVal } from "./barValueUtil"
-import { getValues, sendValues } from "../../components/DB_PanelLink";
-import { useState, useEffect } from "react";
-import {manageHealth} from "../interfaceUtil/healthBarUtil";
-import { timerValue } from "./barValueUtil";
 
 
-// const {happyValue} = getValues();
+export const isPlaying = (DBhappval: number) => {
+  return DBhappval + 5 // increase
+  // run mutation hook at an interval on the interactive panel component
+  // only run mutation hook onclick - use the tanstack is pending well
+}
 
-export const happyValue = 100 //should be fetched directly from Db
-
-export const manageHappiness = () => {
-    const {trackDecrease} = manageHealth();
-
-    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
-    const [isHappyValue, setIsHappyValue] =  useState(happyValue);
-
-    const isPlaying = () => setIsHappyValue(prevValue => increaseVal(prevValue))
-    const isSad = () => setIsHappyValue(prevValue => decreaseVal(prevValue))
-
-    const isPlayingClicked = () => {   //<- triggered by play button
-        isPlaying()
-        return isHappyValue
-    };
-
-    // useEffect for timer
-    useEffect(() => {
-        const timedEvent = setTimeout(() => {isSad(), trackDecrease()}, 6000) //this is 2 seconds
-
-        setTimer(timedEvent);
-        return () => clearTimeout(timedEvent)
-    },[isHappyValue]) 
-
-    // useEffect for sending to DB
-    // uncomment after connected to DB
-    // useEffect(() => {
-    //     const sendData = setInterval(() => {
-    //         sendValues()
-    //     }, 5000) //this is 5 seconds
-
-    //     return () => clearInterval(sendData)
-    // },[isHappyValue])
-
-    return {isHappyValue, isPlayingClicked} //isHappyValue is exported for testing without DB
+export const notPlaying = (DBhappyval: number) => {
+  return DBhappyval - 5
+  // run mutation hook the refresh at intervals
+  // mix useState hook with update hook to run at intervals
 }

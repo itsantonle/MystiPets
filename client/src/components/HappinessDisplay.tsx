@@ -1,7 +1,10 @@
 // automate happiness to decrease every 5 seconds
 
 import "bootstrap/dist/css/bootstrap.min.css"
-import { useUpdateHappiness } from "../services/mutations/petmutations"
+import {
+  useUpdateHappiness,
+  useUpdatePetMood,
+} from "../services/mutations/petmutations"
 import { usePets } from "../services/queries/petQueries"
 import { useAuth } from "../context/AuthContext"
 import { useEffect } from "react"
@@ -11,6 +14,7 @@ export const HappinessDisplay = () => {
   const { user } = useAuth()
   const pet = usePets(user!.id).data![0]
   const updateHappinessMutation = useUpdateHappiness()
+  const updateMoodMutation = useUpdatePetMood()
 
   useEffect(() => {
     if (pet.happiness_status! > 0 && pet.happiness_status! <= 100) {
@@ -22,11 +26,15 @@ export const HappinessDisplay = () => {
               ? 0
               : pet.happiness_status! - 5,
         })
-      }, 4000) //5 seconds
+
+        // ====== AMO NI I PASTE
+      }, 4000) //4 seconds
 
       return () => clearInterval(interval)
     }
-  }, [updateHappinessMutation])
+  }, [updateHappinessMutation, updateMoodMutation])
+
+  // CREATE new USEEFFECT
 
   return (
     <div className="counter-style">

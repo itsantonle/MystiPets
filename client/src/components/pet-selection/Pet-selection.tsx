@@ -26,7 +26,6 @@ export default function PetSelection() {
         player_uuid: user!.id,
       }
       useCreatePetMutation.mutate(newPet)
-      location.reload()
     }
   }
 

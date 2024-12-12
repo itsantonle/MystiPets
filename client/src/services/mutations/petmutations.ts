@@ -35,9 +35,7 @@ export const useCreatePet = () => {
       console.log("settled")
       error
         ? console.log(error)
-        : await queryClient.invalidateQueries({
-            queryKey: ["pets", { player_uuid }],
-          })
+        : await queryClient.invalidateQueries()
     },
   })
 }

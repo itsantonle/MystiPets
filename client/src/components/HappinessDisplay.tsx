@@ -18,50 +18,48 @@ export const HappinessDisplay = () => {
 
   useEffect(() => {
     if (pet.happiness_status! > 0 && pet.happiness_status! <= 100) {
-      const interval = setInterval(() => {
-        updateHappinessMutation.mutateAsync({
-          player_uuid: user!.id,
-          happiness_status:
-            pet.happiness_status! <= 0
-              ? 0
-              : pet.happiness_status! - 5,
-        })
-      }, 4000) //4 seconds
+      if (
+        !updateHappinessMutation.isPending ||
+        !updateMoodMutation.isPending
+      ) {
+        const interval = setInterval(() => {
+          if (
+            pet.happiness_status! > 20 &&
+            pet.happiness_status! < 50
+          ) {
+            updateMoodMutation.mutate({
+              player_uuid: user!.id!,
+              mood_id: 2,
+            })
+          }
+          if (
+            pet.happiness_status! > 0 &&
+            pet.happiness_status! <= 20
+          ) {
+            updateMoodMutation.mutate({
+              player_uuid: user!.id!,
+              mood_id: 1,
+            })
+          }
+          if (pet.happiness_status! >= 50) {
+            updateMoodMutation.mutate({
+              player_uuid: user!.id!,
+              mood_id: 3,
+            })
+          }
+          updateHappinessMutation.mutateAsync({
+            player_uuid: user!.id,
+            happiness_status:
+              pet.happiness_status! <= 0
+                ? 0
+                : pet.happiness_status! - 5,
+          })
+        }, 2000) //4 seconds
 
-      return () => clearInterval(interval)
+        return () => clearInterval(interval)
+      }
     }
   }, [updateHappinessMutation])
-
-  useEffect(() => {
-    if (pet.happiness_status! > 0 && pet.happiness_status! <= 100) {
-    const interval = setInterval(() => {
-    if (
-      pet.happiness_status! > 20 &&
-      pet.happiness_status! < 50
-    ){
-      updateMoodMutation.mutate({
-        player_uuid: user!.id!,
-        mood_id: 1,
-      })
-    }
-    if (pet.happiness_status! > 0 &&
-      pet.happiness_status! <= 20
-    ){
-      updateMoodMutation.mutate({
-        player_uuid: user!.id!,
-        mood_id: 2,
-      })
-    } if (pet.happiness_status! >= 50){
-      updateMoodMutation.mutate({
-        player_uuid: user!.id!,
-        mood_id: 3,
-      })
-    }
-  },2000) //1 second  
-    
-  return () => clearInterval(interval)
-  }
-  }, [updateMoodMutation])
 
   return (
     <div className="counter-style">

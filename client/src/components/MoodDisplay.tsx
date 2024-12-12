@@ -9,17 +9,18 @@ export const MoodDisplay = () => {
   const DatabaseMood = useMood(pet!.mood_id!)
   return (
     <>
-    <textarea
+      <textarea
         className="mood-style"
         placeholder="Mood"
         value={
           DatabaseMood.isPending
             ? "Loading"
-            : `${DatabaseMood!.data?.mood_type.toUpperCase()} - ${DatabaseMood!.data!.mood_condition}`
+            : DatabaseMood.isError
+              ? "Error Loading Data"
+              : `${DatabaseMood!.data?.mood_type.toUpperCase()} - ${DatabaseMood!.data!.mood_condition}`
         }
         readOnly
       ></textarea>
     </>
   )
 }
-

@@ -1,9 +1,11 @@
 import healhBarImg from "./img/icons/health-bar1-2t.png"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { useUpdateHealth } from "../services/mutations/petmutations"
+import { useDeletePet, useUpdateDeath, useUpdateHealth } from "../services/mutations/petmutations"
 import { usePets } from "../services/queries/petQueries"
 import { useAuth } from "../context/AuthContext"
 import { useEffect, useState } from "react"
+import { useAssignPenalty } from "../services/mutations/penaltymutations"
+import { useQueryClient } from "@tanstack/react-query"
 
 // 170: 50
 // 340: 100
@@ -16,10 +18,23 @@ export const AnimatedHealthBar = () => {
   const updateHealthMutation = useUpdateHealth()
   const [healthBarWidth, setHealthBarWidth] =
     useState(currentBarWidth)
+  const applyPenalty = useAssignPenalty()
+  const deletePet = useDeletePet()
+  const updateStatus = useUpdateDeath()
+  const queryClient = useQueryClient()
+
+
 
   // This section is for the automated Decrease HP ------------------------
   // every 5 minus health  17 minus width
   useEffect(() => {
+    if (pet.health! === 0 && !pet.is_dead) {
+        updateStatus.mutate({
+        player_uuid: user!.id,
+        is_dead: true
+      })
+      console.log(`running update`)
+    }
     if (
       pet!.hunger_status! <= 30 &&
       pet!.happiness_status! <= 30 &&
@@ -42,6 +57,21 @@ export const AnimatedHealthBar = () => {
     }
   }, [updateHealthMutation])
 
+
+
+  useEffect(() => {
+    if (pet.health! === 0 && !pet.is_dead) {
+      applyPenalty.mutate({
+        player_uuid: user!.id,
+        player_penalty: 1
+      })
+      console.log(`running apply`)
+    }
+    if (pet.is_dead!) {
+      deletePet.mutate(user!.id)
+    }
+  }, [pet.is_dead])
+  
   //   console.log(`pethealth: ${pet!.health} barwidth: ${healthBarWidth}`)   //
 
   // automated Decrease Hp up to here ------------------------

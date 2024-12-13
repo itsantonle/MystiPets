@@ -1,0 +1,22 @@
+.mood-display {
+  position: relative;
+  left: 30%;
+
+  &__background {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: none;
+    resize: none;
+    text-align: center;
+    color: white;
+    width: 80%;
+  }
+}

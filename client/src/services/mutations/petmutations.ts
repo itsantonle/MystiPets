@@ -16,9 +16,8 @@ import {
   updatePetName,
 } from "../api/petapi"
 
-const queryClient = useQueryClient()
-
 export const useCreatePet = () => {
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (data: Pet) => createPet(data),
@@ -43,6 +42,7 @@ export const useCreatePet = () => {
 }
 
 export const useUpdateHealth = () => {
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: ({
@@ -62,6 +62,7 @@ export const useUpdateHealth = () => {
 }
 
 export const useUpdatePetName = () => {
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: ({
@@ -83,6 +84,7 @@ export const useUpdatePetName = () => {
 }
 
 export const useUpdateHunger = () => {
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: ({
@@ -102,6 +104,7 @@ export const useUpdateHunger = () => {
 }
 
 export const useUpdateHappiness = () => {
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: ({
@@ -122,6 +125,7 @@ export const useUpdateHappiness = () => {
 }
 
 export const useUpdateDeath = () => {
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: ({
@@ -142,8 +146,27 @@ export const useUpdateDeath = () => {
   })
 }
 
+export const useUpdatePetMood = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: ({
+      player_uuid,
+      mood_id,
+    }: {
+      player_uuid: string
+      mood_id: number
+    }) => updatePetMood(player_uuid, mood_id),
+
+    onSettled: async (_, error, { player_uuid }) => {
+      error
+        ? console.error("Error updating happiness:", error)
+        : await queryClient.invalidateQueries({ queryKey: ["moods"] })
+    },
+  })
+}
 export const useUpdateLeaving = () => {
   const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: ({
       player_uuid,
@@ -155,30 +178,14 @@ export const useUpdateLeaving = () => {
 
     onSettled: async (_, error) => {
       error
-        ? console.error("Error updating pet leaving:", error)
-        : await queryClient.invalidateQueries({
-            queryKey: ["pets", { player_uuid }],
-          })
         ? console.error("Error updating pet death:", error)
         : await queryClient.invalidateQueries()
     },
   })
 }
 
-export const useUpdateMood = () => {
-
-  return useMutation({
-    mutationFn: ({
-      player_uuid,
-      mood_id
-    }: {
-      player_uuid: string
-      mood_id: number
-    }) => updatePetMood(player_uuid, mood_id)
-  })
-}
-
 export const useDeletePet = () => {
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (player_uuid: string) => deletePet(player_uuid),

@@ -19,6 +19,8 @@ import {
 import { useEffect, useState } from "react"
 import { isEating } from "../utils/interfaceUtil/hungerBarUtil"
 import { isPlaying } from "../utils/interfaceUtil/happinessBarUtil"
+import { MoodDisplay } from "./MoodDisplay"
+import { useQueryClient } from "@tanstack/react-query"
 
 const Panel = () => {
   const queryClient = useQueryClient()

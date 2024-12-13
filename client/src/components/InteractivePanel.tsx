@@ -17,6 +17,7 @@ import {
 import { useEffect, useState } from "react"
 import { isEating } from "../utils/interfaceUtil/hungerBarUtil"
 import { isPlaying } from "../utils/interfaceUtil/happinessBarUtil"
+// import { DisplayDeath, DisplayLeaving } from "./PenaltyFunctionality"
 
 const Panel = () => {
   const { user } = useAuth()

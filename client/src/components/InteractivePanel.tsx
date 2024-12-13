@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css"
+import "./styles/InteractivePanel.scss"
 
 import { AnimatedHealthBar } from "./healthbar"
 import { HappinessDisplay } from "./HappinessDisplay"
@@ -6,6 +7,7 @@ import { HungerDisplay } from "./HungerDisplay"
 import feedButton from "../components/img/icons/feedButton.png"
 import playButton from "../components/img/icons/playButton.png"
 import healthBarFrame from "./img/icons/health-bar-frame-1.png"
+import logPanel from "/assets/log.png"
 // import * as React from "react"
 // import { manageHealth } from "../utils/interfaceUtil/healthBarUtil"
 import { usePets } from "../services/queries/petQueries"
@@ -19,6 +21,9 @@ import { useEffect, useState } from "react"
 import { isEating } from "../utils/interfaceUtil/hungerBarUtil"
 import { isPlaying } from "../utils/interfaceUtil/happinessBarUtil"
 import { MoodDisplay } from "./MoodDisplay"
+
+
+
 
 const Panel = () => {
   const { user } = useAuth()
@@ -77,56 +82,69 @@ const Panel = () => {
   }
 
   return (
-    <div className="panel-container position-absolute top-80 start-50 translate-middle">
-      <div className="counter-container">
-        <HappinessDisplay />
-        <HungerDisplay />
-      </div>
+    <div className="interactive-panel__container">
+      <img 
+        src={logPanel} 
+        alt="panel" 
+        className="interactive-panel__panel-image"
+      />
+      <div className="interactive-panel__content">
+        {/* Left side stats */}
+        <div className="interactive-panel__stats">
+          <div className="interactive-panel__stats-item">
+            <HappinessDisplay />
+          </div>
+          <div className="interactive-panel__stats-item">
+            <HungerDisplay />
+          </div>
+        </div>
 
-      <div className="name-bar-button-container">
-        <div className="name-buttons-container">
-          <textarea
-            className="name-text-style"
-            placeholder="pet"
-            value={pet.pet_name}
-            readOnly
-          ></textarea>
+        {/* Center section */}
+        <div className="interactive-panel__center">
+          {/* Name field */}
+          <div className="interactive-panel__name-field">
+            <textarea
+              className="interactive-panel__name-input"
+              placeholder="pet"
+              value={pet.pet_name}
+              readOnly
+            />
+          </div>
+          
+          {/* Health bar */}
+          <div className="interactive-panel__health">
+            <span className="interactive-panel__health-label">HP:</span>
+            <div className="interactive-panel__health-bar-container">
+              <img src={healthBarFrame} className="interactive-panel__health-frame" />
+              <div className="interactive-panel__health-bar">
+                <AnimatedHealthBar />
+              </div>
+            </div>
+          </div>
+        </div>
 
+        {/* Right section - buttons */}
+        <div className="interactive-panel__buttons">
           <button
-            className="button-style"
             type="button"
             onClick={eatingButtonClicked}
-            disabled={updateHungerMutation.isPending ? true : false}
+            disabled={updateHungerMutation.isPending}
+            className="interactive-panel__action-button"
           >
             <img src={feedButton} className="img-fluid" />
           </button>
           <button
-            className="button-style"
             type="button"
             onClick={playingButtonClicked}
-            disabled={
-              updateHappinessMutation.isPending ? true : false
-            }
+            disabled={updateHappinessMutation.isPending}
+            className="interactive-panel__action-button"
           >
             <img src={playButton} className="img-fluid" />
           </button>
-        </div>
-        <div className="health-bar-style">
-          <textarea
-            className="HP-text-style"
-            placeholder="HP:"
-            value={""}
-            readOnly
-          ></textarea>
-          <div>
-            <img src={healthBarFrame} className="health-bar-frame" />
-            <AnimatedHealthBar />
+          <div className="interactive-panel__mood-display">
+            <MoodDisplay />
           </div>
         </div>
-      </div>
-
-      <div className="mood-container">
-        <MoodDisplay />
       </div>
     </div>
   )

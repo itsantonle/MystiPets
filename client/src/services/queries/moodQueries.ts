@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
-import { getMoods } from "../api/moodapi"
-import  Mood  from "../../types/Mood"
+import { getMood } from "../api/moodapi"
+import Mood from "../../types/Mood"
 
-export const useMoods = (player_uuid: string) => {
-  return useQuery<Mood[], Error>({
-    queryKey: ["moods", player_uuid],
-    queryFn: () => getMoods(),
+export const useMood = (mood_id: number) => {
+  return useQuery<Mood, Error>({
+    queryKey: ["moods"],
+    queryFn: () => getMood(mood_id),
   })
 }

@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css"
+
 import { AnimatedHealthBar } from "./healthbar"
 import { HappinessDisplay } from "./HappinessDisplay"
 import { HungerDisplay } from "./HungerDisplay"
@@ -13,19 +14,21 @@ import {
   useUpdateHappiness,
   useUpdateHealth,
   useUpdateHunger,
+  useUpdatePetMood,
 } from "../services/mutations/petmutations"
 import { useEffect, useState } from "react"
 import { isEating } from "../utils/interfaceUtil/hungerBarUtil"
 import { isPlaying } from "../utils/interfaceUtil/happinessBarUtil"
-// import { DisplayDeath, DisplayLeaving } from "./PenaltyFunctionality"
 
 const Panel = () => {
+  const queryClient = useQueryClient()
   const { user } = useAuth()
   const pet = usePets(user!.id).data![0]
   // to do peridical mutation use the useEffect hook with setInterval()
   const updateHappinessMutation = useUpdateHappiness()
   const updateHungerMutation = useUpdateHunger()
   const updateHealthMutation = useUpdateHealth()
+  const updateMoodMutation = useUpdatePetMood()
 
   const validatePenalty = (penaltyType: string) => {
     //check the health value
@@ -56,6 +59,7 @@ const Panel = () => {
 
   const eatingButtonClicked = () => {
     // run updateHungerval muation here with isEating util instead of notEating
+    // this can be crammed into Eating Button tsx
     if (pet.hunger_status! <= 95) {
       const hungerParam = {
         player_uuid: user!.id,
@@ -72,14 +76,43 @@ const Panel = () => {
         happiness_status: isPlaying(pet.happiness_status!),
       }
       updateHappinessMutation.mutate(happyParam)
+      // update the mood
+      // refactor this code better
+      // this can be made crammed in playingButton tsx
+      if (!updateMoodMutation.isPending) {
+        if (
+          pet.happiness_status! > 20 &&
+          pet.happiness_status! < 50
+        ) {
+          updateMoodMutation.mutate({
+            player_uuid: user!.id!,
+            mood_id: 2,
+          })
+        }
+        if (
+          pet.happiness_status! > 0 &&
+          pet.happiness_status! <= 20
+        ) {
+          updateMoodMutation.mutate({
+            player_uuid: user!.id!,
+            mood_id: 1,
+          })
+        }
+        if (pet.happiness_status! >= 50) {
+          updateMoodMutation.mutate({
+            player_uuid: user!.id!,
+            mood_id: 3,
+          })
+        }
+      }
     }
   }
 
   return (
     <div className="panel-container position-absolute top-80 start-50 translate-middle">
       <div className="counter-container">
-        <HappinessDisplay/>
-        <HungerDisplay/>
+        <HappinessDisplay />
+        <HungerDisplay />
       </div>
 
       <div className="name-bar-button-container">
@@ -125,12 +158,7 @@ const Panel = () => {
       </div>
 
       <div className="mood-container">
-        <textarea
-          className="mood-style"
-          placeholder="Mood"
-          value={"hungry"}
-          readOnly
-        ></textarea>
+        <MoodDisplay />
       </div>
     </div>
   )

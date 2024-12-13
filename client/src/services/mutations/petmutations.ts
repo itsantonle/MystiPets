@@ -56,7 +56,7 @@ export const useUpdateHealth = () => {
     onSettled: async (_, error, { player_uuid }) => {
       error
         ? console.log(error)
-        : await queryClient.invalidateQueries()
+        : await queryClient.invalidateQueries({ queryKey: ["pets"] })
     },
   })
 }
@@ -96,7 +96,7 @@ export const useUpdateHunger = () => {
     onSettled: async (_, error, { player_uuid }) => {
       error
         ? console.error("Error updating hunger:", error)
-        : await queryClient.invalidateQueries()
+        : await queryClient.invalidateQueries({ queryKey: ["pets"] })
     },
   })
 }
@@ -111,11 +111,12 @@ export const useUpdateHappiness = () => {
       player_uuid: string
       happiness_status: number
     }) => updatePetHappiness(player_uuid, happiness_status),
-
     onSettled: async (_, error, { player_uuid }) => {
       error
         ? console.error("Error updating happiness:", error)
-        : await queryClient.invalidateQueries()
+        : await queryClient.invalidateQueries({
+            queryKey: ["pets"],
+          })
     },
   })
 }
@@ -142,7 +143,7 @@ export const useUpdateDeath = () => {
 }
 
 export const useUpdateLeaving = () => {
-
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({
       player_uuid,
@@ -152,12 +153,14 @@ export const useUpdateLeaving = () => {
       has_left: boolean
     }) => updatePetLeaving(player_uuid, has_left),
 
-    onSettled: async (_, error, { player_uuid }) => {
+    onSettled: async (_, error) => {
       error
         ? console.error("Error updating pet leaving:", error)
         : await queryClient.invalidateQueries({
             queryKey: ["pets", { player_uuid }],
           })
+        ? console.error("Error updating pet death:", error)
+        : await queryClient.invalidateQueries()
     },
   })
 }

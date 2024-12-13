@@ -54,7 +54,7 @@ export const HappinessDisplay = () => {
                 ? 0
                 : pet.happiness_status! - 5,
           })
-        }, 2000) //4 seconds
+        }, 2000) //2 seconds
 
         return () => clearInterval(interval)
       }

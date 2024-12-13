@@ -44,6 +44,25 @@ $border-color: black;
 $mood-bg-color: rgb(130, 224, 228);
 $no: transparent;
 
+//header button style
+.btn{
+  background-color: #452A1B;
+  color: white;
+  width: 120px;
+  height: 50px;
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 50px;
+
+  &:hover{
+    background-color: #3B2417;
+    color: orange;
+  }
+}
+
+.img-fluid{
+  width: 50px;
+}
 
 //styles
 .main-container {
@@ -79,7 +98,9 @@ $no: transparent;
   display: flex;
   padding: 5px;
   width: 125px;
-  margin: 7px;
+  height: 50px;
+  align-items: center;
+  margin-bottom: 7px;
   border-radius: 5px;
   background-color: $counter-color;
 }

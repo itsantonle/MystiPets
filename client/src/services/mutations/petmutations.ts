@@ -56,7 +56,7 @@ export const useUpdateHealth = () => {
     onSettled: async (_, error, { player_uuid }) => {
       error
         ? console.log(error)
-        : await queryClient.invalidateQueries()
+        : await queryClient.invalidateQueries({ queryKey: ["pets"] })
     },
   })
 }
@@ -98,7 +98,7 @@ export const useUpdateHunger = () => {
     onSettled: async (_, error, { player_uuid }) => {
       error
         ? console.error("Error updating hunger:", error)
-        : await queryClient.invalidateQueries()
+        : await queryClient.invalidateQueries({ queryKey: ["pets"] })
     },
   })
 }
@@ -114,11 +114,12 @@ export const useUpdateHappiness = () => {
       player_uuid: string
       happiness_status: number
     }) => updatePetHappiness(player_uuid, happiness_status),
-
     onSettled: async (_, error, { player_uuid }) => {
       error
         ? console.error("Error updating happiness:", error)
-        : await queryClient.invalidateQueries()
+        : await queryClient.invalidateQueries({
+            queryKey: ["pets"],
+          })
     },
   })
 }
@@ -159,7 +160,7 @@ export const useUpdatePetMood = () => {
     onSettled: async (_, error, { player_uuid }) => {
       error
         ? console.error("Error updating happiness:", error)
-        : await queryClient.invalidateQueries()
+        : await queryClient.invalidateQueries({ queryKey: ["moods"] })
     },
   })
 }

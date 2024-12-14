@@ -1,29 +1,23 @@
 import { AnimatedSprite } from "@pixi/react"
-import {Hydra_Idle} from "../img/Animations"
-import { HydraAnim } from "../PetAnimation";
-
-
+import { Hydra_Idle } from "../img/Animations"
 
 export type dimensions = { x: number; y: number; s: number }
 
-const HydraSprite = ({ x, y, s}: dimensions) => {
-  const { hydraEmotes } = HydraAnim();
-
+const HydraSprite = ({ x, y, s }: dimensions) => {
   return (
     <>
       <AnimatedSprite
         anchor={0.5}
-        textures={hydraEmotes}
+        textures={Hydra_Idle}
         isPlaying={true}
         initialFrame={0}
         animationSpeed={0.03}
         interactive
-        x={x} 
+        x={x}
         y={y}
-        width={s} 
+        width={s}
         height={s}
       />
-
     </>
   )
 }

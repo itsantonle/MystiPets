@@ -50,7 +50,7 @@ export const useAssignPenalty = () => {
         onSettled: async (_, error, { player_uuid }) => {
             error 
                 ? console.error("Error assigning penalty:", error) 
-                : await queryClient.invalidateQueries({queryKey: ['users']})
+                : await queryClient.invalidateQueries()
         }
     })
 }

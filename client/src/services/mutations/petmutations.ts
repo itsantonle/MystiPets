@@ -195,7 +195,7 @@ export const useDeletePet = () => {
     onSettled: async (_, error, player_uuid) => {
       error
         ? console.error("Error deleting pet:", error)
-        : await queryClient.invalidateQueries({queryKey: ["pets"]})
+        : await queryClient.invalidateQueries()
     },
   })
 }

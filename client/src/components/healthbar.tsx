@@ -28,13 +28,6 @@ export const AnimatedHealthBar = () => {
   // This section is for the automated Decrease HP ------------------------
   // every 5 minus health  17 minus width
   useEffect(() => {
-    if (pet.health! === 0 && !pet.is_dead) {
-        updateStatus.mutate({
-        player_uuid: user!.id,
-        is_dead: true
-      })
-      console.log(`running update`)
-    }
     if (
       pet!.hunger_status! <= 30 &&
       pet!.happiness_status! <= 30 &&
@@ -60,17 +53,32 @@ export const AnimatedHealthBar = () => {
 
 
   useEffect(() => {
-    if (pet.health! === 0 && !pet.is_dead) {
-      applyPenalty.mutate({
-        player_uuid: user!.id,
-        player_penalty: 1
-      })
-      console.log(`running apply`)
-    }
-    if (pet.is_dead!) {
-      deletePet.mutate(user!.id)
-    }
-  }, [pet.is_dead])
+    if (pet.health == 0) {
+      updateStatus.mutate({
+      player_uuid: user!.id,
+      is_dead: true
+    }, {
+      onSuccess: () => {
+        console.log("success dead")
+        applyPenalty.mutate({
+          player_uuid: user!.id,
+          player_penalty: 1
+        }, {
+          onSuccess: () => {
+            deletePet.mutate(user!.id, {
+              onSuccess: () => {queryClient.invalidateQueries({queryKey: ['pets', user!.id]})}
+            })
+            console.log("deads")
+          },
+          onError: (error) => console.log(error)
+        })
+        console.log(`running apply`)
+      },
+      onError: (error) => console.log(error)
+    })
+    console.log(`running update`)
+  }
+}, [pet.health, pet.is_dead])
   
   //   console.log(`pethealth: ${pet!.health} barwidth: ${healthBarWidth}`)   //
 

@@ -12,7 +12,7 @@ import {
   unsucessfulUpdateResponse,
 } from "../utils/errorHandling"
 
-export const getPenalties = async (req: Request, res: Response): Promise<void> => {
+export const getUserPenalty = async (req: Request, res: Response): Promise<void> => {
   const { player_uuid } = req.params
   try {
     const response = await pool.query("SELECT player_penalty FROM player WHERE player_uuid = $1", [player_uuid]);
@@ -24,6 +24,19 @@ export const getPenalties = async (req: Request, res: Response): Promise<void> =
       .json(internalErrorResponse())
   }
 };
+
+export const getPenalties = async (req: Request, res: Response): Promise<void> => {
+  const { penalty_id } = req.params
+  try {
+    const response = await pool.query("SELECT * FROM penalty WHERE penalty_id = $1", [penalty_id]);
+    res.status(StatusCodes.OK).json(successResponse(response.rows));
+  } catch (error) {
+    console.error(error)
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse())
+  }
+}
 
 export const createPenalty = async (req: Request, res: Response): Promise<void> => {
   const { penalty_id, penalty_type, penalty_duration, penalty_description } = req.body;

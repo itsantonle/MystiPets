@@ -1,9 +1,11 @@
 import healhBarImg from "./img/icons/health-bar1-2t.png"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { useUpdateHealth } from "../services/mutations/petmutations"
+import { useDeletePet, useUpdateDeath, useUpdateHealth } from "../services/mutations/petmutations"
 import { usePets } from "../services/queries/petQueries"
 import { useAuth } from "../context/AuthContext"
 import { useEffect, useState } from "react"
+import { useAssignPenalty } from "../services/mutations/penaltymutations"
+import { useQueryClient } from "@tanstack/react-query"
 
 // 170: 50
 // 340: 100
@@ -16,6 +18,12 @@ export const AnimatedHealthBar = () => {
   const updateHealthMutation = useUpdateHealth()
   const [healthBarWidth, setHealthBarWidth] =
     useState(currentBarWidth)
+  const applyPenalty = useAssignPenalty()
+  const deletePet = useDeletePet()
+  const updateStatus = useUpdateDeath()
+  const queryClient = useQueryClient()
+
+
 
   // This section is for the automated Decrease HP ------------------------
   // every 5 minus health  17 minus width
@@ -42,6 +50,36 @@ export const AnimatedHealthBar = () => {
     }
   }, [updateHealthMutation])
 
+
+
+  useEffect(() => {
+    if (pet.health == 0) {
+      updateStatus.mutate({
+      player_uuid: user!.id,
+      is_dead: true
+    }, {
+      onSuccess: () => {
+        console.log("success dead")
+        applyPenalty.mutate({
+          player_uuid: user!.id,
+          player_penalty: 1
+        }, {
+          onSuccess: () => {
+            deletePet.mutate(user!.id, {
+              onSuccess: () => {queryClient.invalidateQueries({queryKey: ['pets', user!.id]})}
+            })
+            console.log("deads")
+          },
+          onError: (error) => console.log(error)
+        })
+        console.log(`running apply`)
+      },
+      onError: (error) => console.log(error)
+    })
+    console.log(`running update`)
+  }
+}, [pet.health, pet.is_dead])
+  
   //   console.log(`pethealth: ${pet!.health} barwidth: ${healthBarWidth}`)   //
 
   // automated Decrease Hp up to here ------------------------

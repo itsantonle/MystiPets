@@ -139,9 +139,7 @@ export const useUpdateDeath = () => {
     onSettled: async (_, error, { player_uuid }) => {
       error
         ? console.error("Error updating pet death:", error)
-        : await queryClient.invalidateQueries({
-            queryKey: ["pets", { player_uuid }],
-          })
+        : await queryClient.invalidateQueries()
     },
   })
 }
@@ -190,14 +188,14 @@ export const useDeletePet = () => {
   return useMutation({
     mutationFn: (player_uuid: string) => deletePet(player_uuid),
 
-    onSuccess: () => console.log("Successfully deleted pet."),
+    onSuccess: () => {console.log("Successfully deleted pet.")
+      queryClient.invalidateQueries()
+    },
 
     onSettled: async (_, error, player_uuid) => {
       error
         ? console.error("Error deleting pet:", error)
-        : await queryClient.invalidateQueries({
-            queryKey: ["pets", { player_uuid }],
-          })
+        : await queryClient.invalidateQueries()
     },
   })
 }

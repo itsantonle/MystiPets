@@ -1,5 +1,5 @@
 import { 
-  getPenalties,
+  getUserPenalty,
   createPenalty,
   assignPenalty,
   updatePenaltyType,
@@ -7,12 +7,14 @@ import {
   updatePenaltyDescription,
   deletePlayerPenalty,
   deletePenalty,
+  getPenalties,
 } from "../controllers/penaltiesController";
 import express from "express";
 
 const router = express.Router();
 
-router.route("/getPenalties/:player_uuid").get(getPenalties);
+router.route("/getUserPenalty/:player_uuid").get(getUserPenalty);
+router.route("/getPenalty/:penalty_id").get(getPenalties)
 router.route("/createPenalty").post(createPenalty);
 router.route("/assignPenalty/:player_uuid").put(assignPenalty);
 router.route("/updatePenaltyType/:penalty_id").put(updatePenaltyType); 

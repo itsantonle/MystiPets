@@ -4,8 +4,12 @@ import Penalty from "../../types/Penalty"
 const URL = "https://pets-node-backend.onrender.com/penalty"
 const penaltyAPI = axios.create({baseURL: URL})
 
-export const getPenalties = async (player_uuid: string) => {
-    return (await penaltyAPI.get(`/getPenalties/${player_uuid}`)).data.data
+export const getUserPenalties = async (player_uuid: string) => {
+    return (await penaltyAPI.get(`/getUserPenalty/${player_uuid}`)).data.data
+}
+
+export const getPenalties = async (penalty_id: Number) => {
+    return (await penaltyAPI.get(`/getPenalty/${penalty_id}`)).data.data
 }
 
 export const createPenalty = async (penalty: Penalty) => {

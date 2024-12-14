@@ -8,9 +8,12 @@ import {
 } from "../services/mutations/petmutations"
 import { usePets } from "../services/queries/petQueries"
 import { useAuth } from "../context/AuthContext"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import happyStar from "../components/img/icons/happy_star.png"
 import { useAssignPenalty } from "../services/mutations/penaltymutations"
+import { useGetPenalty, useGetUserPenalties } from "../services/queries/penaltyQueries"
+import { get } from "http"
+import { getCipherInfo } from "crypto"
 
 export const HappinessDisplay = () => {
   const { user } = useAuth()
@@ -19,20 +22,12 @@ export const HappinessDisplay = () => {
   const updateMoodMutation = useUpdatePetMood()
   const applyPenalty = useAssignPenalty()
   const updateLeavingStatus = useUpdateLeaving()
+  const [duration, setDuration] = useState<Number>(0)
+  const getUserPenalty = useGetUserPenalties(user!.id)
+  const getPenalty = useGetPenalty(getUserPenalty.data!)
+  const penaltyDuration = getPenalty.data!.penalty_duration
 
   useEffect(() => {
-    if (pet.happiness_status === 0 && !pet.has_left) {
-      applyPenalty.mutate({
-        player_uuid: user!.id,
-        player_penalty: 2
-      })
-      updateLeavingStatus.mutate({
-        player_uuid: user!.id,
-        has_left: true
-      })
-
-      window.alert("YOUR PET HAS LEFT YOU")
-    }
     if (pet.happiness_status! > 0 && pet.happiness_status! <= 100) {
       if (
         !updateHappinessMutation.isPending ||
@@ -76,6 +71,21 @@ export const HappinessDisplay = () => {
       }
     }
   }, [updateHappinessMutation])
+
+  useEffect(() => {
+    if (pet.happiness_status === 0 && !pet.has_left) {
+      applyPenalty.mutate({
+        player_uuid: user!.id,
+        player_penalty: 2
+      })
+      updateLeavingStatus.mutate({
+        player_uuid: user!.id,
+        has_left: true
+      })
+
+      window.alert(penaltyDuration)
+    }
+  })
 
   return (
     <div className="counter-style">

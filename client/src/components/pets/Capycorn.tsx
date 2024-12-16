@@ -1,12 +1,9 @@
 import { AnimatedSprite } from "@pixi/react"
-import {Capycorn_Idle} from "../img/Animations"
+import { Capycorn_Idle } from "../img/Animations"
 // import {Capycorn_Happy} from "../img/Animations"
 // import {Capycorn_Sad} from "../img/Animations"
-import { manageHealth } from "../../utils/interfaceUtil/healthBarUtil";
-import { manageHappiness } from "../../utils/interfaceUtil/happinessBarUtil";
-import { manageHunger } from "../../utils/interfaceUtil/hungerBarUtil";
 
-import { useState } from "react";
+import { useState } from "react"
 //'client/src/utils/interfaceUtil/healthBarUtil';
 // do we have to initialized an emote variable?
 
@@ -25,7 +22,7 @@ import { useState } from "react";
 export type dimensions = { x: number; y: number; s: number }
 
 export const CapyChooser = () => {
-  const [emote, setEmote] = useState();
+  const [emote, setEmote] = useState()
   // const [Emote, setEmote] = useState();
 
   // const {isHappyValue} = manageHappiness();
@@ -44,9 +41,7 @@ export const CapyChooser = () => {
   // return {Emote}
 }
 
-const CapycornSprite = ({ x, y, s}: dimensions) => {
-  
-    
+const CapycornSprite = ({ x, y, s }: dimensions) => {
   return (
     <>
       <AnimatedSprite
@@ -56,15 +51,13 @@ const CapycornSprite = ({ x, y, s}: dimensions) => {
         initialFrame={0}
         animationSpeed={0.07}
         interactive
-        x={x} 
+        x={x}
         y={y}
-        width={s} 
+        width={s}
         height={s}
       />
-
     </>
   )
 }
-
 
 export default CapycornSprite

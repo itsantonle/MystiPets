@@ -1,9 +1,9 @@
 import { AnimatedSprite } from "@pixi/react"
-import {Hydra_Idle} from "../img/Animations"
+import { Hydra_Idle } from "../img/Animations"
 
 export type dimensions = { x: number; y: number; s: number }
 
-const HydraSprite = ({ x, y, s}: dimensions) => {
+const HydraSprite = ({ x, y, s }: dimensions) => {
   return (
     <>
       <AnimatedSprite
@@ -13,12 +13,11 @@ const HydraSprite = ({ x, y, s}: dimensions) => {
         initialFrame={0}
         animationSpeed={0.03}
         interactive
-        x={x} 
+        x={x}
         y={y}
-        width={s} 
+        width={s}
         height={s}
       />
-
     </>
   )
 }

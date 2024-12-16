@@ -37,7 +37,7 @@ $position-values: map-merge(
 
 //colors
 $main-bg-color: #FF00FF;
-$counter-color: orange;
+$counter-color: #C69C6D;
 $font-color: white;
 $button-bg-color: #4CAF50;
 $border-color: black;
@@ -102,6 +102,8 @@ $no: transparent;
   align-items: center;
   margin-bottom: 7px;
   border-radius: 5px;
+  font-size: x-large;
+  font-family: 'Pixelify-Sans';
   background-color: $counter-color;
 }
 

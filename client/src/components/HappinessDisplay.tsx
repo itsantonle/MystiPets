@@ -15,6 +15,7 @@ export const HappinessDisplay = () => {
   const pet = usePets(user!.id).data![0]
   const updateHappinessMutation = useUpdateHappiness()
   const updateMoodMutation = useUpdatePetMood()
+  const spacer = ":‎ ‎" //:U+200E is an invisible character
 
   useEffect(() => {
     if (pet.happiness_status! > 0 && pet.happiness_status! <= 100) {
@@ -63,7 +64,7 @@ export const HappinessDisplay = () => {
 
   return (
     <div className="counter-style">
-      <img src={happyStar} className="img-fluid" />
+      <img src={happyStar} className="img-fluid" />{spacer}
       {pet.happiness_status}
     </div>
   )

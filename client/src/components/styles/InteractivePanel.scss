@@ -81,6 +81,8 @@
     &-label {
       margin-right: 10px;
       color: white;
+      font-family: 'Pixelify-Sans';
+      font-size: x-large;
     }
 
     &-bar-container {
@@ -100,9 +102,9 @@
   }
 
   &__buttons {
-    height: 50px;
+    height: 100px;
     position: absolute;
-    right: 100px;
+    right: 125px;
     top: 20px;
     display: flex;
     gap: 15px;
@@ -112,7 +114,16 @@
     border: none;
     background: transparent;
     padding: 0;
-    width: 40px;
-    height: 40px;
+    width: 65px;
+    height: 65px;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
   }
 }
+

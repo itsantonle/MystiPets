@@ -1,16 +1,17 @@
 .mood-display {
   position: relative;
   left: 30%;
+  top: -7%;
 
   &__background {
-    width: 100%;
+    width: 105%;
     height: 100%;
   }
 
   &__text {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 51%;
+    left: 52%;
     transform: translate(-50%, -50%);
     background: transparent;
     border: none;
@@ -20,3 +21,12 @@
     width: 80%;
   }
 }
+.mood-display__text{
+  height: 100px;
+  width: 170px;
+  color: white ;
+  font-size: 16px;
+  font-family: 'Pixelify-Sans';
+}
+
+

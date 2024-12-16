@@ -20,12 +20,15 @@ export const HappinessDisplay = () => {
   const pet = usePets(user!.id).data![0]
   const updateHappinessMutation = useUpdateHappiness()
   const updateMoodMutation = useUpdatePetMood()
+
+
   const applyPenalty = useAssignPenalty()
   const updateLeavingStatus = useUpdateLeaving()
   const [duration, setDuration] = useState<Number>(0)
   const getUserPenalty = useGetUserPenalties(user!.id)
   const getPenalty = useGetPenalty(getUserPenalty.data!)
   const penaltyDuration = getPenalty.data!.penalty_duration
+
 
   useEffect(() => {
     if (pet.happiness_status! > 0 && pet.happiness_status! <= 100) {
@@ -65,7 +68,7 @@ export const HappinessDisplay = () => {
                 ? 0
                 : pet.happiness_status! - 5,
           })
-        }, 2000) //4 seconds
+        }, 2000) //2 seconds
 
         return () => clearInterval(interval)
       }
@@ -89,7 +92,7 @@ export const HappinessDisplay = () => {
 
   return (
     <div className="counter-style">
-      <img src={happyStar} className="img-fluid" />
+      <img src={happyStar} className="img-fluid" />{spacer}
       {pet.happiness_status}
     </div>
   )

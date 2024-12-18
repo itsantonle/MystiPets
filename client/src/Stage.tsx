@@ -6,6 +6,7 @@ import * as React from "react"
 import Panel from "./components/InteractivePanel"
 import { Pet } from "./types/Pet"
 import bgImage from '/assets/BG.png'
+import nestImg from '/assets/nest.png'
 
 type PetContainerProp = {
   pet: Pet
@@ -75,6 +76,13 @@ const PetStage = ({ pet }: PetContainerProp) => {
           y={bgY}
         />
         <Container x={stageSize.width / 2 - 240} y={stageSize.height / 2}>
+          <Sprite
+            image={nestImg}
+            width={700}
+            height={400}
+            x={-110}
+            y={5}
+          />
           <PetContainer
             petType={pet.pet_type}
             petXpos={230}

@@ -16,6 +16,7 @@ export const HungerDisplay = () => {
   const { user } = useAuth()
   const pet = usePets(user!.id).data![0]
   const updateHungerMutation = useUpdateHunger()
+  const spacer = ":‎ ‎" //:U+200E is an invisible character
 
   useEffect(() => {
     if (pet.hunger_status! > 0 && pet.hunger_status! <= 100) {
@@ -33,7 +34,7 @@ export const HungerDisplay = () => {
 
   return (
     <div className="counter-style">
-      <img src={meat} className="img-fluid" />
+      <img src={meat} className="img-fluid" />{spacer}
       {pet.hunger_status}
     </div>
   )

@@ -116,16 +116,18 @@ const Panel = () => {
   }
 
   return (
-    <div className="interactive-panel__container">
-      <img
-        src={logPanel}
-        alt="panel"
+
+    <div className="bottom-5 interactive-panel__container">
+      <img 
+        src={logPanel} 
+        alt="panel" 
+
         className="interactive-panel__panel-image"
       />
       <div className="interactive-panel__content">
         {/* Left side stats */}
         <div className="interactive-panel__stats">
-          <div className="interactive-panel__stats-item">
+          <div className=" interactive-panel__stats-item">
             <HappinessDisplay />
           </div>
           <div className="interactive-panel__stats-item">
@@ -170,7 +172,7 @@ const Panel = () => {
             disabled={updateHungerMutation.isPending}
             className="interactive-panel__action-button"
           >
-            <img src={feedButton} className="img-fluid" />
+            <img src={feedButton} className="img-fluid w-100"/>
           </button>
           <button
             type="button"
@@ -178,7 +180,7 @@ const Panel = () => {
             disabled={updateHappinessMutation.isPending}
             className="interactive-panel__action-button"
           >
-            <img src={playButton} className="img-fluid" />
+            <img src={playButton} className="img-fluid  w-100" />
           </button>
           <div className="interactive-panel__mood-display">
             <MoodDisplay />

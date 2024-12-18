@@ -52,11 +52,16 @@ export const useUpdateHealth = () => {
       player_uuid: string
       health: number
     }) => updatePetHealth(player_uuid, health),
+    onSuccess: () => {
+      console.log("updating Health")
+    },
 
     onSettled: async (_, error, { player_uuid }) => {
       error
         ? console.log(error)
-        : await queryClient.invalidateQueries({ queryKey: ["pets"] })
+        : await queryClient.invalidateQueries({
+            queryKey: ["pets", "users"],
+          })
     },
   })
 }
@@ -114,6 +119,9 @@ export const useUpdateHappiness = () => {
       player_uuid: string
       happiness_status: number
     }) => updatePetHappiness(player_uuid, happiness_status),
+    onSuccess: () => {
+      console.log("updating happiness")
+    },
     onSettled: async (_, error, { player_uuid }) => {
       error
         ? console.error("Error updating happiness:", error)
@@ -173,11 +181,13 @@ export const useUpdateLeaving = () => {
       player_uuid: string
       has_left: boolean
     }) => updatePetLeaving(player_uuid, has_left),
-
+    onSuccess: () => {
+      console.log("changing the pet_left condition")
+    },
     onSettled: async (_, error) => {
       error
         ? console.error("Error updating pet death:", error)
-        : await queryClient.invalidateQueries()
+        : await queryClient.invalidateQueries({ queryKey: ["pets"] })
     },
   })
 }
@@ -188,7 +198,8 @@ export const useDeletePet = () => {
   return useMutation({
     mutationFn: (player_uuid: string) => deletePet(player_uuid),
 
-    onSuccess: () => {console.log("Successfully deleted pet.")
+    onSuccess: () => {
+      console.log("Successfully deleted pet.")
       queryClient.invalidateQueries()
     },
 

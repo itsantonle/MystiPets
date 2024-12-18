@@ -24,9 +24,6 @@ import { isPlaying } from "../utils/interfaceUtil/happinessBarUtil"
 import { MoodDisplay } from "./MoodDisplay"
 import { useQueryClient } from "@tanstack/react-query"
 
-
-
-
 const Panel = () => {
   const queryClient = useQueryClient()
   const { user } = useAuth()
@@ -67,6 +64,8 @@ const Panel = () => {
   const eatingButtonClicked = () => {
     // run updateHungerval muation here with isEating util instead of notEating
     // this can be crammed into Eating Button tsx
+
+    console.log("eating button clicked")
     if (pet.hunger_status! <= 95) {
       const hungerParam = {
         player_uuid: user!.id,
@@ -77,6 +76,7 @@ const Panel = () => {
   }
 
   const playingButtonClicked = () => {
+    console.log("playing button clicked")
     if (pet.happiness_status! <= 95) {
       const happyParam = {
         player_uuid: user!.id,
@@ -116,10 +116,12 @@ const Panel = () => {
   }
 
   return (
+
     <div className="bottom-5 interactive-panel__container">
       <img 
         src={logPanel} 
         alt="panel" 
+
         className="interactive-panel__panel-image"
       />
       <div className="interactive-panel__content">
@@ -144,12 +146,17 @@ const Panel = () => {
               readOnly
             />
           </div>
-          
+
           {/* Health bar */}
           <div className="interactive-panel__health">
-            <span className="interactive-panel__health-label">HP:</span>
+            <span className="interactive-panel__health-label">
+              HP:
+            </span>
             <div className="interactive-panel__health-bar-container">
-              <img src={healthBarFrame} className="interactive-panel__health-frame" />
+              <img
+                src={healthBarFrame}
+                className="interactive-panel__health-frame"
+              />
               <div className="interactive-panel__health-bar">
                 <AnimatedHealthBar />
               </div>

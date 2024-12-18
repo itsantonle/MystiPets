@@ -3,7 +3,7 @@ import { Capycorn_Idle } from "../img/Animations"
 // import {Capycorn_Happy} from "../img/Animations"
 // import {Capycorn_Sad} from "../img/Animations"
 
-import { useState } from "react"
+// import { useState } from "react"
 //'client/src/utils/interfaceUtil/healthBarUtil';
 // do we have to initialized an emote variable?
 
@@ -22,13 +22,11 @@ import { useState } from "react"
 export type dimensions = { x: number; y: number; s: number }
 
 export const CapyChooser = () => {
-  const [emote, setEmote] = useState()
+  // const [emote, setEmote] = useState()
   // const [Emote, setEmote] = useState();
-
   // const {isHappyValue} = manageHappiness();
   // const {isHealthyValue} = manageHealth();
   // const {isHungryValue} = manageHunger();
-
   // if (isHealthyValue >= 81 && isHappyValue > 50 && isHungryValue > 50) {
   //   setEmote("Capycorn_Happy");
   // } else if (isHealthyValue >= 51 && isHappyValue > 50 && isHungryValue > 50) {

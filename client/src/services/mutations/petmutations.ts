@@ -1,5 +1,5 @@
 import {
-  QueryClient,
+  // QueryClient,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query"
@@ -32,7 +32,7 @@ export const useCreatePet = () => {
       console.log("success")
     },
 
-    onSettled: async (_, error, { player_uuid }) => {
+    onSettled: async (_, error) => {
       console.log("settled")
       error
         ? console.log(error)
@@ -56,7 +56,7 @@ export const useUpdateHealth = () => {
       console.log("updating Health")
     },
 
-    onSettled: async (_, error, { player_uuid }) => {
+    onSettled: async (_, error) => {
       error
         ? console.log(error)
         : await queryClient.invalidateQueries({
@@ -100,7 +100,7 @@ export const useUpdateHunger = () => {
       hunger_status: number
     }) => updatePetHunger(player_uuid, hunger_status),
 
-    onSettled: async (_, error, { player_uuid }) => {
+    onSettled: async (_, error) => {
       error
         ? console.error("Error updating hunger:", error)
         : await queryClient.invalidateQueries({ queryKey: ["pets"] })
@@ -122,7 +122,7 @@ export const useUpdateHappiness = () => {
     onSuccess: () => {
       console.log("updating happiness")
     },
-    onSettled: async (_, error, { player_uuid }) => {
+    onSettled: async (_, error) => {
       error
         ? console.error("Error updating happiness:", error)
         : await queryClient.invalidateQueries({
@@ -144,7 +144,7 @@ export const useUpdateDeath = () => {
       is_dead: boolean
     }) => updatePetDeath(player_uuid, is_dead),
 
-    onSettled: async (_, error, { player_uuid }) => {
+    onSettled: async (_, error) => {
       error
         ? console.error("Error updating pet death:", error)
         : await queryClient.invalidateQueries()
@@ -163,7 +163,7 @@ export const useUpdatePetMood = () => {
       mood_id: number
     }) => updatePetMood(player_uuid, mood_id),
 
-    onSettled: async (_, error, { player_uuid }) => {
+    onSettled: async (_, error) => {
       error
         ? console.error("Error updating happiness:", error)
         : await queryClient.invalidateQueries({ queryKey: ["moods"] })
@@ -203,7 +203,7 @@ export const useDeletePet = () => {
       queryClient.invalidateQueries()
     },
 
-    onSettled: async (_, error, player_uuid) => {
+    onSettled: async (_, error) => {
       error
         ? console.error("Error deleting pet:", error)
         : await queryClient.invalidateQueries()

@@ -1,4 +1,4 @@
-import { useState } from "react"
+// import { useState } from "react"
 import { useAuth } from "../context/AuthContext"
 import { useMood } from "../services/queries/moodQueries"
 import { usePets } from "../services/queries/petQueries"
@@ -11,9 +11,9 @@ export const MoodDisplay = () => {
   const DatabaseMood = useMood(pet!.mood_id!)
   return (
     <div className="mood-display">
-      <img 
-        src={logsmall} 
-        alt="mood background" 
+      <img
+        src={logsmall}
+        alt="mood background"
         className="mood-display__background"
       />
       <textarea

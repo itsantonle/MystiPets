@@ -1,5 +1,5 @@
 import axios from "axios"
-import { Player, UserData } from "../../types/Player"
+// import { Player, UserData } from "../../types/Player"
 import { Pet } from "../../types/Pet"
 const URL = "https://pets-node-backend.onrender.com/pets"
 const petAPI = axios.create({ baseURL: URL })

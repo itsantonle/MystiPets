@@ -1,6 +1,6 @@
 import { AnimatedSprite, useTick } from "@pixi/react"
 
-import Frames from "../img/Frames"
+// import Frames from "../img/Frames"
 import { useState } from "react"
 // import { type coord } from './Bunny'
 
@@ -56,7 +56,7 @@ const Asprite = () => {
     <>
       <AnimatedSprite
         anchor={0.5}
-        textures={Frames}
+        // textures={Frames}
         isPlaying={true}
         initialFrame={0}
         animationSpeed={0.1}

@@ -6,12 +6,12 @@ import { useState } from "react"
 import PetSelection from "./components/pet-selection/Pet-selection"
 import PetStage from "./Stage"
 import { usePets } from "./services/queries/petQueries"
-import { Pet } from "./types/Pet"
+// import { Pet } from "./types/Pet"
 
-// Pet Switching function, transfer after. 
+// Pet Switching function, transfer after.
 
 export const switchPet = (testPet: any) => {
- return testPet == "Hydra"? "Capycorn" : "Hydra"
+  return testPet == "Hydra" ? "Capycorn" : "Hydra"
 }
 // ---------------------------------------
 

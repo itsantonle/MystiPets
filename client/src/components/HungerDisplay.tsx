@@ -2,15 +2,15 @@
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import {
-  useDeletePet,
+  // useDeletePet,
   useUpdateHunger,
-  useUpdateDeath,
+  // useUpdateDeath,
 } from "../services/mutations/petmutations"
 import { usePets } from "../services/queries/petQueries"
 import { useAuth } from "../context/AuthContext"
 import { useEffect } from "react"
 import meat from "../components/img/icons/meat.png"
-import { useAssignPenalty } from "../services/mutations/penaltymutations"
+// import { useAssignPenalty } from "../services/mutations/penaltymutations"
 
 export const HungerDisplay = () => {
   const { user } = useAuth()
@@ -34,7 +34,8 @@ export const HungerDisplay = () => {
 
   return (
     <div className="counter-style">
-      <img src={meat} className="img-fluid" />{spacer}
+      <img src={meat} className="img-fluid" />
+      {spacer}
       {pet.hunger_status}
     </div>
   )

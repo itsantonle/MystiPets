@@ -14,33 +14,33 @@ import { usePets } from "../services/queries/petQueries"
 import { useAuth } from "../context/AuthContext"
 import {
   useUpdateHappiness,
-  useUpdateHealth,
+  // useUpdateHealth,
   useUpdateHunger,
   useUpdatePetMood,
 } from "../services/mutations/petmutations"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { isEating } from "../utils/interfaceUtil/hungerBarUtil"
 import { isPlaying } from "../utils/interfaceUtil/happinessBarUtil"
 import { MoodDisplay } from "./MoodDisplay"
-import { useQueryClient } from "@tanstack/react-query"
+// import { useQueryClient } from "@tanstack/react-query"
 
 const Panel = () => {
-  const queryClient = useQueryClient()
+  // const queryClient = useQueryClient()
   const { user } = useAuth()
   const pet = usePets(user!.id).data![0]
   // to do peridical mutation use the useEffect hook with setInterval()
   const updateHappinessMutation = useUpdateHappiness()
   const updateHungerMutation = useUpdateHunger()
-  const updateHealthMutation = useUpdateHealth()
+  // const updateHealthMutation = useUpdateHealth()
   const updateMoodMutation = useUpdatePetMood()
 
-  const validatePenalty = (penaltyType: string) => {
-    //check the health value
+  // const validatePenalty = (penaltyType: string) => {
+  //   //check the health value
 
-    switch (penaltyType) {
-      case "dead":
-    }
-  }
+  //   switch (penaltyType) {
+  //     case "dead":
+  //   }
+  // }
   useEffect(() => {
     const interval = setInterval(() => {
       // updateHappinessMutation.mutate()
@@ -116,12 +116,10 @@ const Panel = () => {
   }
 
   return (
-
     <div className="bottom-5 interactive-panel__container">
-      <img 
-        src={logPanel} 
-        alt="panel" 
-
+      <img
+        src={logPanel}
+        alt="panel"
         className="interactive-panel__panel-image"
       />
       <div className="interactive-panel__content">
@@ -172,7 +170,7 @@ const Panel = () => {
             disabled={updateHungerMutation.isPending}
             className="interactive-panel__action-button"
           >
-            <img src={feedButton} className="img-fluid w-100"/>
+            <img src={feedButton} className="img-fluid w-100" />
           </button>
           <button
             type="button"

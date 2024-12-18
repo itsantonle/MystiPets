@@ -1,5 +1,3 @@
-
-
 export const isPlaying = (DBhappval: number) => {
   return DBhappval + 5 // increase
   // run mutation hook at an interval on the interactive panel component

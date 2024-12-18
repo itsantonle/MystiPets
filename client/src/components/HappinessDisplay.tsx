@@ -15,7 +15,7 @@ import {
   useAssignPenalty,
   useDeletePlayerPenalty,
 } from "../services/mutations/penaltymutations"
-import { useGetPenalty } from "../services/queries/penaltyQueries"
+// import { useGetPenalty } from "../services/queries/penaltyQueries"
 
 import { useGetLoggedinUser } from "../services/queries/userQueries"
 

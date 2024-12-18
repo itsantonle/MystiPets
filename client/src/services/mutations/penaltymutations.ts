@@ -1,5 +1,5 @@
 import {
-  QueryClient,
+  // QueryClient,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query"
@@ -56,7 +56,7 @@ export const useAssignPenalty = () => {
       console.log("applying penalty")
     },
 
-    onSettled: async (_, error, { player_uuid }) => {
+    onSettled: async (_, error) => {
       error
         ? console.error("Error assigning penalty:", error)
         : await queryClient.invalidateQueries({ queryKey: ["users"] })
@@ -141,7 +141,7 @@ export const useDeletePlayerPenalty = () => {
       console.log("Successfully deleted player penalty.")
     },
 
-    onSettled: async (_, error, player_uuid) => {
+    onSettled: async (_, error) => {
       error
         ? console.error("Error deleting player penalty:", error)
         : await queryClient.invalidateQueries({

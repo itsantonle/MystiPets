@@ -1,6 +1,6 @@
 import axios from "axios"
 import { Player, UserData } from "../../types/Player"
-const URL = "https://pets-node-backend.onrender.com"
+// const URL = "https://pets-node-backend.onrender.com"
 const userAPI = axios.create({
   baseURL: "https://pets-node-backend.onrender.com/users",
   headers: {

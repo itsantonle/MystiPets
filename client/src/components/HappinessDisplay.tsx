@@ -29,9 +29,7 @@ export const HappinessDisplay = () => {
 
   const getUserQuery = useGetLoggedinUser(user!.id!)
   // const getPenalty = useGetPenalty(2).data
-
-
-
+  const spacer = ": "
 
   const applyPenalty = useAssignPenalty()
   const updateLeavingStatus = useUpdateLeaving()
@@ -39,7 +37,6 @@ export const HappinessDisplay = () => {
   const [ranAway, setRanAway] = useState(false)
   const [returned, setReturned] = useState(1)
   const [runningaway, SetRunningAway] = useState(0)
-
 
   useEffect(() => {
     if (pet.happiness_status! > -5 && pet.happiness_status! <= 100) {
@@ -83,10 +80,7 @@ export const HappinessDisplay = () => {
                 ? 0
                 : pet.happiness_status! - 5,
           })
-
         }, 3000) //4 seconds
-
-
 
         return () => clearInterval(interval)
       }
@@ -141,7 +135,8 @@ export const HappinessDisplay = () => {
 
   return (
     <div className="counter-style">
-      <img src={happyStar} className="img-fluid" />{spacer}
+      <img src={happyStar} className="img-fluid" />
+      {spacer}
       {pet.happiness_status}
     </div>
   )

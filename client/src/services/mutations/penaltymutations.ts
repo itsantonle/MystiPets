@@ -52,11 +52,14 @@ export const useAssignPenalty = () => {
       player_uuid: string
       player_penalty: number
     }) => assignPenalty(player_uuid, player_penalty),
+    onSuccess: () => {
+      console.log("applying penalty")
+    },
 
     onSettled: async (_, error, { player_uuid }) => {
       error
         ? console.error("Error assigning penalty:", error)
-        : await queryClient.invalidateQueries()
+        : await queryClient.invalidateQueries({ queryKey: ["users"] })
     },
   })
 }
@@ -142,7 +145,7 @@ export const useDeletePlayerPenalty = () => {
       error
         ? console.error("Error deleting player penalty:", error)
         : await queryClient.invalidateQueries({
-            queryKey: ["penalties", player_uuid],
+            queryKey: ["penalties", "users"],
           })
     },
   })

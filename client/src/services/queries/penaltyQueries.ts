@@ -14,7 +14,7 @@ export const useGetUserPenalties = (player_uuid: string) => {
 
 export const useGetPenalty = (penalty_id: Number) => {
   return useQuery<Penalty, Error>({
-    queryKey: ["penalties", penalty_id],
+    queryKey: ["penalty", penalty_id],
     queryFn: () => getPenalties(penalty_id),
     enabled: !!penalty_id,
   })

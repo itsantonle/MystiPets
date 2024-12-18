@@ -25,7 +25,7 @@ export const HungerDisplay = () => {
           hunger_status:
             pet.hunger_status! <= 0 ? 0 : pet.hunger_status! - 5,
         })
-      }, 2000) //2 seconds
+      }, 3000) //2 seconds
 
       return () => clearInterval(interval)
     }

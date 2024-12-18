@@ -55,8 +55,10 @@ export const updatePenaltyDescription = async (
 }
 
 export const deletePlayerPenalty = async (player_uuid: string) => {
-  await penaltyAPI.put(`/deletePlayerPenalty/${player_uuid}`)
+  await penaltyAPI.delete(`/deletePlayerPenalty/${player_uuid}`)
 }
+
+//wrong method was put here
 
 export const deletePenalty = async (penalty_id: number) => {
   await penaltyAPI.delete(`/deletePenalty/${penalty_id}`)

@@ -5,7 +5,7 @@ import { useState } from "react"
 import PetSelection from "./components/pet-selection/Pet-selection"
 import PetStage from "./Stage"
 import { usePets } from "./services/queries/petQueries"
-import { useQueryClient } from "@tanstack/react-query"
+import { toast, ToastContainer } from "react-toastify"
 
 // import { Pet } from "./types/Pet"
 
@@ -17,10 +17,8 @@ export const switchPet = (testPet: any) => {
 // ---------------------------------------
 
 function AuthenticatedApp() {
-  // const { signOut } = useAuth() random
   const { user } = useAuth()
   const { data, isPending, isSuccess } = usePets(user!.id)
-  const queryClient = useQueryClient()
 
   return (
     <div className="game-wrapper">
@@ -32,6 +30,7 @@ function AuthenticatedApp() {
       ) : (
         <PetSelection />
       )}
+      <ToastContainer />
     </div>
   )
 }

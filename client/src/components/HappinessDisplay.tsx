@@ -25,6 +25,7 @@ import {
   setMood,
 } from "../utils/interfaceUtil/happinessBarUtil"
 import { returnPenaltyId } from "../utils/interfaceUtil/penaltyUtil"
+import { toast } from "react-toastify"
 
 export const HappinessDisplay = () => {
   // auth
@@ -84,10 +85,13 @@ export const HappinessDisplay = () => {
       !updateMoodMutation.isPending
     ) {
       // apply penalty to user
-      applyPenalty.mutate({
-        player_uuid: user!.id,
-        player_penalty: returnPenaltyId("run away")!,
-      })
+      applyPenalty.mutate(
+        {
+          player_uuid: user!.id,
+          player_penalty: returnPenaltyId("run away")!,
+        },
+        { onSuccess: () => toast("Your pet has left") },
+      )
 
       // update pet has_left boolean
       updateLeavingStatus.mutate({
@@ -115,7 +119,11 @@ export const HappinessDisplay = () => {
           player_uuid: user!.id,
           has_left: false,
         })
-        deleteUserPenalty.mutate(user!.id!)
+        deleteUserPenalty.mutate(user!.id!, {
+          onSuccess: () => {
+            toast("your pet has returned!")
+          },
+        })
       }, 5000) // runs after 5 seconds
 
       // update useState variables

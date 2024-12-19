@@ -5,6 +5,7 @@ import { useAuth } from "../../context/AuthContext"
 import "./Pet-selection.scss"
 import { useCreatePet } from "../../services/mutations/petmutations"
 import { Pet } from "../../types/Pet"
+import { toast } from "react-toastify"
 
 interface Pets {
   name: string
@@ -25,7 +26,11 @@ export default function PetSelection() {
         pet_type: selectedPet.type,
         player_uuid: user!.id,
       }
-      useCreatePetMutation.mutate(newPet)
+      useCreatePetMutation.mutate(newPet, {
+        onSuccess: () => {
+          toast("You've created a pet!")
+        },
+      })
     }
   }
 

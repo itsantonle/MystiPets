@@ -2,7 +2,7 @@ import { AuthProvider } from "./context/AuthContext"
 import { SignIn } from "./components/Auth/SignIn"
 import { SignUp } from "./components/Auth/SignUp"
 import { useAuth } from "./context/AuthContext"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import PetSelection from "./components/pet-selection/Pet-selection"
 import PetStage from "./Stage"
 import { usePets } from "./services/queries/petQueries"
@@ -36,11 +36,17 @@ function AuthenticatedApp() {
 
 function UnauthenticatedApp() {
   const [isSignIn, setIsSignIn] = useState(true)
-  // const [testPet, setTestPet] = useState("Hydra")
+  const [audio] = useState(new Audio("./assets/bgSound.mp3"))
 
-  // const isSwitchingPet = () => {
-  //   setTestPet(prevPet => switchPet(prevPet));
-  // };
+  useEffect(() => {
+    audio.loop = true
+    audio.play().catch(error => console.log("Audio playback failed:", error))
+    
+    return () => {
+      audio.pause()
+      audio.currentTime = 0
+    }
+  }, [])
 
   return (
     <div className="auth-container">

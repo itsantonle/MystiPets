@@ -1,42 +1,49 @@
-// automate happiness to decrease every 5 seconds
-
+// stylesheets
 import "bootstrap/dist/css/bootstrap.min.css"
+// mutation hooks
 import {
   useUpdateHappiness,
   useUpdateHealth,
   useUpdateLeaving,
   useUpdatePetMood,
 } from "../services/mutations/petmutations"
-import { usePets } from "../services/queries/petQueries"
-import { useAuth } from "../context/AuthContext"
-import { useEffect, useState } from "react"
-import happyStar from "../components/img/icons/happy_star.png"
 import {
   useAssignPenalty,
   useDeletePlayerPenalty,
 } from "../services/mutations/penaltymutations"
-// import { useGetPenalty } from "../services/queries/penaltyQueries"
-
+//query hooks
+import { usePets } from "../services/queries/petQueries"
 import { useGetLoggedinUser } from "../services/queries/userQueries"
+// auth context
+import { useAuth } from "../context/AuthContext"
+// react hooks
+import { useEffect, useState } from "react"
+// util
+import happyStar from "../components/img/icons/happy_star.png"
+import {
+  automaticHappinessDecrease,
+  setMood,
+} from "../utils/interfaceUtil/happinessBarUtil"
+import { returnPenaltyId } from "../utils/interfaceUtil/penaltyUtil"
 
 export const HappinessDisplay = () => {
+  // auth
   const { user } = useAuth()
-
+  //  tanstack hooks
   const pet = usePets(user!.id).data![0]
   const updateHealthMutation = useUpdateHealth()
   const updateHappinessMutation = useUpdateHappiness()
   const updateMoodMutation = useUpdatePetMood()
-
   const getUserQuery = useGetLoggedinUser(user!.id!)
-  // const getPenalty = useGetPenalty(2).data
-  const spacer = ": "
-
   const applyPenalty = useAssignPenalty()
   const updateLeavingStatus = useUpdateLeaving()
   const deleteUserPenalty = useDeletePlayerPenalty()
-  const [ranAway, setRanAway] = useState(false)
+
+  //  useState hooks
   const [returned, setReturned] = useState(1)
   const [runningaway, SetRunningAway] = useState(0)
+
+  const spacer = ":‎ ‎" //:U+200E is an invisible character
 
   useEffect(() => {
     if (pet.happiness_status! > -5 && pet.happiness_status! <= 100) {
@@ -49,38 +56,19 @@ export const HappinessDisplay = () => {
         !pet.is_dead
       ) {
         const interval = setInterval(() => {
-          if (
-            pet.happiness_status! > 20 &&
-            pet.happiness_status! < 50
-          ) {
-            updateMoodMutation.mutate({
-              player_uuid: user!.id!,
-              mood_id: 2,
-            })
-          }
-          if (
-            pet.happiness_status! > 0 &&
-            pet.happiness_status! <= 20
-          ) {
-            updateMoodMutation.mutate({
-              player_uuid: user!.id!,
-              mood_id: 1,
-            })
-          }
-          if (pet.happiness_status! >= 50) {
-            updateMoodMutation.mutate({
-              player_uuid: user!.id!,
-              mood_id: 3,
-            })
-          }
+          updateMoodMutation.mutate({
+            player_uuid: user!.id!,
+            mood_id: setMood(pet!.happiness_status!)!,
+          })
+
           updateHappinessMutation.mutateAsync({
             player_uuid: user!.id,
-            happiness_status:
-              pet.happiness_status! <= 0
-                ? 0
-                : pet.happiness_status! - 5,
+            happiness_status: automaticHappinessDecrease(
+              pet!.happiness_status!,
+              5,
+            )!,
           })
-        }, 3000) //4 seconds
+        }, 3000) // run every 3 seconds
 
         return () => clearInterval(interval)
       }
@@ -95,15 +83,19 @@ export const HappinessDisplay = () => {
       !updateHappinessMutation.isPending &&
       !updateMoodMutation.isPending
     ) {
-      setRanAway(true)
+      // apply penalty to user
       applyPenalty.mutate({
         player_uuid: user!.id,
-        player_penalty: 2,
+        player_penalty: returnPenaltyId("run away")!,
       })
+
+      // update pet has_left boolean
       updateLeavingStatus.mutate({
         player_uuid: user!.id,
         has_left: true,
       })
+
+      // update the happiness mutation to increaase by 20
       updateHappinessMutation.mutate({
         player_uuid: user!.id!,
         happiness_status: 20,
@@ -124,14 +116,13 @@ export const HappinessDisplay = () => {
           has_left: false,
         })
         deleteUserPenalty.mutate(user!.id!)
-      }, 5000)
+      }, 5000) // runs after 5 seconds
+
+      // update useState variables
       setReturned(1)
       SetRunningAway(0)
     }
-
-    //   //apply mutate can set to null set type number
-    // }
-  }, [ranAway, updateHappinessMutation])
+  }, [updateHappinessMutation])
 
   return (
     <div className="counter-style">
@@ -141,3 +132,5 @@ export const HappinessDisplay = () => {
     </div>
   )
 }
+
+// === should add the toasters after animation implementation

@@ -1,5 +1,11 @@
 import { AnimatedSprite } from "@pixi/react"
 import { Capycorn_Idle } from "../img/Animations"
+import { capycornAnimationDisplay } from "../../utils/interfaceUtil/animationUtil"
+import { AuthContext, useAuth } from "../../context/AuthContext"
+import { usePets } from "../../services/queries/petQueries"
+import { Pet } from "../../types/Pet"
+import { useRef, useState } from "react"
+import { Resource, Texture } from "pixi.js"
 // import {Capycorn_Happy} from "../img/Animations"
 // import {Capycorn_Sad} from "../img/Animations"
 
@@ -19,32 +25,27 @@ import { Capycorn_Idle } from "../img/Animations"
 // else2
 // Emote == Dead
 
-export type dimensions = { x: number; y: number; s: number }
-
-export const CapyChooser = () => {
-  // const [emote, setEmote] = useState()
-  // const [Emote, setEmote] = useState();
-  // const {isHappyValue} = manageHappiness();
-  // const {isHealthyValue} = manageHealth();
-  // const {isHungryValue} = manageHunger();
-  // if (isHealthyValue >= 81 && isHappyValue > 50 && isHungryValue > 50) {
-  //   setEmote("Capycorn_Happy");
-  // } else if (isHealthyValue >= 51 && isHappyValue > 50 && isHungryValue > 50) {
-  //   setEmote(Capycorn_Idle);
-  // } else if (isHealthyValue >= 21) {
-  //   setEmote("Capycorn_Sad");
-  // } else {
-  //   setEmote("Capycorn_Dead");
-  // }
-  // return {Emote}
+export type capyProp = {
+  x: number
+  y: number
+  s: number
+  pet: Pet
 }
 
-const CapycornSprite = ({ x, y, s }: dimensions) => {
+const CapycornSprite = ({ x, y, s, pet }: capyProp) => {
+  // useEffect to update the textures
+
   return (
     <>
       <AnimatedSprite
         anchor={0.5}
-        textures={Capycorn_Idle} // replace with Emote variable (proposed solution ini)
+        textures={capycornAnimationDisplay(
+          pet!.happiness_status!,
+          false,
+          false,
+          pet!.is_dead!,
+          pet!.has_left!,
+        )} // replace with Emote variable (proposed solution ini)
         isPlaying={true}
         initialFrame={0}
         animationSpeed={0.07}

@@ -11,7 +11,7 @@ type AuthContextType = {
   loading: boolean
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(
+export const AuthContext = createContext<AuthContextType | undefined>(
   undefined,
 )
 

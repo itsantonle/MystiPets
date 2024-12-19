@@ -1,23 +1,34 @@
 import healhBarImg from "./img/icons/health-bar1-2t.png"
 import "bootstrap/dist/css/bootstrap.min.css"
+// singleton queryClient instance
+import { useQueryClient } from "@tanstack/react-query"
+// mutations
 import {
   useDeletePet,
   useUpdateDeath,
   useUpdateHealth,
 } from "../services/mutations/petmutations"
-import { usePets } from "../services/queries/petQueries"
-import { useAuth } from "../context/AuthContext"
-import { useEffect, useState } from "react"
 import {
   useAssignPenalty,
   useDeletePlayerPenalty,
 } from "../services/mutations/penaltymutations"
-import { useQueryClient } from "@tanstack/react-query"
+//  queries
+import { usePets } from "../services/queries/petQueries"
+// auth context
+import { useAuth } from "../context/AuthContext"
+// react hooks
+import { useEffect, useState } from "react"
+import {
+  automaticHealthBarDecrease,
+  automaticHealthBarIncrease,
+  automaticHealthDecrease,
+  automaticHealthIncrease,
+} from "../utils/interfaceUtil/healthBarUtil"
+import { returnPenaltyId } from "../utils/interfaceUtil/penaltyUtil"
 
-// 170: 50
-// 340: 100
-
+//  health bar to img health bar ratio
 // 3.4 barwidth : 1 HP
+
 export const AnimatedHealthBar = () => {
   const { user } = useAuth()
   const pet = usePets(user!.id).data![0]
@@ -31,33 +42,32 @@ export const AnimatedHealthBar = () => {
   const queryClient = useQueryClient()
   const deleteUserPenalty = useDeletePlayerPenalty()
 
-  // This section is for the automated Decrease HP ------------------------
-  // every 5 minus health  17 minus width
+  //=======   automatic health decay over time interval
   useEffect(() => {
     if (
       pet!.hunger_status! <= 30 &&
       pet!.happiness_status! <= 30 &&
       healthBarWidth > 0
     ) {
-      //if health is lessthan or equal to 30, start this
+      //if health is lessthan or equal to 30 start the health decrease
       const interval = setInterval(() => {
         if (healthBarWidth > 0) {
           updateHealthMutation.mutateAsync({
             player_uuid: user!.id,
-            health: pet!.health! <= 0 ? 0 : pet!.health! - 5,
+            health: automaticHealthDecrease(pet.health!, 5),
           })
         }
-        setHealthBarWidth(
-          healthBarWidth <= 0 ? 0 : healthBarWidth - 17,
-        )
-      }, 3000)
+        setHealthBarWidth(automaticHealthBarDecrease(healthBarWidth))
+      }, 3000) // runs every 3 seconds
 
       return () => clearInterval(interval)
     }
   }, [updateHealthMutation])
 
+  // =======  handles the death of the pet
   useEffect(() => {
     if (pet.health == 0) {
+      // update pet is_dead boolean
       updateStatus.mutate(
         {
           player_uuid: user!.id,
@@ -69,9 +79,10 @@ export const AnimatedHealthBar = () => {
             applyPenalty.mutate(
               {
                 player_uuid: user!.id,
-                player_penalty: 1,
+                player_penalty: returnPenaltyId("dead")!,
               },
               {
+                // delete user
                 onSuccess: () => {
                   setTimeout(() => {
                     deletePet.mutate(user!.id, {
@@ -97,11 +108,7 @@ export const AnimatedHealthBar = () => {
     }
   }, [pet.health, pet.is_dead])
 
-  //   console.log(`pethealth: ${pet!.health} barwidth: ${healthBarWidth}`)   //
-
-  // automated Decrease Hp up to here ------------------------
-
-  // This section is for the automated Increase HP ===============================
+  //=======   automated increase of hp
   useEffect(() => {
     if (
       pet.hunger_status == 100 &&
@@ -113,18 +120,17 @@ export const AnimatedHealthBar = () => {
         if (healthBarWidth <= 340) {
           updateHealthMutation.mutateAsync({
             player_uuid: user!.id,
-            health: pet.health! > 100 ? 100 : pet.health! + 5,
+            health: automaticHealthIncrease(pet!.health!)!,
           })
         }
-        setHealthBarWidth(
-          healthBarWidth >= 340 ? 340 : healthBarWidth + 17,
-        )
+        setHealthBarWidth(automaticHealthBarIncrease(healthBarWidth))
       }, 1000)
+      // runs over a span of 1 second
 
       return () => clearInterval(interval)
     }
   }, [updateHealthMutation])
-  // automated Increase HP ends here ==========================
+
   return (
     <div
       className="health-bar-container"

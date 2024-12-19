@@ -1,4 +1,3 @@
-import { AuthProvider } from "./context/AuthContext"
 import { SignIn } from "./components/Auth/SignIn"
 import { SignUp } from "./components/Auth/SignUp"
 import { useAuth } from "./context/AuthContext"
@@ -6,6 +5,8 @@ import { useState } from "react"
 import PetSelection from "./components/pet-selection/Pet-selection"
 import PetStage from "./Stage"
 import { usePets } from "./services/queries/petQueries"
+import { useQueryClient } from "@tanstack/react-query"
+
 // import { Pet } from "./types/Pet"
 
 // Pet Switching function, transfer after.
@@ -19,6 +20,7 @@ function AuthenticatedApp() {
   // const { signOut } = useAuth() random
   const { user } = useAuth()
   const { data, isPending, isSuccess } = usePets(user!.id)
+  const queryClient = useQueryClient()
 
   return (
     <div className="game-wrapper">
@@ -75,12 +77,4 @@ function App() {
   return user ? <AuthenticatedApp /> : <UnauthenticatedApp />
 }
 
-function AppWithProvider() {
-  return (
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  )
-}
-
-export default AppWithProvider
+export default App

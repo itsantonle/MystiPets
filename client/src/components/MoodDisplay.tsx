@@ -1,7 +1,9 @@
-// import { useState } from "react"
+// auth
 import { useAuth } from "../context/AuthContext"
+// queries
 import { useMood } from "../services/queries/moodQueries"
 import { usePets } from "../services/queries/petQueries"
+// utils
 import logsmall from "/assets/logsmall.png"
 import "./styles/MoodDisplay.scss"
 

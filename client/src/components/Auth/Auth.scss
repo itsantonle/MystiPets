@@ -56,6 +56,8 @@
   background: linear-gradient(to bottom, #1877F2, #75B09C );
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   transition: all 0.5s ease-in-out;
+  position: relative;
+  z-index: 2;
 }
 
 .auth-form-container:hover {
@@ -159,4 +161,30 @@
 .auth-toggle-button.active {
   background: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+.animated-characters {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.character {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  image-rendering: pixelated;
+  transition: left 0.05s linear;
+}
+
+.capycorn {
+  transform: scaleX(1);
+}
+
+.hydra {
+  transform: scaleX(-1);
 } 

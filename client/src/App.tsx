@@ -1,6 +1,7 @@
 import { AuthProvider } from "./context/AuthContext"
 import { SignIn } from "./components/Auth/SignIn"
 import { SignUp } from "./components/Auth/SignUp"
+import { AnimatedCharacters } from "./components/Auth/AnimatedCharacters"
 import { useAuth } from "./context/AuthContext"
 import { useState, useEffect } from "react"
 import PetSelection from "./components/pet-selection/Pet-selection"
@@ -50,6 +51,7 @@ function UnauthenticatedApp() {
 
   return (
     <div className="auth-container">
+      <AnimatedCharacters />
       <div className="auth-form-container">
         <div className="auth-toggle-container">
           <button

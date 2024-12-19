@@ -14,8 +14,19 @@ type PetContainerProp = {
 
 const PetStage = ({ pet }: PetContainerProp) => {
   const [stageSize, setStageSize] = React.useState({ width: window.innerWidth, height: window.innerHeight })
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   React.useEffect(() => {
+    // Initialize background music
+    audioRef.current = new Audio('/assets/gameBg.wav');
+    if (audioRef.current) {
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.5; // Set volume to 50%
+      audioRef.current.play().catch(error => {
+        console.log("Audio playback failed:", error);
+      });
+    }
+
     // Prevent scrolling
     document.body.style.margin = '0';
     document.body.style.padding = '0';
@@ -32,6 +43,11 @@ const PetStage = ({ pet }: PetContainerProp) => {
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
+      // Stop and cleanup audio when component unmounts
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
       // Reset styles when component unmounts
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';

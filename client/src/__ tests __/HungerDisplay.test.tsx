@@ -5,20 +5,22 @@ import { HungerDisplay } from "../components/HungerDisplay";
 import { usePets } from "../services/queries/petQueries";
 import { useUpdateHunger } from "../services/mutations/petmutations";
 import { useAuth } from "../context/AuthContext";
+import { vi, beforeEach, afterEach, describe, it, Mock } from "vitest";
+import React from 'react';
 
 // Mocking modules
-jest.mock("../services/queries/petQueries");
-jest.mock("../services/mutations/petmutations");
-jest.mock("../context/AuthContext");
+vi.mock("../services/queries/petQueries");
+vi.mock("../services/mutations/petmutations");
+vi.mock("../context/AuthContext");
 
 describe("HungerDisplay", () => {
     beforeEach(() => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
         cleanup();
     });
 
     afterEach(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
     it("renders correctly with the initial HungerValue", () => {
@@ -26,8 +28,8 @@ describe("HungerDisplay", () => {
         const mockPet = { hunger_status: 70 };
 
         // Mock implementations
-        (useAuth as jest.Mock).mockReturnValue({ user: mockUser });
-        (usePets as jest.Mock).mockReturnValue({ data: [mockPet] });
+        (useAuth as Mock).mockReturnValue({ user: mockUser });
+        (usePets as Mock).mockReturnValue({ data: [mockPet] });
 
         render(<HungerDisplay/>)
 
@@ -39,16 +41,16 @@ describe("HungerDisplay", () => {
     it("decreases hunger every 2 seconds", async () =>{
         const mockUser = { id: "mock_user" };
         const mockPet = { hunger_status: 70 };
-        const mockUpdateHunger = jest.fn();
+        const mockUpdateHunger = vi.fn();
 
-        (useAuth as jest.Mock).mockReturnValue({ user: mockUser });
-        (usePets as jest.Mock).mockReturnValue({ data: [mockPet] });
-        (useUpdateHunger as jest.Mock).mockReturnValue({ mutateAsync: mockUpdateHunger, });
+        (useAuth as Mock).mockReturnValue({ user: mockUser });
+        (usePets as Mock).mockReturnValue({ data: [mockPet] });
+        (useUpdateHunger as Mock).mockReturnValue({ mutateAsync: mockUpdateHunger, });
 
         render(<HungerDisplay />);
 
         act(() => {
-            jest.advanceTimersByTime(2000); // 2 seconds
+            vi.advanceTimersByTime(2000); // 2 seconds
           });
 
         expect(mockUpdateHunger).toHaveBeenCalledWith({
@@ -61,14 +63,14 @@ describe("HungerDisplay", () => {
         const mockUser = { id: "mock_user" };
         const mockPet = { hunger_status: 70 };
         
-        (useAuth as jest.Mock).mockReturnValue({ user: mockUser });
-        (usePets as jest.Mock).mockReturnValue({ data: [mockPet] });
+        (useAuth as Mock).mockReturnValue({ user: mockUser });
+        (usePets as Mock).mockReturnValue({ data: [mockPet] });
     
         const { unmount } = render(<HungerDisplay />);
     
         unmount();
         act(() => {
-          jest.advanceTimersByTime(2000);
+          vi.advanceTimersByTime(2000);
         });
     
         // No update calls after unmount

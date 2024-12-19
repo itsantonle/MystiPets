@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import { render, screen, act, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
@@ -38,7 +37,7 @@ describe("HungerDisplay", () => {
     });
 
     it("decreases hunger every 2 seconds", async () =>{
-        const mockUser = { id: "user123" };
+        const mockUser = { id: "mock_user" };
         const mockPet = { hunger_status: 70 };
         const mockUpdateHunger = jest.fn();
 
@@ -53,7 +52,7 @@ describe("HungerDisplay", () => {
           });
 
         expect(mockUpdateHunger).toHaveBeenCalledWith({
-            player_uuid: "user123",
+            player_uuid: "mock_user",
             hunger_status: 65, // 70 - 5
         });
     });

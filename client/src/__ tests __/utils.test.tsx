@@ -16,12 +16,12 @@ test('hungerBarUtil test cases passed',  () => {
 test('number increased by 5',  () => {
     expect(increaseVal(20)).toBe(25)
     expect(increaseVal(50.5)).toBe(55.5) // should technically work
-    expect(increaseVal(50.25)).toBe(55) // should not
+    expect(increaseVal(100)).toBe(100) // should not exceed 100
 });
 
 //testing decreaseVal
 test('number decreased by 5',  () => {
     expect(decreaseVal(50)).toBe(45)
     expect(decreaseVal(44)).toBe(39)
-    expect(decreaseVal(45.36)).toBe(40.36) // should technically work
+    expect(decreaseVal(0)).toBe(0) // should not go below zero
 });

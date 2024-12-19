@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useAuth } from "../../context/AuthContext"
 import "./Pet-selection.scss"
 import { useCreatePet } from "../../services/mutations/petmutations"
@@ -17,6 +17,17 @@ export default function PetSelection() {
   const [selectedPet, setSelectedPet] = useState<Pets | null>(null)
   const [petName, setPetName] = useState("")
   const { signOut, user } = useAuth()
+  const [audio] = useState(new Audio("/assets/bgSound.mp3"))
+
+  useEffect(() => {
+    audio.loop = true
+    audio.play().catch(error => console.log("Audio playback failed:", error))
+    
+    return () => {
+      audio.pause()
+      audio.currentTime = 0
+    }
+  }, [])
 
   const handleStartAdventure = () => {
     if (selectedPet && petName) {

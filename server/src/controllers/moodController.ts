@@ -28,22 +28,4 @@ export const getMood = async (
   }
 }
 
-export const setToDefaultMood = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
-  const { mood_type } = req.params
 
-  try {
-    const response = await pool.query(
-      `"SELECT * FROM mood WHERE mood_type = happy`,
-    )
-
-    res.status(StatusCodes.OK).json(sucessfulDeleteResponse())
-  } catch (error) {
-    console.error(error)
-    res
-      .status(StatusCodes.BAD_REQUEST)
-      .json(unsucessfulDeleteResponse())
-  }
-}

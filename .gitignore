@@ -3,5 +3,8 @@ node_modules
 deploy.yml
 test.yml
 dist
+package-lock.json
+pacakage.json
+nodemon.json
 # _templatesData add this during test depoloyment
 # ignore workflows for now

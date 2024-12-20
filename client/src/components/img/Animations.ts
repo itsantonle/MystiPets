@@ -41,8 +41,10 @@ const capyDArr = [capyD1, capyD2] // Dead
 const capyEArr = [capyE1, capyE2] // Eating
 
 //change the functions name from 'fetch' to 'animFrames'
-const animFrames = (frames:any) => {
-  const textureArr = frames.map((element:any) => Texture.from(element))
+const animFrames = (frames: any) => {
+  const textureArr = frames.map((element: any) =>
+    Texture.from(element),
+  )
   return textureArr
 }
 
@@ -60,9 +62,20 @@ const Capycorn_Angry: Texture[] = animFrames(capyAArr)
 const Capycorn_Dead: Texture[] = animFrames(capyDArr)
 const Capycorn_Eating: Texture[] = animFrames(capyEArr)
 
-export {Hydra_Idle, Hydra_Happy, Hydra_Sad, Hydra_Angry, Hydra_Dead, Hydra_Eating,
-  Capycorn_Idle, Capycorn_Happy, Capycorn_Sad, Capycorn_Angry, Capycorn_Dead, Capycorn_Eating}
-
+export {
+  Hydra_Idle,
+  Hydra_Happy,
+  Hydra_Sad,
+  Hydra_Angry,
+  Hydra_Dead,
+  Hydra_Eating,
+  Capycorn_Idle,
+  Capycorn_Happy,
+  Capycorn_Sad,
+  Capycorn_Angry,
+  Capycorn_Dead,
+  Capycorn_Eating,
+}
 
 // if HP >= 81 and Happy > 50 and Hunger > 50
 //   Happy

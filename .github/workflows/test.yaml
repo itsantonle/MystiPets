@@ -10,6 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           npm run hello
           npm install

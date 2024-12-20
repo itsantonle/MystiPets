@@ -22,8 +22,9 @@ describe("HungerDisplay", () => {
         vi.useRealTimers();
     });
 
-    it("renders correctly with the initial HungerValue", () => {
-        const mockUser = { player_uuid: "mock_user" };
+    //"renders correctly with the initial HungerValue"
+    it("Display Initial HungerValue", () => {
+        const mockUser = { id: "mock_user" };
         const mockPet = { hunger_status: 70 };
 
         // Mock implementations
@@ -38,7 +39,8 @@ describe("HungerDisplay", () => {
         expect(screen.getByRole("img").getAttribute("src")).toContain("meat");
     });
 
-    it("decreases hunger every 2 seconds", async () =>{
+    // "decreases hunger value every 2 seconds"
+    it("Automatic HungerValue Decrease", async () =>{
         const mockUser = { id: "mock_user" };
         const mockPet = { hunger_status: 70 };
         const mockUpdateHunger = vi.fn();
@@ -59,7 +61,8 @@ describe("HungerDisplay", () => {
         });
     });
 
-    it("clears the interval on unmount", () => {
+    // clears the interval on unmount
+    it("Clear Interval", () => {
         const mockUser = { id: "mock_user" };
         const mockPet = { hunger_status: 70 };
         const mockUpdateHunger = vi.fn();

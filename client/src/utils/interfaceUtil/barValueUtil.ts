@@ -17,9 +17,3 @@ export const decreaseVal = (
 
 export const timerValue = 5000 // 2 secs
 export const maxWidth = Math.min(0, 340)
-
-// (use this to use the functions in another file)
-//   import HappinessManager from './file-loc';
-//   HappinessManager.manageHappiness();
-
-// change the name of this UTIL file / -name VAGUE

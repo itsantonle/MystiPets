@@ -1,63 +1,31 @@
-// import { increaseVal, decreaseVal } from "./barValueUtil"
-// import { getValues, sendValues } from "../../components/DB_PanelLink"
-// import { useState, useEffect } from "react"
-// import {
-//   increaseSizeHP,
-//   decreaseSizeHP,
-// } from "../../components/HealthBar"
+export const automaticHealthDecrease = (
+  DBHealthvalue: number,
+  decrement: number,
+) => {
+  if (DBHealthvalue <= 0) return 0
+  else return DBHealthvalue - decrement
+}
 
-// export const manageHealth = (DBhealthVal: number) => {
-//   const [utilHealthyVal, setUtilHealthyVal] = useState(DBhealthVal)
+export const automaticHealthBarDecrease = (
+  healthBarWidth: number,
+  decrement: number = 17,
+) => {
+  if (healthBarWidth <= 0) return 0
+  else return healthBarWidth - decrement
+}
 
-//   const isCared = () =>
-//     setUtilHealthyVal((prevValue) => increaseVal(prevValue))
-//   const isNeglected = () =>
-//     setUtilHealthyVal((prevValue) => decreaseVal(prevValue))
+export const automaticHealthIncrease = (
+  DBHealthvalue: number,
+  increment: number = 5,
+) => {
+  if (DBHealthvalue > 100) return 100
+  else return DBHealthvalue + increment
+}
 
-//   const [increaseCount, setIncreaseCount] = useState(1)
-//   const [decreaseCount, setDecreaseCount] = useState(1)
-
-//   const trackIncrease = () => {
-//     console.log("increase")
-//     setIncreaseCount((prev) => prev + 1)
-//     checkHealthIncrease()
-//   }
-
-//   const trackDecrease = () => {
-//     setDecreaseCount((prev) => prev + 1)
-//     checkHealthDecrease()
-//   }
-
-//   const resetIncreaseCounts = () => {
-//     setIncreaseCount(1)
-//   }
-
-//   const resetDecreaseCounts = () => {
-//     setDecreaseCount(1)
-//   }
-
-//   const checkHealthIncrease = () => {
-//     if (increaseCount == 2) {
-//       resetDecreaseCounts()
-//       resetIncreaseCounts()
-//       isCared()
-//       increaseSizeHP()
-//     }
-//   }
-
-//   const checkHealthDecrease = () => {
-//     if (decreaseCount == 2) {
-//       isNeglected()
-//       decreaseSizeHP()
-//       resetDecreaseCounts()
-//     }
-//   }
-
-//   return {
-//     utilHealthyVal,
-//     trackIncrease,
-//     checkHealthIncrease,
-//     trackDecrease,
-//     checkHealthDecrease,
-//   }
-// }
+export const automaticHealthBarIncrease = (
+  healthBarWidth: number,
+  decrement: number = 17,
+) => {
+  if (healthBarWidth > 340) return 340
+  else return healthBarWidth + decrement
+}

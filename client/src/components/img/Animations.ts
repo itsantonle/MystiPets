@@ -40,11 +40,8 @@ const capyAArr = [capyA1, capyA2] // Angry
 const capyDArr = [capyD1, capyD2] // Dead
 const capyEArr = [capyE1, capyE2] // Eating
 
-//change the functions name from 'fetch' to 'animFrames'
-const animFrames = (frames: any) => {
-  const textureArr = frames.map((element: any) =>
-    Texture.from(element),
-  )
+const animFrames = (frames:any) => {
+  const textureArr = frames.map((element:any) => Texture.from(element))
   return textureArr
 }
 

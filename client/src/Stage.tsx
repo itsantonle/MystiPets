@@ -7,7 +7,6 @@ import Panel from "./components/InteractivePanel"
 import { Pet } from "./types/Pet"
 import bgImage from "/assets/BG.png"
 import nestImg from "/assets/nest.png"
-import User from "./types/User"
 
 type PetContainerProp = {
   pet: Pet

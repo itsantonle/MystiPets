@@ -35,7 +35,7 @@ export const capycornAnimationDisplay = (
   }
 
   if (has_left) {
-    // bruh what do i even return here lol
+
   }
 }
 
@@ -64,6 +64,6 @@ export const hydraAnimationDisplay = (
   }
 
   if (has_left) {
-    // bruh what do i even return here lol
+
   }
 }

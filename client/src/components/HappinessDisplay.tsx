@@ -140,5 +140,3 @@ export const HappinessDisplay = () => {
     </div>
   )
 }
-
-// === should add the toasters after animation implementation

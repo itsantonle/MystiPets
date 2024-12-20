@@ -25,6 +25,7 @@ import {
   automaticHealthIncrease,
 } from "../utils/interfaceUtil/healthBarUtil"
 import { returnPenaltyId } from "../utils/interfaceUtil/penaltyUtil"
+import { toast } from "react-toastify"
 
 //  health bar to img health bar ratio
 // 3.4 barwidth : 1 HP
@@ -84,6 +85,7 @@ export const AnimatedHealthBar = () => {
               {
                 // delete user
                 onSuccess: () => {
+                  toast("Your pet has died!")
                   setTimeout(() => {
                     deletePet.mutate(user!.id, {
                       onSuccess: () => {

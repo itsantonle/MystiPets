@@ -5,16 +5,10 @@ import { useState } from "react"
 import {
   Hydra_Idle,
   Hydra_Happy,
-  //   Hydra_Sad,
   Hydra_Angry,
-  //   Hydra_Dead,
-  //   Hydra_Eating,
   Capycorn_Idle,
   Capycorn_Happy,
-  //   Capycorn_Sad,
-  Capycorn_Angry,
-  //   Capycorn_Dead,
-  //   Capycorn_Eating,
+  Capycorn_Angry
 } from "./img/Animations"
 
 export const CapycornAnim = () => {

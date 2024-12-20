@@ -15,5 +15,5 @@ export const decreaseVal = (
   return Math.max(0, Math.min(newVal, maxVal))
 }
 
-export const timerValue = 5000 // 2 secs
+export const timerValue = 5000 // 5 secs
 export const maxWidth = Math.min(0, 340)

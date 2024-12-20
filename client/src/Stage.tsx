@@ -5,36 +5,40 @@ import PetContainer from "./components/PetContainer"
 import * as React from "react"
 import Panel from "./components/InteractivePanel"
 import { Pet } from "./types/Pet"
-import bgImage from '/assets/BG.png'
-import nestImg from '/assets/nest.png'
+import bgImage from "/assets/BG.png"
+import nestImg from "/assets/nest.png"
+import User from "./types/User"
 
 type PetContainerProp = {
   pet: Pet
 }
 
 const PetStage = ({ pet }: PetContainerProp) => {
-  const [stageSize, setStageSize] = React.useState({ width: window.innerWidth, height: window.innerHeight })
+  const [stageSize, setStageSize] = React.useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  })
 
   React.useEffect(() => {
     // Prevent scrolling
-    document.body.style.margin = '0';
-    document.body.style.padding = '0';
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
+    document.body.style.margin = "0"
+    document.body.style.padding = "0"
+    document.body.style.overflow = "hidden"
+    document.documentElement.style.overflow = "hidden"
 
     const handleResize = () => {
       setStageSize({
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       })
     }
 
-    window.addEventListener('resize', handleResize)
+    window.addEventListener("resize", handleResize)
     return () => {
-      window.removeEventListener('resize', handleResize)
+      window.removeEventListener("resize", handleResize)
       // Reset styles when component unmounts
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
+      document.body.style.overflow = ""
+      document.documentElement.style.overflow = ""
     }
   }, [])
 
@@ -54,14 +58,16 @@ const PetStage = ({ pet }: PetContainerProp) => {
   const bgY = (stageSize.height - bgHeight) / 2
 
   return (
-    <div style={{ 
-      position: 'fixed', 
-      top: 0, 
-      left: 0, 
-      right: 0, 
-      bottom: 0,
-      overflow: 'hidden'
-    }}>
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        overflow: "hidden",
+      }}
+    >
       <Header />
       <Stage
         width={stageSize.width}
@@ -75,7 +81,10 @@ const PetStage = ({ pet }: PetContainerProp) => {
           x={bgX}
           y={bgY}
         />
-        <Container x={stageSize.width / 2 - 240} y={stageSize.height / 2}>
+        <Container
+          x={stageSize.width / 2 - 240}
+          y={stageSize.height / 2}
+        >
           <Sprite
             image={nestImg}
             width={700}
@@ -87,6 +96,7 @@ const PetStage = ({ pet }: PetContainerProp) => {
             petType={pet.pet_type}
             petXpos={230}
             petYpos={pet.pet_type == "Hydra" ? 20 : 10}
+            pet={pet}
           />
         </Container>
       </Stage>

@@ -1,16 +1,14 @@
-// automate hunger to decrease every 5 seconds
-
+// utils
 import "bootstrap/dist/css/bootstrap.min.css"
-import {
-  // useDeletePet,
-  useUpdateHunger,
-  // useUpdateDeath,
-} from "../services/mutations/petmutations"
+import meat from "../components/img/icons/meat.png"
+// mutations
+import { useUpdateHunger } from "../services/mutations/petmutations"
+// queries
 import { usePets } from "../services/queries/petQueries"
+// auth
 import { useAuth } from "../context/AuthContext"
 import { useEffect } from "react"
-import meat from "../components/img/icons/meat.png"
-// import { useAssignPenalty } from "../services/mutations/penaltymutations"
+import { automaticHungerDecrease } from "../utils/interfaceUtil/hungerBarUtil"
 
 export const HungerDisplay = () => {
   const { user } = useAuth()
@@ -23,10 +21,9 @@ export const HungerDisplay = () => {
       const interval = setInterval(() => {
         updateHungerMutation.mutateAsync({
           player_uuid: user!.id,
-          hunger_status:
-            pet.hunger_status! <= 0 ? 0 : pet.hunger_status! - 5,
+          hunger_status: automaticHungerDecrease(pet!.hunger_status!),
         })
-      }, 3000) //2 seconds
+      }, 3000) //3 seconds
 
       return () => clearInterval(interval)
     }

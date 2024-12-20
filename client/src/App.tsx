@@ -1,4 +1,3 @@
-import { AuthProvider } from "./context/AuthContext"
 import { SignIn } from "./components/Auth/SignIn"
 import { SignUp } from "./components/Auth/SignUp"
 import { useAuth } from "./context/AuthContext"
@@ -6,6 +5,8 @@ import { useState } from "react"
 import PetSelection from "./components/pet-selection/Pet-selection"
 import PetStage from "./Stage"
 import { usePets } from "./services/queries/petQueries"
+import { toast, ToastContainer } from "react-toastify"
+
 // import { Pet } from "./types/Pet"
 
 // Pet Switching function, transfer after.
@@ -16,7 +17,6 @@ export const switchPet = (testPet: any) => {
 // ---------------------------------------
 
 function AuthenticatedApp() {
-  // const { signOut } = useAuth() random
   const { user } = useAuth()
   const { data, isPending, isSuccess } = usePets(user!.id)
 
@@ -30,6 +30,7 @@ function AuthenticatedApp() {
       ) : (
         <PetSelection />
       )}
+      <ToastContainer />
     </div>
   )
 }
@@ -75,12 +76,4 @@ function App() {
   return user ? <AuthenticatedApp /> : <UnauthenticatedApp />
 }
 
-function AppWithProvider() {
-  return (
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  )
-}
-
-export default AppWithProvider
+export default App

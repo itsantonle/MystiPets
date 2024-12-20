@@ -188,7 +188,7 @@ export const deletePlayerPenalty = async (
 ): Promise<void> => {
   const { player_uuid } = req.params
   try {
-    const response = await pool.query(
+    await pool.query(
       `UPDATE player 
        SET player_penalty = NULL 
        WHERE player_uuid = $1`,
@@ -210,7 +210,7 @@ export const deletePenalty = async (
 ): Promise<void> => {
   const { penalty_id } = req.params
   try {
-    const response = await pool.query(
+   await pool.query(
       "DELETE FROM penalty WHERE penalty_id = $1",
       [penalty_id],
     )

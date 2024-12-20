@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
 import pool from "../db/connect"
 import { StatusCodes } from "http-status-codes"
-import hashPassword from "../utils/hashPassword"
 import {
   internalErrorResponse,
   successPostResponse,

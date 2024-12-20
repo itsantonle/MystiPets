@@ -12,7 +12,7 @@ export const useGetUserPenalties = (player_uuid: string) => {
   })
 }
 
-export const useGetPenalty = (penalty_id: Number) => {
+export const useGetPenalty = (penalty_id: number) => {
   return useQuery<Penalty, Error>({
     queryKey: ["penalty", penalty_id],
     queryFn: () => getPenalties(penalty_id),

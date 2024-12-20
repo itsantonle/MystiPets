@@ -1,3 +1,5 @@
+// defines api routes for penalty data and imports relevant functions for GET, PUT, POST and DELETE requests
+
 import {
   getUserPenalty,
   createPenalty,

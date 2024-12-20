@@ -1,3 +1,5 @@
+// defines api routes for mood data and imports "getMood" and "setToDefaultMood" to handle GET and PUT requests
+
 import express from "express"
 import {
   getMood,

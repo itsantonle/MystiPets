@@ -11,7 +11,7 @@ import {
   unsucessfulUpdateResponse,
 } from "../utils/errorHandling"
 
-export const getPets = async (
+export const getPets = async ( // fetch the pet belonging to a specific player
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -30,7 +30,7 @@ export const getPets = async (
   }
 }
 
-export const createPet = async (
+export const createPet = async ( // creates a new pet in the database
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -56,8 +56,7 @@ export const createPet = async (
   }
 }
 
-//name
-export const updatePetName = async (
+export const updatePetName = async ( // update a pet's name
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -83,8 +82,7 @@ export const updatePetName = async (
   }
 }
 
-//health
-export const updatePetHealth = async (
+export const updatePetHealth = async ( // update a pet's health status
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -109,8 +107,8 @@ export const updatePetHealth = async (
       .json(unsucessfulUpdateResponse())
   }
 }
-//hunger
-export const updatePetHunger = async (
+
+export const updatePetHunger = async ( // update a pet's hunger status
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -136,7 +134,7 @@ export const updatePetHunger = async (
   }
 }
 //happiness
-export const updatePetHappiness = async (
+export const updatePetHappiness = async ( // update a pet's happiness status
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -161,8 +159,8 @@ export const updatePetHappiness = async (
       .json(unsucessfulUpdateResponse())
   }
 }
-//is_dead
-export const updatePetDeath = async (
+
+export const updatePetDeath = async ( // mark a pet as dead due to specific conditions
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -188,8 +186,7 @@ export const updatePetDeath = async (
   }
 }
 
-//has_left
-export const updatePetLeaving = async (
+export const updatePetLeaving = async ( // mark a pet as having left the player due to specific conditions
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -215,7 +212,7 @@ export const updatePetLeaving = async (
   }
 }
 
-export const updatePetMood = async (
+export const updatePetMood = async ( // update a pet's mood based on a player's uuid
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -241,7 +238,7 @@ export const updatePetMood = async (
   }
 }
 
-export const deletePet = async (
+export const deletePet = async ( // deletes a player's pet from the database
   req: Request,
   res: Response,
 ): Promise<void> => {

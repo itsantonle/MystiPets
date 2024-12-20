@@ -1,4 +1,6 @@
-import express from "express"
+// defines api routes for pet data and imports relevant functions for GET, PUT, POST and DELETE requests
+
+import express, { Router } from "express"
 import {
   getPets,
   createPet,

@@ -7,12 +7,12 @@ import {
   successUpdateResponse,
   sucessfulDeleteResponse,
   successPostResponse,
-  unsucessfulDeleteResponse,
+  unsucessfulDeleteResponse, 
   unsucessfulPostResponse,
   unsucessfulUpdateResponse,
 } from "../utils/errorHandling"
 
-export const getUserPenalty = async (
+export const getUserPenalty = async ( // get the penalty of a specific player by their UUID
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -31,7 +31,7 @@ export const getUserPenalty = async (
   }
 }
 
-export const getPenalties = async (
+export const getPenalties = async ( // get penalty details by penalty ID
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -50,7 +50,7 @@ export const getPenalties = async (
   }
 }
 
-export const createPenalty = async (
+export const createPenalty = async ( // create a new penalty
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -82,7 +82,7 @@ export const createPenalty = async (
   }
 }
 
-export const assignPenalty = async (
+export const assignPenalty = async ( // assign a penalty to a player
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -108,7 +108,7 @@ export const assignPenalty = async (
   }
 }
 
-export const updatePenaltyType = async (
+export const updatePenaltyType = async ( // update the type of a specific penalty
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -132,7 +132,7 @@ export const updatePenaltyType = async (
   }
 }
 
-export const updatePenaltyDuration = async (
+export const updatePenaltyDuration = async ( // update the duration of a specific penalty
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -157,7 +157,7 @@ export const updatePenaltyDuration = async (
   }
 }
 
-export const updatePenaltyDescription = async (
+export const updatePenaltyDescription = async ( // update the description of a specific penalty
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -182,7 +182,7 @@ export const updatePenaltyDescription = async (
   }
 }
 
-export const deletePlayerPenalty = async (
+export const deletePlayerPenalty = async ( // removes a penalty from a player (sets it to NULL in the database)
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -204,7 +204,7 @@ export const deletePlayerPenalty = async (
   }
 }
 
-export const deletePenalty = async (
+export const deletePenalty = async ( // delete a specific penalty by ID 
   req: Request,
   res: Response,
 ): Promise<void> => {

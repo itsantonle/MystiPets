@@ -1,3 +1,5 @@
+// utility functions to generate standard response formats for success, unsuccessful and errors with methods for such responses
+
 import { Response } from "express"
 import { StatusCodes } from "http-status-codes"
 

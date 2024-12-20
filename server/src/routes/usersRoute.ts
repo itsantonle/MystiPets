@@ -1,3 +1,5 @@
+// defines api routes for user data and imports rfunctions for GET and POST requests
+
 import {
   getAllUsers,
   createUser,

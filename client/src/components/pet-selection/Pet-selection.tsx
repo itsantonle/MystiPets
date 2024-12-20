@@ -1,4 +1,4 @@
-"use client"
+;
 
 import { useState } from "react"
 import { useAuth } from "../../context/AuthContext"
@@ -6,6 +6,7 @@ import "./Pet-selection.scss"
 import { useCreatePet } from "../../services/mutations/petmutations"
 import { Pet } from "../../types/Pet"
 import { toast } from "react-toastify"
+import Logo from "../Logo"
 
 interface Pets {
   name: string
@@ -40,7 +41,7 @@ export default function PetSelection() {
         LOG OUT
       </button>
 
-      <h1 className="gameTitle">Petiverse</h1>
+      <Logo />
       <h2 className="chooseTitle">CHOOSE YOUR PET</h2>
 
       <div className="petSelection">

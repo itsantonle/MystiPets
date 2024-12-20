@@ -47,3 +47,5 @@ export const setToDefaultMood = async ( // function to reset a mood type to the 
       .json(unsucessfulDeleteResponse())
   }
 }
+
+

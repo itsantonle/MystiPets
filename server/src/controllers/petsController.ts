@@ -244,7 +244,7 @@ export const deletePet = async ( // deletes a player's pet from the database
 ): Promise<void> => {
   const { player_uuid } = req.params
   try {
-    const APIresponse = await pool.query(
+    await pool.query(
       "DELETE FROM pet WHERE player_uuid = $1 ",
       [player_uuid],
     )

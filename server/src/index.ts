@@ -40,7 +40,7 @@ const start = async (): Promise<void> => {
         `listing to PORT: ${PORT} \n Connection to DB SUCCESS!`,
       )
     })
-  } catch (error) {
+  } catch {
     console.error("Failed connection to DB")
   }
 }

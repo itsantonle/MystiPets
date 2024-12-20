@@ -7,6 +7,15 @@ import { useAuth } from "../context/AuthContext";
 import { vi, beforeEach, afterEach, describe, it, Mock, expect } from "vitest";
 import React from 'react';
 
+vi.stubGlobal('import.meta', {
+    env: {
+      VITE_SUPABASE_URL: 'https://example.supabase.co',
+      VITE_SUPABASE_ANON_KEY: 'example-anon-key',
+    },
+  });
+
+import { supabase } from "../config/supabase";
+
 // Mocking modules
 vi.mock("../services/queries/petQueries");
 vi.mock("../services/mutations/petmutations");

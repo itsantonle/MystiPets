@@ -4,7 +4,7 @@
   "description": "SE -2141-2142-2143-2144-2145 final project",
   "main": "index.js",
   "scripts": {
-    "test": "cd client && npm run test",
+    "test": "cd client && npm install && npm run test",
     "lint": "eslint",
     "prettier": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "prepare": "husky",

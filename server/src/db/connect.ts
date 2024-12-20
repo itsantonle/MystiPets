@@ -1,3 +1,7 @@
+// configures and exports a PostgreSQL connection pool using .env variables
+// establishes a connection to the database
+
+
 import { Pool } from "pg"
 import dotenv from "dotenv"
 

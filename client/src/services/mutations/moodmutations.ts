@@ -1,19 +1,12 @@
 import {
-  // QueryClient,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query"
-// import Mood from "../../types/Mood"
 import {
-  //   updateMoodType,
-  //   updateMoodCondition,
-  //   createMood,
-  //   updatePetMood,
   setToDefaultMood,
-  //   deleteMood
 } from "../api/moodapi"
 
-export const useSetToDefaultMood = () => {
+export const useSetToDefaultMood = () => { 
   const queryClient = useQueryClient()
 
   return useMutation({

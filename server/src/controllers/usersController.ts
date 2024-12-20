@@ -1,15 +1,14 @@
 import { Request, Response } from "express"
 import pool from "../db/connect"
 import { StatusCodes } from "http-status-codes"
-import hashPassword from "../utils/hashPassword"
 import {
   internalErrorResponse,
   successPostResponse,
   successResponse,
   unsucessfulPostResponse,
 } from "../utils/errorHandling"
-
-export const getAllUsers = async (
+                                  
+export const getAllUsers = async ( // fetch all players from the database
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -23,7 +22,7 @@ export const getAllUsers = async (
       .json(internalErrorResponse())
   }
 }
-export const getOneUser = async (
+export const getOneUser = async ( // fetch a specific user by their uuid
   req: Request,
   res: Response,
 ): Promise<void> => {
@@ -42,7 +41,7 @@ export const getOneUser = async (
       .json(internalErrorResponse())
   }
 }
-export const createUser = async (
+export const createUser = async ( // create a new user in the database
   req: Request,
   res: Response,
 ): Promise<void> => {

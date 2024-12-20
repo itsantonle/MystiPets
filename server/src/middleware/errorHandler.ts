@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 
+// middleware to handle errors globally in the application
+
 const errorHandlerMiddleware = (
   err: Error,
   req: Request,

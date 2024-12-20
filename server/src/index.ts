@@ -1,3 +1,7 @@
+// sets up and runs the Express app and configures routes for users, pets, moods, food and penalties
+// integrating middleware for error handling
+// database connection initialization
+
 import dotenv from "dotenv"
 dotenv.config()
 import express from "express"
@@ -26,14 +30,14 @@ app.use("/penalty", PenaltyRouter)
 // middleware
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
-const PORT = process.env.PORT || 3009 // add the deployed backedn application port here
+const PORT = process.env.PORT || 3009 
 
 const start = async (): Promise<void> => {
   try {
     await awaitConnection()
     app.listen(PORT, () => {
       console.log(
-        `listing to PORT: ${PORT} \n Connection to DB SUCESS!`,
+        `listing to PORT: ${PORT} \n Connection to DB SUCCESS!`,
       )
     })
   } catch (error) {

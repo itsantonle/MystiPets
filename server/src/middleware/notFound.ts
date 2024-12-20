@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 
+// middleware to handle requests to nonexisting routes
+
 const notFoundMiddleware = (
   req: Request,
   res: Response,
